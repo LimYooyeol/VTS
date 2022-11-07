@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DbApplication {
 
 	public static void main(String[] args) {
+		//temp --adff
 		SpringApplication.run(DbApplication.class, args);
 	}
-
 }
