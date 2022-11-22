@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.stock.db.mapper.MemberMapper">
+
+    <select id = "findById" resultType="com.stock.db.domain.MemberVO">
+        SELECT * FROM MEMBER WHERE id = #{id}
+    </select>
+
+    <insert id="insertMember" parameterType="com.stock.db.dto.MemberSignUpDto">
+        INSERT INTO MEMBER(id, pwd, mname, nickname, birth_date
+                            ,email, phone, address, account, deposit)
+                values(#{id}, #{pwd}, #{mname}, #{nickname}, #{birthDate},
+                                #{email}, #{phone}, #{address}, #{account}, #{deposit});
+        <selectKey keyProperty="mno" resultType="_int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+</mapper>
