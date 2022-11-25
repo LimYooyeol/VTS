@@ -9,7 +9,7 @@
         SELECT * FROM MEMBER WHERE id = #{id}
     </select>
 
-    <insert id="insertMember" parameterType="com.stock.db.dto.MemberSignUpDto">
+    <insert id="insertMember" parameterType="com.stock.db.dto.Member.MemberSignUpDto">
         INSERT INTO MEMBER(id, pwd, mname, nickname, birth_date
                             ,email, phone, address, account, deposit)
                 values(#{id}, #{pwd}, #{mname}, #{nickname}, #{birthDate},

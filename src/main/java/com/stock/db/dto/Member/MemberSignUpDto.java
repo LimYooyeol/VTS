@@ -1,4 +1,4 @@
-package com.stock.db.dto;
+package com.stock.db.dto.Member;
 
 import lombok.Data;
 import lombok.Getter;
@@ -9,6 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
+/*
+    @brief  : 회원가입 시 필요한 데이터
+ */
 @Getter
 @Setter
 @ToString

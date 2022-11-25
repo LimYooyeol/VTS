@@ -1,14 +1,12 @@
 package com.stock.db.domain;
 
 
-import com.stock.db.dto.MemberSignUpDto;
-import lombok.Data;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
 public class MemberVO {
 
     private int mno;
