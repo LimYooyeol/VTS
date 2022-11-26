@@ -27,5 +27,4 @@ class PriceServiceTest {
         // then
         assertNotNull(priceList);
     }
-
 }

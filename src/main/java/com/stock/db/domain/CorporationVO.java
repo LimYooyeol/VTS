@@ -1,8 +1,9 @@
 package com.stock.db.domain;
 
 import lombok.Getter;
+import lombok.ToString;
 
-@Getter
+@Getter @ToString
 public class CorporationVO {
 
     private String cno;
@@ -14,4 +15,6 @@ public class CorporationVO {
     private long sharesOutstanding;
 
     private String sector;
+
+    private PriceVO priceVO;
 }
