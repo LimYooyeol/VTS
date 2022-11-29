@@ -63,5 +63,4 @@ public class CorporationService {
 
         return findSectors;
     }
-
 }

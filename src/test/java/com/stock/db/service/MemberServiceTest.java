@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-class MemberServiceTest {
+public class MemberServiceTest {
 
     @Autowired MemberService memberService;
     @Autowired MemberMapper memberMapper;

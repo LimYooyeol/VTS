@@ -20,7 +20,7 @@ public interface BoardMapper {
 
     /*
         @brief  : 게시물 작성
-        @return : 작성한 게시물의 게시물 번호
+        @return : 업데이트한 행의 개수
         @param  :
             boardWriteDto : 게시물 내용
      */

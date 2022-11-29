@@ -13,14 +13,14 @@ public interface MemberMapper {
         @param  :
             id  : 회원 id
      */
-    MemberVO findById(String id);
+    public MemberVO findById(String id);
 
     /*
         @brief  : 회원가입 처리
-        @return : 가입한 회원 번호
+        @return : 업데이트 한 행의 개수
         @param  :
             memberSignUpDto : 회원가입 관련 정보
      */
-    int insertMember(MemberSignUpDto memberSignUpDto);
+    public int insertMember(MemberSignUpDto memberSignUpDto);
 
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.stock.db.mapper.OrdersMapper">
+
+    <select id = "findByOno" resultType="com.stock.db.domain.OrdersVO">
+        SELECT * FROM ORDERS WHERE ono = #{ono};
+    </select>
+
+    <insert id="makeOrders" parameterType="com.stock.db.dto.Orders.MakeOrdersDto">
+        INSERT INTO ORDERS(mno, cno, is_sale, quantity, price)
+                VALUES(#{mno}, #{cno}, #{isSale}, #{quantity}, #{price});
+
+        <selectKey keyProperty="ono" resultType="_int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+</mapper>
