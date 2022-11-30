@@ -2,11 +2,12 @@ package com.stock.db.domain;
 
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Getter
+@Getter @ToString
 public class MemberVO {
 
     private int mno;

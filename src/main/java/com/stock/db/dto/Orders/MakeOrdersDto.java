@@ -17,5 +17,5 @@ public class MakeOrdersDto {
 
     private long quantity;
 
-    private double price;
+    private int price;
 }

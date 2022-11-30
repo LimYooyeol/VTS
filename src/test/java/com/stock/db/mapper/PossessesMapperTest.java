@@ -17,6 +17,9 @@ class PossessesMapperTest {
 
     @Autowired PossessesMapper possessesMapper;
 
+    /*
+        @warning: 회원 번호 1 이 DB에 있는 경우에만 유효
+     */
     @Test
     @DisplayName("보유정보 업데이트 및 조회 성공")
     public void 보유정보_업데이트_테스트(){

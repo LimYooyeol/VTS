@@ -1,8 +1,9 @@
 package com.stock.db.domain;
 
 import lombok.Getter;
+import lombok.ToString;
 
-@Getter
+@Getter @ToString
 public class PossessesVO {
     private int mno;
 

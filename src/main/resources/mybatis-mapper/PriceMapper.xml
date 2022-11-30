@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.stock.db.mapper.PriceMapper">
+
+    <select id = "isMarketOpen" resultType="boolean">
+        select
+        exists(
+            select cno
+            from price
+            where date=date_format(now(), '%Y-%m-%d'))
+        as open;
+    </select>
+
+    <select id = "isPriceBetweenLowAndHigh" resultType="boolean">
+        select
+        exists(
+            select *
+            from price
+            where date=date_format(now() , '%Y-%m-%d')
+                   and cno = #{cno} and (Low &lt;= #{price} and #{price} &lt;= High))
+        as temp;
+    </select>
+
+</mapper>

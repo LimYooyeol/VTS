@@ -18,4 +18,22 @@
         </selectKey>
     </insert>
 
+    <update id="completeBuying">
+        UPDATE ORDERS
+        SET Trade_time = now(), State = 'COMPLETE'
+        WHERE Ono = #{ono};
+    </update>
+
+    <update id="completeSale">
+        UPDATE ORDERS
+        SET Trade_time = now(), State = 'COMPLETE', gain = #{gain}
+        WHERE Ono = #{ono};
+    </update>
+
+    <select id="getWaitOrders" resultType="com.stock.db.domain.OrdersVO">
+        SELECT *
+        FROM	ORDERS
+        WHERE Trade_time is null;
+    </select>
+
 </mapper>

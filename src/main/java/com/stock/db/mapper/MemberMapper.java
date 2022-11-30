@@ -23,4 +23,20 @@ public interface MemberMapper {
      */
     public int insertMember(MemberSignUpDto memberSignUpDto);
 
+    /*
+        @brief  : 호원번호로 회원조회
+        @return : 조회한 회원
+        @param  :
+            id  : 회원 번호
+     */
+    public MemberVO findByMno(int mno);
+
+    /*
+        @brief  : 회원 예수금 업데이트
+        @return : 업데이트 한 행의 번호
+        @param  :
+            mno     : 회원번호
+            change  : 변화액
+     */
+    public int updateDeposit(int mno, long change);
 }

@@ -25,6 +25,6 @@ public class OrdersVO {
 
     private double gain;
 
-    private double price;
+    private int price;
 
 }

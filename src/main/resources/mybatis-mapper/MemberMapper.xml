@@ -6,7 +6,11 @@
 <mapper namespace="com.stock.db.mapper.MemberMapper">
 
     <select id = "findById" resultType="com.stock.db.domain.MemberVO">
-        SELECT * FROM MEMBER WHERE id = #{id}
+        SELECT * FROM MEMBER WHERE id = #{id};
+    </select>
+
+    <select id = "findByMno" resultType="com.stock.db.domain.MemberVO">
+        SELECT * FROM MEMBER WHERE mno = #{mno};
     </select>
 
     <insert id="insertMember" parameterType="com.stock.db.dto.Member.MemberSignUpDto">
@@ -18,5 +22,11 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
+
+    <update id="updateDeposit">
+        UPDATE MEMBER
+        SET Deposit = Deposit + (#{change})
+        WHERE Mno = #{mno};
+    </update>
 
 </mapper>

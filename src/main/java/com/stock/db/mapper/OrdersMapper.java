@@ -4,6 +4,8 @@ import com.stock.db.domain.OrdersVO;
 import com.stock.db.dto.Orders.MakeOrdersDto;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface OrdersMapper {
 
@@ -23,4 +25,21 @@ public interface OrdersMapper {
      */
     public int makeOrders(MakeOrdersDto ordersDto);
 
+    /*
+        @brief  : 구매 채결
+        @return : 업데이트 한 행의 개수
+     */
+    public int completeBuying(int ono);
+
+    /*
+        @brief  : 판매 채결
+        @return : 업데이트 한 행의 개수
+     */
+    public int completeSale(int ono, double gain);
+
+    /*
+        @brief  : 대기 중인 주문 목록 조회
+        @return : 대기 중인 주문 목록
+     */
+    public List<OrdersVO> getWaitOrders();
 }

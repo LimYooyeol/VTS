@@ -43,7 +43,7 @@ class OrdersMapperTest {
         makeOrdersDto.setCno(cno);
         makeOrdersDto.setIsSale(false);
         makeOrdersDto.setQuantity(10);
-        makeOrdersDto.setPrice(10500.0);
+        makeOrdersDto.setPrice(10500);
 
         return makeOrdersDto;
     }
