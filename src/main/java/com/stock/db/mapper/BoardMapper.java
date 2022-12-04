@@ -16,7 +16,7 @@ public interface BoardMapper {
         @param  :
             bno : 조회할 게시물 번호
      */
-    BoardVO findByBno(int Bno);
+    public BoardVO findByBno(int Bno);
 
     /*
         @brief  : 게시물 작성
@@ -24,7 +24,15 @@ public interface BoardMapper {
         @param  :
             boardWriteDto : 게시물 내용
      */
-    int insertBoard(BoardWriteDto boardWriteDto);
+    public int insertBoard(BoardWriteDto boardWriteDto);
+
+    /*
+        @brief  : 게시물 삭제
+        @return : 업데이트한 행의 개수
+        @param  :
+            bno : 게시물 번호
+     */
+    public int deleteBoard(int bno);
 
     /*
         @brief  : 게시물 목록(페이지) 조회
@@ -32,6 +40,6 @@ public interface BoardMapper {
         @param  :
             criteria : 페이징 정보(페이지 번호, 페이지 당 게시물 수)
      */
-    List<BoardVO> getPage(Criteria criteria);
+    public List<BoardVO> getPage(Criteria criteria);
 
 }

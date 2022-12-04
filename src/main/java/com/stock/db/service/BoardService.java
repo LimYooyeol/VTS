@@ -3,6 +3,8 @@ package com.stock.db.service;
 import com.stock.db.domain.BoardVO;
 import com.stock.db.dto.Board.BoardWriteDto;
 import com.stock.db.dto.Board.Criteria;
+import com.stock.db.mapper.BoardMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,7 +12,10 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class BoardService {
+
+    private final BoardMapper boardMapper;
 
     /*
         @brief  : 게시물 작성
@@ -19,8 +24,9 @@ public class BoardService {
             boardWriteDto : 게시물 작성 관련 정보
      */
     public int insertBoard(BoardWriteDto boardWriteDto){
+        boardMapper.insertBoard(boardWriteDto);
 
-        return 0;
+        return boardWriteDto.getBno();
     }
 
     /*
@@ -43,7 +49,17 @@ public class BoardService {
      */
     @Transactional(readOnly = true)
     public BoardVO findByBno(int bno){
-        return null;
+        return boardMapper.findByBno(bno);
     };
+
+    /*
+        @brief  : 게시물 삭제
+        @return : 업데이트한 행의 개수
+        @param  :
+            bno : 게시물 번호
+     */
+    public int deleteBoard(int bno){
+        return boardMapper.deleteBoard(bno);
+    }
 
 }

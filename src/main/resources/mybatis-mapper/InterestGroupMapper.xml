@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.stock.db.mapper.InterestGroupMapper">
+
+    <insert id="insertInterestGroup">
+        INSERT INTO INTEREST_GROUP
+        VALUES (#{mno}, #{gname});
+    </insert>
+
+    <delete id="deleteInterestGroup">
+        DELETE FROM INTEREST_GROUP
+        WHERE mno = #{mno} and gname = #{gname};
+    </delete>
+
+    <select id="findInterestGroup" resultType="com.stock.db.domain.InterestGroupVO">
+        SELECT *
+        FROM INTEREST_GROUP
+        WHERE mno=#{mno} and gname = #{gname};
+    </select>
+
+</mapper>

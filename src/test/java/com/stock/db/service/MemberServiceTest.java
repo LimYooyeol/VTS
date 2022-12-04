@@ -53,4 +53,6 @@ public class MemberServiceTest {
         memberSignUpDto.setAddress("123-123");
         memberSignUpDto.setAccount("1000-1000");
     }
+
+
 }

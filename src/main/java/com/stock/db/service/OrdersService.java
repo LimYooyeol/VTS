@@ -131,7 +131,7 @@ public class OrdersService {
 
 
     /*
-        @brief  : 대기 중인 주문 확인
+        @brief  : 대기 중인 주문 확인 및 채결
         @detail :
             장 중임을 가정
             대기 중인 주문을 확인하여 저가와 고가 사이의 가격이면 채결

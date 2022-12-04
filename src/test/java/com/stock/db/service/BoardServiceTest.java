@@ -39,8 +39,8 @@ class BoardServiceTest {
         BoardVO findBoard = boardService.findByBno(bno);
 
         // then
-        assertNotNull(findBoard);
         assertEquals(bno, boardWriteDto.getBno());
+        assertNotNull(findBoard);
     }
 
     @Test

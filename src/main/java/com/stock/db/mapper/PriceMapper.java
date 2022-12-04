@@ -39,5 +39,13 @@ public interface PriceMapper {
             false   : 시가와 고가 사이의 가격이 아님
      */
     public boolean isPriceBetweenLowAndHigh(String cno, int price);
+
+    /*
+        @brief  : 종목의 시가 확인
+        @param  :
+            cno : 기업코드
+        @return : 시가
+     */
+    public int getOpen(String cno);
 }
 

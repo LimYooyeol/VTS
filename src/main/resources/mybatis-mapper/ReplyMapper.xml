@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.stock.db.mapper.ReplyMapper">
+
+    <insert id="insertReply" parameterType="com.stock.db.dto.Reply.ReplyDto">
+        INSERT INTO REPLY(content, mno, bno)
+        VALUES (#{content}, #{mno}, #{bno});
+
+        <selectKey keyProperty="rno" resultType="_int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <delete id="deleteReply">
+        DELETE FROM REPLY
+        WHERE rno = #{rno};
+    </delete>
+
+    <select id="findRepliesByBno" resultType="com.stock.db.domain.ReplyVO">
+        SELECT *
+        FROM REPLY
+        WHERE bno = #{bno};
+    </select>
+
+    <select id="findByRno" resultType="com.stock.db.domain.ReplyVO">
+        SELECT *
+        FROM REPLY
+        WHERE rno = #{rno};
+    </select>
+
+
+
+</mapper>

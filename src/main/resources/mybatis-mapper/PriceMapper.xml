@@ -24,4 +24,11 @@
         as temp;
     </select>
 
+    <select id="getOpen" resultType="_int">
+        SELECT open
+        FROM price
+        WHERE date=date_format(now() , '%Y-%m-%d')
+           AND cno = #{cno};
+    </select>
+
 </mapper>
