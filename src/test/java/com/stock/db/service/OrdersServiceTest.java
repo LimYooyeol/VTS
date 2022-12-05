@@ -101,7 +101,7 @@ class OrdersServiceTest {
     }
 
     @Test
-    public void 구매채결_테스트(){
+    public void 구매체결_테스트(){
         // given
         int mno = createTestMember();
         String cno = "005930";
@@ -165,7 +165,7 @@ class OrdersServiceTest {
     }
 
     @Test
-    public void 판매_채결(){
+    public void 판매_체결(){
         // given
         int mno = createTestMember();
         String cno = "005930";
@@ -203,7 +203,7 @@ class OrdersServiceTest {
                    스케쥴링 thread 에서 허용 X)
      */
     @Test
-    public void 매분마다_채결() throws InterruptedException {
+    public void 매분마다_체결() throws InterruptedException {
         // given
         int mno = createTestMember();
         String cno = "005930";

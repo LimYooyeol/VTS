@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface PossessesMapper {
 
     /*
-        @brief  : 채결 시 주식 보유 정보 반영
+        @brief  : 체결 시 주식 보유 정보 반영
         @return : 업데이트 한 행의 개수
         @param  :
             possessesDto : 주식 보유 정보

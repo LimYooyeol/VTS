@@ -26,13 +26,13 @@ public interface OrdersMapper {
     public int makeOrders(MakeOrdersDto ordersDto);
 
     /*
-        @brief  : 구매 채결
+        @brief  : 구매 체결
         @return : 업데이트 한 행의 개수
      */
     public int completeBuying(int ono);
 
     /*
-        @brief  : 판매 채결
+        @brief  : 판매 체결
         @return : 업데이트 한 행의 개수
      */
     public int completeSale(int ono, double gain);
