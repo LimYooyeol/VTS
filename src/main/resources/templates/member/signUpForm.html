@@ -1,0 +1,175 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/sign-in/">
+    <link href="/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>Checkout example · Bootstrap v5.2</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/checkout/">
+    <link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
+<meta name="theme-color" content="#712cf9">
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .b-example-divider {
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
+
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+    </style>
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" style="font-size:30px; color:darkgrey"href="#">KW-DBS</a>
+    <a class="nav-link" style="color:gray; font-size:26px" href="../boarder/boarder.html">게시판</a>
+    <a class="nav-link" style="color:gray; font-size:26px" href="#">종목조회</a>
+    <a class="nav-link" style="color:gray; font-size:26px" href="#">보유주식</a>
+    <a class="nav-link" style="color:gray; font-size:26px" href="#">관심종목</a>
+    <a class="nav-link" style="color:black" href="#">로그인</a>
+</nav>
+<main>
+    <div class="py-5 text-center" style="padding:200px 200px 10px 200px">
+      <h2 style="text-align:left">회원가입</h2>
+    </div>
+    <div class="row g-5" style="padding:10px 200px 10px 200px">
+      <div class="col-md-7 col-lg-8">
+        <form class="needs-validation" novalidate>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="Name" class="form-label">이름</label>
+              <input type="text" class="form-control" id="mname" placeholder="이름을 입력하세요" value="" required>
+              <div class="invalid-feedback">
+                이름을 입력하세요
+              </div>
+            </div>
+            <div class="col-12">
+                <label for="ID" class="form-label">아이디</label>
+                <input type="text" class="form-control" id="id" placeholder="아이디를 입력하세요" value="" required>
+                <div class="invalid-feedback">
+                  아이디를 입력하세요
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="password" class="form-label">비밀번호</label>
+                <input type="text" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요" value="" required>
+                <div class="invalid-feedback">
+                  비밀번호를 입력하세요
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="password" class="form-label">비밀번호 확인</label>
+                <input type="text" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요" value="" required>
+                <div class="invalid-feedback">
+                  비밀번호를 입력하세요
+                </div>
+            </div>
+            <div class="col-12">
+              <label for="email" class="form-label">이메일 </label>
+              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <div class="invalid-feedback">
+                이메일을 입력하세요
+              </div>
+            </div>
+            <div class="col-12">
+                <label for="birthDate" class="form-label">생년월일</label>
+                <input type="date" class="form-control" id="birthDate" placeholder="">
+                <div class="invalid-feedback">
+                  생년월일을 입력하세요
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="phone" class="form-label">전화번호 </label>
+                <input type="text" class="form-control" id="phone" placeholder="010-0000-0000">
+                <div class="invalid-feedback">
+                  전화번호를 입력하세요
+                </div>
+              </div>
+            <div class="col-12">
+              <label for="nickname" class="form-label">닉네임</label>
+              <input type="text" class="form-control" id="nickname" placeholder="닉네임을 입력하세요" required>
+              <div class="invalid-feedback">
+                닉네임을 입력하세요
+              </div>
+            </div>
+            <div class="col-12">
+                <label for="account" class="form-label">계좌번호</label>
+                <input type="text" class="form-control" id="account" placeholder="계좌번호를 입력하세요" required>
+                <div class="invalid-feedback">
+                  계좌번호를 입력하세요
+                </div>
+              </div>
+              <div class="col-12">
+                <label for="address" class="form-label">주소</label>
+                <input type="text" class="form-control" id="address" placeholder="주소를 입력하세요" required>
+                <div class="invalid-feedback">
+                  주소를 입력하세요.
+                </div>
+              </div>
+            <hr class="my-4">
+            <button class="w-100 btn btn-primary btn-lg" type="submit" style="margin:20px 10px 0px 10px; ">회원가입</button>
+        </form>
+      </div>
+      </div>
+
+          
+  </main>
+</body>
+</html>
