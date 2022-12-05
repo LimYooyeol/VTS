@@ -1,0 +1,35 @@
+/*
+body, html {
+    height: 100%;
+}
+
+.header {
+    background-color: Gray;
+    height: 20%
+}
+
+.content {
+    height:60%;
+}
+
+.footer {
+    background-color: yellow;
+    height: 20%
+}
+*/
+body {
+    background-color:#E57373;
+}
+
+.btn {
+  margin:5%;
+}
+
+#add {
+  margin: 0% !important;
+  width: 100%;
+}
+
+.no-margin {
+  margin: 2% !important;
+}

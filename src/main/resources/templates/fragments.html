@@ -1,0 +1,568 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="fragment-main">
+  <h2>test 1</h2>
+  <div class="row">
+    <div class="col s4" style="background-color:orange">
+      기업목록
+      <table>
+        <tr>
+          <th>th</th>
+        </tr>
+        <tr>
+          <td>td</td>
+        </tr>
+      </table>
+    </div>
+    <div class="col s4" style="background-color:pink">
+      최근상승종목섹터
+      [[최근상승종목]]
+      게시판
+      [[게시판]]
+    </div>
+    <div class="col s4" style="background-color:yellow">
+      코스피 지수
+      [[코스피지수]]
+      환율
+      [[환율]]
+    </div>
+  </div>
+</div>
+
+<div th:fragment="fragment-test2">
+  <h2>test 2</h2>
+</div>
+
+<div th:fragment="fragment-test3">
+  <h2>test 3</h2>
+</div>
+
+<div th:fragment="fragment-test4">
+  <h2>test 4</h2>
+</div>
+
+<div th:fragment="fragment-market">
+  <script th:inline="javascript">
+      google.charts.load('current', {'packages':['corechart'], 'language': 'ko'});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = new google.visualization.arrayToDataTable([
+// [날짜, 저가, 시가, 종가, 고가]
+
+['01-03',78200,78600,79400,79800],
+['01-04',78300,78700,78800,79200],
+['01-05',76400,77400,78800,79000],
+['01-06',76600,76900,76700,77600],
+['01-07',77400,78300,78100,78400],
+['01-10',77100,78000,78100,78100],
+['01-11',78000,78900,78400,79000],
+['01-12',78600,78900,79500,79600],
+['01-13',77900,77900,79300,79300],
+['01-14',77100,77300,77700,78100],
+['01-17',76900,77500,77600,77800],
+['01-18',76600,77000,77600,77800],
+['01-19',76100,76300,76500,76900],
+['01-20',75900,76500,76200,76700],
+['01-21',74700,75600,75800,75800],
+['01-24',74700,75100,75400,75800],
+['01-25',73200,74000,74800,75000],
+['01-26',73100,73300,73900,74400],
+['01-27',71300,71300,73800,74000],
+['01-28',71200,73300,71300,73700],
+['02-03',73300,73300,74900,74900],
+['02-04',73400,74000,74300,74600],
+['02-07',72400,73000,73500,73600],
+['02-08',73000,73500,73800,74200],
+['02-09',74000,74700,74300,74700],
+['02-10',74700,75400,75600,75800],
+['02-11',74600,74900,75000,75500],
+['02-14',73100,73700,74400,74500],
+['02-15',73100,73700,74100,74200],
+['02-16',74200,74800,74600,74900],
+['02-17',74500,75000,75000,75600],
+['02-18',73700,74300,74600,74800],
+['02-21',72600,74200,73200,74300],
+['02-22',72800,73400,73000,73400],
+['02-23',72800,73000,73800,73800],
+['02-24',71300,71500,72300,72300],
+['02-25',71900,71900,72100,72600],
+['02-28',71000,72100,71100,72100]
+        ], true);
+
+      var options = {
+        legend:'none',
+        width: 1000,
+        height: 300,
+        axisTitlesPosition: 'none',
+        candlestick: {
+          fallingColor: {fill: "ee6b6e", stroke: 'ee6b6e', strokeWidth:0},
+          risingColor: {fill: "3944bc", stroke: '3944bc', strokeWidth:0}
+        },
+        series: [
+          {color: '444', strokeWidth:0, visibleInLegend: false}, {}, {},
+          {}
+        ],
+        animation: {
+          startup: true,
+          duration: 2000,
+          easing: 'inAndOut'
+        }
+      };
+
+        var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+  </script>
+  <div class="card">
+    <div id="chart_div"></div>
+  </div>
+</div>
+
+<div th:fragment="fragment-possessed">
+  [[${data4}]]
+  <div class="card">
+    <blockquote style="margin: 2%"><h1>보유 주식 현황</h1></blockquote>
+    <table class="striped centered">
+      <thead>
+      <tr>
+        <th>종목코드</th>
+        <th>종목명</th>
+        <th>보유수량</th>
+        <th>평가금액</th>
+        <th>평가손액</th>
+        <th>수익률</th>
+        <th>현재가</th>
+        <th>구매가</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="row: ${data4}">
+        <td th:each="header: ${headers4}" th:text="${row.get(header)}"></td>
+        <!--        <td><a style="color:#D00" th:onclick="delStockOnGroup(this.getAttribute('cno'))" th:cno="${row.get('cno')}"><i class="material-icons text-red">delete</i></a></td>-->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div th:fragment="fragment-history">
+  [[${data3}]]
+  <div class="card">
+    <blockquote style="margin: 2%"><h1>거래 내역</h1></blockquote>
+    <table class="striped centered">
+      <thead>
+      <tr>
+        <th>종목코드</th>
+        <th>종목명</th>
+        <th>매수/매도</th>
+        <th>주문단가</th>
+        <th>주문수량</th>
+        <th>주문시각</th>
+        <th>체결여부</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="row: ${data3}">
+        <td th:each="header: ${headers3}" th:text="${row.get(header)}"></td>
+<!--        <td><a style="color:#D00" th:onclick="delStockOnGroup(this.getAttribute('cno'))" th:cno="${row.get('cno')}"><i class="material-icons text-red">delete</i></a></td>-->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div th:fragment="fragment-fav">
+  [[${data}]]
+  <script th:inline="javascript">
+    function delGroup(){
+      if(confirm("삭제할까요 ?")){
+        var gn = $("#interest_group option:selected").text();
+        console.log("delete group name : ", gn);
+
+        /*
+        var req = {mno: mno, gn: gn};
+
+        $.post(url, req, function(res){
+          if(!res)  M.toast({html: "삭제 실패"});
+          else  M.toast({html: "삭제 성공"});
+        });
+        */
+      }
+    }
+    function addGroup(){
+      var agf = $('#addGroupField');
+
+      if(agf.hasClass('hide')){
+        agf.removeClass('hide');
+        $('#input_gn').focus();
+      }
+      else {
+        if(confirm("추가할까요 ?")){
+          var gn = $('#input_gn').val();
+
+          /*
+          var req = {mno: mno, gn: gn};
+
+          $.post(url, req, function(res){
+            if(!res)  M.toast({html:"추가 실패"});
+            else      M.toast({html: "추가 완료"});
+          });
+          */
+
+          // rollback input group anyway
+          $('#input_gn').val('');
+          agf.addClass('hide');
+        }
+      }
+    }
+
+    function btnAddStockOnGroup(){
+      M.Modal.getInstance($('#modalAddStockOnGroup')).open();
+    }
+
+    function addStockOnGroup(){
+      if(confirm("추가할까요 ?")){
+        // ajax post
+
+        M.toast({html: "추가완료"});
+      }
+    }
+
+    function delStockOnGroup(cno){
+      if(confirm("삭제할까요 ?")){
+        // ajax post
+
+        M.toast({html: "삭제완료"});
+      }
+    }
+
+  </script>
+  <div class="modal" id="modalAddStockOnGroup">
+    <div class="modal-content">
+      <table class="highlight">
+        <thead>
+          <tr>
+            <th>종목코드</th>
+            <th>기업명</th>
+            <th>개요</th>
+            <th>상장주식수</th>
+            <th>섹터</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="row: ${data2}" th:onclick="alert('a')">
+            <td th:each="header: ${headers2}" th:text="${row.get(header)}"></td>
+          </tr>
+        </tbody>
+      </table>
+      <form>
+        <div class="input-field">
+          <input id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card">
+
+    <div class="row">
+      <div class="input-field col s4">
+        <select id="interest_group">
+          <option value="" disabled selected>관심그룹</option>
+          <option th:each="gn, i : ${data}" th:value="${i.count}" th:text="${gn.group_name}" th:id="'g_'+${gn.group_name}"></option>
+        </select>
+        <label>관심 그룹을 선택해주세요</label>
+      </div>
+      <div class="input-field col s4">
+        <div class="input-field col s12 hide" id="addGroupField">
+          <input id="input_gn" type="text" data-length="100">
+          <label for="input_gn">새 그룹 이름을 입력해주세요</label>
+        </div>
+      </div>
+      <div class="input-field col s4">
+        <button class="btn right no-margin" th:onclick="delGroup()">그룹 삭제</button>
+        <button class="btn right no-margin" th:onclick="addGroup()">그룹 추가</button>
+      </div>
+    </div>
+
+    <table class="striped centered">
+      <thead>
+        <tr>
+          <th>종목코드</th>
+          <th>종목명</th>
+          <th>현재가</th>
+          <th>등락률</th>
+          <th>거래량</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="row: ${rows}">
+          <td th:each="header: ${headers}" th:text="${row.get(header)}"></td>
+          <td><a style="color:#D00" th:onclick="delStockOnGroup(this.getAttribute('cno'))" th:cno="${row.get('cno')}"><i class="material-icons text-red">delete</i></a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn" id="add" th:onclick="btnAddStockOnGroup()">종목 추가</button>
+  </div>
+</div>
+
+<div th:fragment="fragment-modal-login">
+  <div id="login" class="modal bottom-sheet">
+    <div class="modal-content z-depth-3 center">
+      <div class="container ">
+        <form method="post" id="form_login">
+          <div class="row">
+            <h1>[[${logined}?'개인정보':'로그인']]</h1>
+            <div class="card-panel col s12">
+
+              <div class="col s12" th:if="${logined==null}">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">account_circle</i>
+                  <input id="login_usernumber" name="login_usernumber" type="text" class="validate" required>
+                  <label for="login_usernumber">아이디</label>
+                </div>
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">key</i>
+                  <input id="login_password" name="login_password" type="password" class="validate" required>
+                  <label for="login_password">비밀번호</label>
+                </div>
+
+                <div class="col s6">
+                  <button class="btn-large waves-effect waves-light cyan modal-trigger" type="button" id="btn_register" href="#register">회원가입
+                    <i class="material-icons right">person_add</i>
+                  </button>
+                </div>
+                <div class="col s6">
+                  <button class="btn-large waves-effect waves-light " type="button" id="btn_login">로그인
+                    <i class="material-icons right">login</i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="col s12" th:if="${logined}">
+                <div class="input-field col s12">
+                  <div class="chip adjust-text">
+                    <img img-check="{{logined_user}}">
+                    {{logined_name}}
+                  </div>
+                </div>
+
+                <div class="col s6">
+                  <button class="btn-large waves-effect waves-light clr red accent-1" type="button" name="action" id="btn_withdrawal">회원탈퇴
+                    <i class="material-icons right">directions_run</i>
+                  </button>
+                </div>
+
+                <div class="col s6">
+                  <button class="btn-large waves-effect waves-light clr grey" type="button" name="action" id="btn_logout">로그아웃
+                    <i class="material-icons right">logout</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:fragment="fragment-modal-register">
+  <div id="register" class="modal ">
+    <div class="modal-content z-depth-3 center">
+      <div class="container">
+        <form id="form_register" name="form_register">
+          <div class="row">
+            <h1>회원가입</h1>
+            <div class="card-panel col s12">
+
+              <div class="input-field col s12">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="register_userid" name="register_userid" type="text" class="" required>
+                <label for="register_userid">아이디</label>
+                <span class="helper-text" data-error="아이디는 영문, 숫자, '_' 사용가능" data-success="굿"></span>
+              </div>
+
+              <div class="input-field col s6">
+                <i class="material-icons prefix">key</i>
+                <input id="register_password" name="register_password" type="password" class="validate" required>
+                <label for="register_password">비밀번호</label>
+                <span class="helper-text" data-error="비밀번호를 입력해주세요" data-success="굿"></span>
+              </div>
+              <div class="input-field col s6">
+                <i class="material-icons prefix">key</i>
+                <input id="register_password_confirm" type="password" class="validate" required>
+                <label for="register_password_confirm">비밀번호 확인</label>
+                <span class="helper-text" data-error="비밀번호가 다릅니다." data-success="굿"></span>
+              </div>
+
+              <div class="input-field col s6">
+                <i class="material-icons prefix">badge</i>
+                <input id="register_name" name="register_name" type="text" class="" required>
+                <label for="register_name">이름</label>
+                <span class="helper-text" data-error="이름을 입력해주세요." data-success="굿"></span>
+              </div>
+
+              <div class="input-field col s6">
+                <i class="material-icons prefix">child_care</i>
+                <input id="register_nickname" name="register_nickname" type="text" class="" required>
+                <label for="register_nickname">닉네임</label>
+                <span class="helper-text" data-error="닉네임을 입력해주세요." data-success="굿"></span>
+              </div>
+
+              <div class="input-field col s6">
+                <i class="material-icons prefix">email</i>
+                <input id="register_email" name="register_email" type="text" class="" required>
+                <label for="register_email">이메일</label>
+                <span class="helper-text" data-error="이메일을 입력해주세요." data-success="굿"></span>
+              </div>
+
+              <div class="input-field col s6">
+                <i class="material-icons prefix">phone_iphone</i>
+                <input id="register_phone" name="register_phone" type="number" class="" maxlength="11" oninput="maxLengthCheck(this)" required>
+                <label for="register_phone">연락처</label>
+                <span class="helper-text" data-error="ex) 01012341234" data-success="굿"></span>
+              </div>
+
+              <div class="input-field col s1 valign-wrapper">
+                <i class="material-icons prefix">upload_file</i>
+              </div>
+              <div class="input-field file-field col s11">
+                <div class="file-path-wrapper">
+                  <input type="file" name="register_pfp" accept="image/*">
+                  <input class="file-path validate" type="text" placeholder="프로필 사진 첨부">
+                </div>
+              </div>
+
+
+              <!--
+              <div class="input-field col s12">
+                  <div class="card-panel z-depth-2">
+                      <h3>RFID 태그를 단말기에 접촉하여 사용자 등록</h3>
+                      <img src="/images/rfid.png">
+                      <input id="register_rfid" name="register_rfid" type="hidden">
+                      <input id="register_rfid_show" type="text" class="" disabled style="display: none;">
+                      <div class="progress" id="register_progress">
+                          <div class="indeterminate"></div>
+                      </div>
+                  </div>
+              </div>
+              -->
+
+              <button class="btn-large waves-effect waves-light cyan disabled" type="button" id="btn_register_apply">
+                등록
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:fragment="fragment-modal-admin">
+  <div id="adminMenu" class="modal">
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs" id="adminTabs">
+          <li class="tab col s6"><a class="active" href="#tabUser"><h3>member</h3></a></li>
+          <li class="tab col s6"><a href="#tabStock"><h3>stock</h3>></a></li>
+        </ul>
+      </div>
+      <div id="tabUser" class="col s12">
+        <h1>회원 관리</h1>
+        <div class="card-panel grey lighten-5 z-depth-3 center" ng-if="is_admin">
+
+          <div ng-controller="TableController as vm">
+            <table ng-table="vm.tableParams" class="striped highlight responsive-table" show-filter="true">
+              <tr ng-repeat="user in $data" id="tr_{{user._id}}" class="{{user.admin?'pink lighten-5':''}}">
+                <td data-title="'개인번호'" filter="{ usernumber: 'text'}", sortable="'usernumber'">
+                  {{user.usernumber}}</td>
+                <td data-title="'이름'" filter="{ name: 'text'}", sortable="'name'">
+                  {{user.name}}</td>
+                <td data-title="'학과'" filter="{ department: 'text'}", sortable="'department'">
+                  {{user.department}}</td>
+                <td data-title="'연락처'" filter="{ phone: 'text'}" sortable="'phone'">
+                  {{user.phone | phoneExp}}</td>
+                <td data-title="'작업'">
+                  <button class="btn-flat" ng-click="userDelete(user._id)" ng-disabled="user.admin"><i class="material-icons">delete</i></button>
+                  <button class="btn-flat" ng-click="userGrant(user._id, true)" ng-if="!user.admin"><i class="material-icons">arrow_upward</i></button>
+                  <button class="btn-flat" ng-click="userGrant(user._id, false)" ng-if="user.admin" ng-disabled="user.usernumber == logined_user"><i class="material-icons">arrow_downward</i></button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="tabStock" class="col s12">
+        <h1>기업 관리</h1>
+        <div class="card-panel grey lighten-5 z-depth-3 center" ng-if="is_admin">
+          <div ng-controller="TableControllerBeacon as vm">
+            <table ng-table="vm.tableParams" class="striped highlight responsive-table" show-filter="true">
+              <tr ng-repeat="beacon in $data" id="tr_{{beacon._id}}" class="{{beacon.location?'grey lighten-3':''}}">
+                <td data-title="'종목코드'" filter="{ uuid: 'text'}", sortable="'uuid'">
+                  {{종목코드}}</td>
+                <td data-title="'기업이름'" filter="{ major: 'text'}", sortable="'major'">
+                  {{기업이름}}</td>
+                <td data-title="'상장 주식수'" filter="{ minor: 'text'}", sortable="'minor'">
+                  {{상장주식수}}</td>
+                <td data-title="'기업개요'" filter="{ location: 'text'}" sortable="'location'">
+                  {{기업개요}}</td>
+                <td data-title="'주주현황'"></td>
+                <td data-title="'기업개요'" filter="{ location: 'text'}" sortable="'location'"></td>
+                <td data-title="'종목섹터'">
+                  <button class="btn-flat"><i class="material-icons">delete</i></button></td>
+              </tr>
+            </table>
+          </div>
+          <div class="row hide">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">wifi</i>
+              <input id="beaconUUID" type="text" class="validate" required>
+              <label for="beaconUUID">비컨 UUID</label>
+            </div>
+            <div class="input-field col s4">
+              <i class="material-icons prefix">wifi</i>
+              <input id="beaconMajor" type="text" class="validate" required>
+              <label for="beaconMajor">비컨 Major</label>
+            </div>
+            <div class="input-field col s4">
+              <i class="material-icons prefix">wifi</i>
+              <input id="beaconMinor" type="text" class="validate" required>
+              <label for="beaconMinor">비컨 Minor</label>
+            </div>
+            <div class="col s4">
+              <a href="" class="waves-effect waves-light btn btn-large clr" ng-click="addBeacon()"><i class="material-icons right">add_circle</i>비컨 추가</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:fragment="fragment-fab-admin">
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large red pulse" id="fab_menu">
+      <i class="large material-icons">menu</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating orange btn modal-trigger" href="#adminMenu"><i class="material-icons">construction</i></a></li>
+<!--      <li><a class="btn-floating green btn"><i class="material-icons">edit</i></a></li>-->
+<!--      <li><a class="btn-floating blue btn" id="fab_login"><i class="material-icons">person</i></a></li>-->
+    </ul>
+    <div class="tap-target hide" data-target="fab_login">
+      <div class="tap-target-content">
+        <h5>로그인을 먼저 해주세요 !</h5>
+        <p>사이트 이용을 위해서는 로그인이 필요합니다</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</html>

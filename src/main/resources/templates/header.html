@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+  <div class="header">
+    <nav class="nav-extended container">
+      <div class="nav-wrapper">
+        <a th:href="@{/}" class="brand-logo">Logo</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li th:if="${logined==null}"><a class="waves-effect waves-light modal-trigger" href="#login">로그인</a></li>
+          <li th:if="${logined}"><a class="waves-effect waves-light" href="#logout">로그아웃</a></li>
+        </ul>
+      </div>
+      <div class="nav-content">
+        <ul class="tabs tabs-transparent">
+          <li class="tab"><a href="#main">메인화면</a></li>
+          <li class="tab"><a href="#board">게시판</a></li>
+          <li class="tab"><a href="#stock">종목조회</a></li>
+          <li class="tab"><a href="#holding">보유주식</a></li>
+          <li class="tab"><a href="#fav">관심종목</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+</html>
