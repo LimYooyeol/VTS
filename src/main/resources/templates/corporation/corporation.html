@@ -84,27 +84,27 @@
             <tbody>
               <tr>
                 <td style="background-color:#C4C4C4; width:200px">종목코드</td>
-                <td style="background-color:white;">123456</td>
+                <td th:text="${corporation.code}" style="background-color:white;" ></td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4">기업이름</td>
-                <td style="background-color:white;">셀트리온</td>
+                <td th:text="${corporation.name}"></td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">상장주식수</td>
-                <td style="background-color:white;">555555</td>
+                <td th:text="${corporation.snum}"></td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">기업개요</td>
-                <td style="background-color:white;">가나다라마바사</td>
+                <td th:text="${corporation.summary}" style="background-color:white;" ></td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">주주현황</td>
-                <td style="background-color:white;">삼성 : 3.61</td>
+                <td style="background-color:white;" th:text="${corporation.holder}"></td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">종목 섹터</td>
-                <td style="background-color:white;">제약</td>
+                <td style="background-color:white;" th:text="${corporation.sector}"></td>
               </tr>
             </tbody>
         </table>

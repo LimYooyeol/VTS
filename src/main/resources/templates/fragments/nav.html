@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <block th:fragment="f-nav">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../static/css/materialize.min.css">
+</head>
+<body>
+    <div class="header">
+        <nav class="nav-extended container" style="background-color:gray">
+            <div class="nav-wrapper">
+                <a th:href="@{/}" class="brand-logo">KW-DBS</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li th:if="${logined==null}"><a class="waves-effect waves-light modal-trigger" href="#login">로그인</a></li>
+                    <li th:if="${logined}"><a class="waves-effect waves-light" href="#logout">로그아웃</a></li>
+                </ul>
+            </div>
+            <div class="nav-content">
+                <ul class="tabs tabs-transparent">
+                    <li class="tab"><a href="#main">메인화면</a></li>
+                    <li class="tab"><a href="#board">게시판</a></li>
+                    <li class="tab"><a href="#stock">종목조회</a></li>
+                    <li class="tab"><a href="#holding">보유주식</a></li>
+                    <li class="tab"><a href="#fav">관심종목</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+</body>
+</block>
+</html>

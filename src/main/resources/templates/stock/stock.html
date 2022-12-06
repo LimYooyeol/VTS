@@ -131,6 +131,23 @@
             </tr>
             </tbody>
         </table>
+
+        <div style="display: flex; justify-content: center; margin-top:20px;">
+            <nav aria-label="..." >
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a value="1" class="page-link active" href="#"  onclick="activeLink()">1</a>
+                    </li>
+                    <li class="page-item" aria-current="page">
+                        <a value="2" class="page-link" href="#" onclick="activeLink()">2</a>
+                    </li>
+                    <li class="page-item" >
+                        <a class="page-link"  value="3" href="#" onclick="activeLink()">3</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
         <div class="page-num" style="display: flex; justify-content: center; margin-top:20px;" th:with="start=${(stock.number/maxPage)*maxPage + 1},
                   end=(${(stock.totalPages == 0) ? 1 : (start + (maxPage - 1) < stock.totalPages ? start + (maxPage - 1) : stock.totalPages)})">
             <ul>
@@ -206,5 +223,36 @@
         </div>
     </div>
 </div>
+
+<script>
+  let pi=document.getElementsByClassName("page-link")
+  let currentValue=1;
+
+  function activeLink(){
+    for(l of pi){
+      l.classList.remove("active");
+    }
+    event.target.classList.add("active");
+    currentValue=event.target.value;
+  }
+  function backBtn(){
+    if(currentValue>1){
+      for(l of pi){
+        l.classList.remove("active");
+      }
+      currentValue--;
+      pi[currentValue-1].classList.add("active");
+    }
+  }
+  function nextBtn(){
+    if(currentValue<3){
+      for(l of pi){
+        l.classList.remove("active");
+      }
+      currentValue++;
+      pi[currentValue-1].classList.add("active");
+    }
+  }
+</script>
 </body>
 </html>
