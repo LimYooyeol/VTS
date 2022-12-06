@@ -79,59 +79,58 @@
     <a class="nav-link" style="color:black" href="#">로그인</a>
 </nav>
     <h1  style="padding: 30px 200px 10px 50px; float:left;">회원정보수정</h1>
-<form>
     <div style="padding:100px 200px 0px 50px;">
       <table class="table table-striped" style="font-weight: bold;;border-radius:16px;">
             <tbody>
               <tr>
                 <td style="background-color:#C4C4C4; width:200px">회원번호</td>
-                <td style="background-color:white;" th:text="${user.uid}"></td>
+                <td style="background-color:white;">1</td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4">이름</td>
-                <td style="background-color:white;"><input id='name' name='name' class="form-control me-2" type="text" th:text="${user.name}" aria-label="Search" style="font-size:10px;border:none;"></td>
+                <td style="background-color:white;"><input class="form-control me-2" type="text" placeholder="홍길동" aria-label="Search" style="font-size:10px;border:none;"></td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">아이디</td>
                 <td style="background-color:white;">
-                    <input id='id' name='id'  class="form-control me-2" type="text" th:text="${user.id}" aria-label="Search" style="font-size:10px;border:none;">
+                    <input class="form-control me-2" type="text" placeholder="hong123" aria-label="Search" style="font-size:10px;border:none;">
                 </td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">닉네임</td>
-                <td style="background-color:white;"><input id='nickname' name='nickname'  class="form-control me-2" type="text" th:text="${user.name}" aria-label="Search" style="font-size:10px;border:none;"></td>
+                <td style="background-color:white;"><input class="form-control me-2" type="text" placeholder="길동" aria-label="Search" style="font-size:10px;border:none;"></td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">이메일</td>
-                <td style="background-color:white;"><input id='email' name='email'  class="form-control me-2" type="text" th:text="${user.email}" aria-label="Search" style="font-size:10px;border:none;"></td>
+                <td style="background-color:white;"><input class="form-control me-2" type="text" placeholder="hong123@naver.com" aria-label="Search" style="font-size:10px;border:none;"></td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">휴대폰번호</td>
-                <td style="background-color:white;"><input id='pno' name='pno'  class="form-control me-2" type="text" th:text="${user.pnum}" aria-label="Search" style="font-size:10px;border:none;"></td>
+                <td style="background-color:white;"><input class="form-control me-2" type="text" placeholder="010-3333-3333" aria-label="Search" style="font-size:10px;border:none;"></td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">주소</td>
-                <td style="background-color:white;"><input  id='address' name='address'  class="form-control me-2" type="text"th:text="${user.address}" aria-label="Search" style="font-size:10px;border:none;"></td>
+                <td style="background-color:white;"><input class="form-control me-2" type="text" placeholder="석계" aria-label="Search" style="font-size:10px;border:none;"></td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">가입날짜</td>
-                <td style="background-color:white;" th:text="${user.joinDate}"></td>
+                <td style="background-color:white;">22-01-02</td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">계좌번호</td>
-                <td style="background-color:white;" th:text="${user.account}"></td>
+                <td style="background-color:white;">00-5042-8879</td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">비밀번호</td>
-                <td style="background-color:white;"><input id='pwd' name='pwd'  class="form-control me-2" type="text" placeholder="비밀번호" aria-label="Search" style="font-size:10px;border:none;"></td>
+                <td style="background-color:white;"><input class="form-control me-2" type="text" placeholder="비밀번호" aria-label="Search" style="font-size:10px;border:none;"></td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">비밀번호 수정</td>
-                <td style="background-color:white;"><input id='check_pwd' name='check_pwd'  class="form-control me-2" type="text" placeholder="비밀번호 확인" aria-label="Search" style="font-size:10px;border:none;"></td>
+                <td style="background-color:white;"><input class="form-control me-2" type="text" placeholder="비밀번호 확인" aria-label="Search" style="font-size:10px;border:none;"></td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">생년월일</td>
-                <td style="background-color:white;" th:text="${user.birthDate}"></td>
+                <td style="background-color:white;">98-01-01</td>
               </tr>
             </tbody>
         </table>
@@ -141,23 +140,20 @@
         <div class="cover2">
             <h4 style="margin-right:30px;font-size:10px;font-weight: bold;vertical-align: middle;">비밀번호</h4>
             <form class="d-flex" role="search">
-            <input id='password' name='password'  class="form-control me-2" type="text" placeholder="Password" aria-label="Search" style="font-size:10px">
+            <input class="form-control me-2" type="text" placeholder="Password" aria-label="Search" style="font-size:10px">
           </form>
           </div>
-          <button type="button" class="btn btn-secondary" onclick="location.href='/update_mypage'"
+          <button type="button" class="btn btn-secondary" onclick="location.href='#'"
           style="background-color: none;font-size:10px;display:block; width:80px;height:30px">
           수정
   </button>
-          </div>
-</form>
-<div class="cover" style="display: flex; justify-content: center; margin-top:0;margin-bottom:10px; padding-top:0; padding-bottom:0;">
-    <button type="button" class="btn btn-secondary" onclick="location.href='/delete_mypage'"
-            style="background-color:dimgray;font-size:10px;display:block; width:300px">
-        삭제
-    </button>
-</div>
+  <button type="button" class="btn btn-secondary" onclick="location.href='#'"
+          style="background-color: none;font-size:10px;display:block; width:80px;height:30px;margin-left:20px">
+          삭제
+  </button>
+        </div>
 <div class="cover" style="display: flex; justify-content: center; margin-top:0;">
-  <button type="button" class="btn btn-secondary" onclick="location.href='../home.html'"
+  <button type="button" class="btn btn-secondary" onclick="location.href='#'"
           style="background-color:dimgray;font-size:10px;display:block; width:300px">
           목록으로 돌아가기
   </button>
