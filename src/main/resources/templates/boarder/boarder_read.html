@@ -84,34 +84,34 @@
 
 <div class="card mb-4 rounded-3 shadow-sm" style="display: flex; justify-content: center; margin:30px 60px">
   <div class="card-header py-3">
-    <h3 class="my-0 fw-normal" style="float:left; padding:20px;">글 제목 : 네이버 ㄱㄱ</h3>
-    <h3 class="my-0 fw-normal" style="float:right; padding:20px;">종목 : 카카오</h3>
+    <h3 class="my-0 fw-normal" style="float:left; padding:20px;" th:text="${board.title}"></h3>
+    <h3 class="my-0 fw-normal" style="float:right; padding:20px;" th:text="${board.stock}"></h3>
   </div>
   <div class="card-header py-3">
-    <h5 class="my-0 fw-normal" style="float:left; padding:10px;">작성자 : 철수 (chulsu123)  22-01-05</h5>
-    <h5 class="my-0 fw-normal" style="float:right; padding:10px;">조회수 :5 댓글 수 : 3</h5>
+    <h5 class="my-0 fw-normal" style="float:left; padding:10px;" th:text="${board.writer}">작성자 : [[${view.nickname}]] ([[${view.id}]])  [[${view.date}]]</h5>
+    <h5 class="my-0 fw-normal" style="float:right; padding:10px;">조회수 :[[${view.hit}]] 댓글 수 : [[${view.reply}]]</h5>
   </div>
   <div class="card-body">
     <textarea class="form-control" rows="15" name="content"
 			placeholder="" required style="background-color: white;border:none;"  readonly
-		>가나다라마바사</textarea> 
+		>[[${view.content}]]</textarea>
   </div>
 </div>
+
 <div class="card mb-4 rounded-3 shadow-sm" style="display: flex; justify-content: center; margin:30px  60px">
   <div class="card-body" style="margin-top:0">
-    <tr style="vertical-align:middle;">
-      <td>user1 : ㅊㅊ  </td>
-      <button type="button" class="btn-close" aria-label="Close" style="margin-left:10px"></button>
-    </tr>
-    <br>
-    <tr style="vertical-align:middle;">
-      <td>user2 : ㅇㅇ  </td>
-      <button type="button" class="btn-close" aria-label="Close" style="margin-left:10px"></button>
-      <td>
-    </tr>
+      <ul id="reply--box" class="list-group" th:each="reply : ${replyList}">
+          <li id="reply--1" class="list-group-item d-flex justify-content-between">
+              <div th:text="${reply.content}"></div>
+              <div class="d-flex">
+                  <span class="text-monospace mr-1">작성자: </span><div class="text-monospace mr-1" th:text="${reply.user.username}"></div>
+                  <button th:onclick="|replyIndex.replyDelete('${board.id}', '${reply.id}')|" class="btn-close" style="margin-left: 10px;"></button>
+              </div>
+          </li>
+      </ul>
   </div>
   <div class="card-body" style="padding-top:0">
-    <input type="text" name="reply" class="form-control mt-4 mb-2"
+    <input type="text" name="reply.content" class="form-control mt-4 mb-2"
       placeholder="댓글을 입력해주세요." required style="float:left; margin-top:3px">
   <button type="submit" class="btn btn-secondary mb-3" style="float:right">댓글 쓰기</button>
 </div>
@@ -119,7 +119,7 @@
 
 <div class="cover" id="container" style="padding:0 60px">
   <div style="display:flex;justify-content:left;" id="box-left">
-      <button type="button" class="btn btn-secondary" onclick="location.href='boarder.html'"
+      <button type="button" class="btn btn-secondary" onclick="location.href='boarder_update.html'"
               style="background-color: none;font-size:20px;display:block; width:100px">
               수정
       </button>

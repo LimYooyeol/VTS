@@ -71,18 +71,19 @@
     <a class="nav-link" style="color:black" href="#">로그인</a>
 </nav>
 
-<form action="writerAction" method="post" style="margin:30px">
+<form action="writeBoard" method="post" style="margin:30px">
   <a>종목</a>
-  <select name="search" id="" class="pl" style="height:40px; width:100px;font-size:12px;">
+  <select th:field="${board.stock}" class="pl" style="height:40px; width:100px;font-size:12px;">
     <option value="title" selected>카카오</option>
     <option value="writer">네이버</option>
+      <option value="writer">네이버</option>
   </select>
 
-	<input type="text" name="title" class="form-control mt-4 mb-2"
+	<input type="text" th:field="${board.title}" class="form-control mt-4 mb-2"
 		placeholder="제목을 입력해주세요." required
 	>
 	<div class="form-group">
-		<textarea class="form-control" rows="15" name="content"
+		<textarea class="form-control" rows="15" th:field="${board.content}"
 			placeholder="내용을 입력해주세요" required
 		></textarea>
 	</div>
