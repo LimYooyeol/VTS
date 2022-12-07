@@ -43,9 +43,10 @@ public class SecurityConfig{
 
 
         http.authorizeRequests()
-                .mvcMatchers("/members/mypage").authenticated()
-                .mvcMatchers("/", "/members/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll();
+//                .mvcMatchers("/members/mypage").authenticated()
+//                .mvcMatchers("/", "/members/**").permitAll()
+//                .anyRequest().authenticated()
         ;
 
         return http.build();

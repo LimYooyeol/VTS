@@ -35,7 +35,7 @@ public class MemberController {
             int mno = memberService.insertMember(memberSignUpDto);
         }
         catch (DataIntegrityViolationException e){  // 증복
-            System.out.println("duplication =======");
+//            System.out.println("duplication =======");
             return "/member/signupForm";
         }
         catch (IllegalStateException e){            //
@@ -53,5 +53,6 @@ public class MemberController {
         }
         return "member/mypage";
     }
+
 
 }
