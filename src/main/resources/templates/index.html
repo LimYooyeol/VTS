@@ -3,84 +3,81 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{default_layout"}>
+  layout:decorate="~{layout/default_layout}">
 
-  <th:block layout:fragment="head">
-    <title>Title</title>
-
-    <!--Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!-- Jquery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js" ></script>
-    <!-- Materialize CSS -->
-    <script type="text/javascript" th:src="@{/javascripts/materialize.min.js}"></script>
-
-    <!--Materialize CSS-->
-    <link th:href="@{/css/materialize.min.css}" rel="stylesheet" media="screen,projection"/>
-    <!--Custom CSS-->
-    <link th:href="@{/css/style.css}" rel="stylesheet"/>
-
-    <!-- Google Chart -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-    <script th:inline="javascript">
-        $(document).ready(function(){
-          $('.tabs').tabs();
-          $('.modal').modal();
-          $('.fixed-action-btn').floatingActionButton();
-          $('select').formSelect();
-          $('.dropdown-trigger').dropdown();
-        });
-
-        function maxLengthCheck(obj){
-            if(obj.value.length > obj.maxLength)
-                obj.value = obj.value.slice(0, obj.maxLength);
-        }
-    </script>
-
-  </th:block>
-
-  <body>
-    <th:block layout:fragment="header" th:include="@{/header}"></th:block>
-
-    <div layout:fragment="content" class="content container">
-
-      <div id="main" class="col s12">
-          <div th:replace="~{/fragments :: fragment-fav}"></div>
-      </div>
-
-      <div id="board" class="col s12">
-          <div th:replace="~{/fragments :: fragment-history}"></div>
-<!--        <th:block th:if="${type}=='board'">-->
-<!--          <div th:replace="~{/fragments :: fragment-main}"></div>-->
-<!--        </th:block>-->
-      </div>
-      <div id="stock" class="col s12">
-          <div th:replace="~{/fragments :: fragment-possessed}"></div>
-<!--        <th:block th:if="${type}=='stock'">-->
-<!--          <div th:replace="~{/fragments :: fragment-test2}"></div>-->
-<!--        </th:block>-->
-      </div>
-      <div id="holding" class="col s12">
-          <div th:replace="~{/fragments :: fragment-market}"></div>
-<!--        <th:block th:if="${type}=='holding'">-->
-<!--          <div th:replace="~{/fragments :: fragment-test3}"></div>-->
-<!--        </th:block>-->
-      </div>
-      <div id="fav" class="col s12">
-<!--        <th:block th:if="${type}=='fav'">-->
-          <div th:replace="~{/fragments :: fragment-test4}"></div>
-<!--        </th:block>-->
-      </div>
+<div layout:fragment="content" class="content container">
+    <div class="card row z-depth-5">
+        <div class="col s4">
+            <h5>기업목록</h5>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s4"><a href="#list_top">거래상위</a></li>
+                        <li class="tab col s4"><a href="#list_inc">상승</a></li>
+                        <li class="tab col s4"><a href="#list_dec">하락</a></li>
+                    </ul>
+                </div>
+                <div id="list_top" class="col s12">
+                    <table>
+                        <tr>
+                            <td>기업1</td>
+                            <td>1050</td>
+                            <td>140</td>
+                            <td>[[${#numbers.formatDecimal((((140+1050)/1050.0)-1)*100.0,2,2)}]]</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="list_inc" class="col s12">
+                    <table>
+                        <tr>
+                            <td>기업2</td>
+                            <td>1050</td>
+                            <td>140</td>
+                            <td>[[${#numbers.formatDecimal((((140+1050)/1050.0)-1)*100.0,2,2)}]]</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="list_dec" class="col s12">
+                    <table>
+                        <tr>
+                            <td>기업3</td>
+                            <td>1050</td>
+                            <td>140</td>
+                            <td>[[${#numbers.formatDecimal((((140+1050)/1050.0)-1)*100.0,2,2)}]]</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col s4">
+            <h5>최근상승종목섹터</h5>
+            <table class="striped">
+                <tr>
+                    <th>전기제품</th>
+                    <td>전기1</td>
+                    <td>전기2</td>
+                </tr>
+                <tr>
+                    <th>교육서비스</th>
+                    <td>교육1</td>
+                    <td>교육2</td>
+                </tr>
+                <tr>
+                    <th>문구류</th>
+                    <td>문구1</td>
+                    <td>문구2</td>
+                </tr>
+            </table>
+            <h5>게시판</h5>
+<!--            <div th:insert="@{board}"></div>-->
+        </div>
+        <div class="col s4">
+            <h5>코스피 지수</h5>
+            <img src="https://ssl.pstatic.net/imgfinance/chart/main/KOSPI.png?sidcode=1670389860607">
+            <h5>환율</h5>
+            [[환율]]
+        </div>
     </div>
+</div>
 
-    <div th:replace="~{/fragments :: fragment-modal-login}"></div>
-
-    <div th:replace="~{/fragments :: fragment-modal-register}"></div>
-
-    <div th:replace="~{/fragments :: fragment-modal-admin}"></div>
-
-    <div th:replace="~{/fragments :: fragment-fab-admin}"></div>
-  </body>
 </html>

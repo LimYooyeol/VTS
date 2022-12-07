@@ -1,0 +1,22 @@
+<html lang="ko"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <!-- head(script, css) -->
+    <th:block th:replace="~{fragments/head :: fragment-head}"></th:block>
+
+    <body>
+        <!-- nav bar -->
+        <div layout:fragment="navbar" th:replace="~{fragments/nav :: fragment-nav}"></div>
+
+        <!-- content -->
+        <div layout:fragment="content"></div>
+
+        <th:block th:replace="~{fragments/fragments :: fragment-modal-login}" th:if="${logined == null}"></th:block>
+        <th:block th:replace="~{fragments/fragments :: fragment-modal-register}" th:if="${logined != null}"></th:block>
+        <th:block th:replace="~{fragments/fragments :: fragment-modal-admin}" th:if="${isAdmin}"></th:block>
+        <th:block th:replace="~{fragments/fragments :: fragment-fab-admin}" th:if="${isAdmin}"></th:block>
+
+    </body>
+
+</html>

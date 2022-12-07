@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+
+<div layout:fragment="content" class="content container">
+  <script th:inline="javascript">
+      google.charts.load('current', {'packages':['corechart'], 'language': 'ko'});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = new google.visualization.arrayToDataTable([
+['01-03',78200,78600,79400,79800],
+['01-04',78300,78700,78800,79200],
+['01-05',76400,77400,78800,79000],
+['01-06',76600,76900,76700,77600],
+['01-07',77400,78300,78100,78400],
+['01-10',77100,78000,78100,78100],
+['01-11',78000,78900,78400,79000],
+['01-12',78600,78900,79500,79600],
+['01-13',77900,77900,79300,79300],
+['01-14',77100,77300,77700,78100],
+['01-17',76900,77500,77600,77800],
+['01-18',76600,77000,77600,77800],
+['01-19',76100,76300,76500,76900],
+['01-20',75900,76500,76200,76700],
+['01-21',74700,75600,75800,75800],
+['01-24',74700,75100,75400,75800],
+['01-25',73200,74000,74800,75000],
+['01-26',73100,73300,73900,74400],
+['01-27',71300,71300,73800,74000],
+['01-28',71200,73300,71300,73700],
+['02-03',73300,73300,74900,74900],
+['02-04',73400,74000,74300,74600],
+['02-07',72400,73000,73500,73600],
+['02-08',73000,73500,73800,74200],
+['02-09',74000,74700,74300,74700],
+['02-10',74700,75400,75600,75800],
+['02-11',74600,74900,75000,75500],
+['02-14',73100,73700,74400,74500],
+['02-15',73100,73700,74100,74200],
+['02-16',74200,74800,74600,74900],
+['02-17',74500,75000,75000,75600],
+['02-18',73700,74300,74600,74800],
+['02-21',72600,74200,73200,74300],
+['02-22',72800,73400,73000,73400],
+['02-23',72800,73000,73800,73800],
+['02-24',71300,71500,72300,72300],
+['02-25',71900,71900,72100,72600],
+['02-28',71000,72100,71100,72100]
+        ], true);
+
+      var options = {
+        legend:'none',
+        width: 1000,
+        height: 300,
+        axisTitlesPosition: 'none',
+        candlestick: {
+          fallingColor: {fill: "ee6b6e", stroke: 'ee6b6e', strokeWidth:0},
+          risingColor: {fill: "3944bc", stroke: '3944bc', strokeWidth:0}
+        },
+        series: [
+          {color: '444', strokeWidth:0, visibleInLegend: false}, {}, {},
+          {}
+        ],
+        animation: {
+          startup: true,
+          duration: 2000,
+          easing: 'inAndOut'
+        }
+      };
+
+        var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+  </script>
+  <div class="card">
+    <div id="chart_div"></div>
+  </div>
+</div>
+
+</html>

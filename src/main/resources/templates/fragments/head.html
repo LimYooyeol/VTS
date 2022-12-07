@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+  <th:block th:fragment="fragment-head">
+    <head>
+      <title>Title</title>
+
+      <!--Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+      <!-- Jquery -->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js" ></script>
+      <!-- Materialize CSS -->
+      <script type="text/javascript" th:src="@{/javascripts/materialize.min.js}"></script>
+
+      <!--Materialize CSS-->
+      <link th:href="@{/css/materialize.min.css}" rel="stylesheet" media="screen,projection"/>
+      <!--Custom CSS-->
+      <link th:href="@{/css/style.css}" rel="stylesheet"/>
+
+      <!-- Google Chart -->
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+      <script th:inline="javascript">
+          $(document).ready(function(){
+            $('.tabs').tabs();
+            $('.modal').modal();
+            $('.fixed-action-btn').floatingActionButton();
+            $('select').formSelect();
+            $('.dropdown-trigger').dropdown();
+          });
+
+          function maxLengthCheck(obj){
+              if(obj.value.length > obj.maxLength)
+                  obj.value = obj.value.slice(0, obj.maxLength);
+          }
+      </script>
+
+    </head>
+  </th:block>
+
+</html>

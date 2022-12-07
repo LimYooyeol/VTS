@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+
+
+<div layout:fragment="content" class="content container">
+  [[${data_favGroup}]]
+  <script th:inline="javascript">
+    function delGroup(){
+      if(confirm("삭제할까요 ?")){
+        var gn = $("#interest_group option:selected").text();
+        console.log("delete group name : ", gn);
+
+        /*
+        var req = {mno: mno, gn: gn};
+
+        $.post(url, req, function(res){
+          if(!res)  M.toast({html: "삭제 실패"});
+          else  M.toast({html: "삭제 성공"});
+        });
+        */
+      }
+    }
+    function addGroup(){
+      var agf = $('#addGroupField');
+
+      if(agf.hasClass('hide')){
+        agf.removeClass('hide');
+        $('#input_gn').focus();
+      }
+      else {
+        if(confirm("추가할까요 ?")){
+          var gn = $('#input_gn').val();
+
+          /*
+          var req = {mno: mno, gn: gn};
+
+          $.post(url, req, function(res){
+            if(!res)  M.toast({html:"추가 실패"});
+            else      M.toast({html: "추가 완료"});
+          });
+          */
+
+          // rollback input group anyway
+          $('#input_gn').val('');
+          agf.addClass('hide');
+        }
+      }
+    }
+
+    function btnAddStockOnGroup(){
+      M.Modal.getInstance($('#modalAddStockOnGroup')).open();
+    }
+
+    function addStockOnGroup(){
+      if(confirm("추가할까요 ?")){
+        // ajax post
+
+        M.toast({html: "추가완료"});
+      }
+    }
+
+    function delStockOnGroup(cno){
+      if(confirm("삭제할까요 ?")){
+        // ajax post
+
+        M.toast({html: "삭제완료"});
+      }
+    }
+
+  </script>
+  <div class="modal" id="modalAddStockOnGroup">
+    <div class="modal-content">
+      <table class="highlight">
+        <thead>
+        <tr>
+          <th>종목코드</th>
+          <th>기업명</th>
+          <th>개요</th>
+          <th>상장주식수</th>
+          <th>섹터</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row: ${data_addStock}" th:onclick="alert('a')">
+          <td th:each="header: ${header_addStock}" th:text="${row.get(header)}"></td>
+        </tr>
+        </tbody>
+      </table>
+      <form>
+        <div class="input-field">
+          <input id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card">
+
+    <div class="row">
+      <div class="input-field col s4">
+        <select id="interest_group">
+          <option value="" disabled selected>관심그룹</option>
+          <option th:each="gn, i : ${data_favGroup}" th:value="${i.count}" th:text="${gn.group_name}" th:id="'g_'+${gn.group_name}"></option>
+        </select>
+        <label>관심 그룹을 선택해주세요</label>
+      </div>
+      <div class="input-field col s4">
+        <div class="input-field col s12 hide" id="addGroupField">
+          <input id="input_gn" type="text" data-length="100">
+          <label for="input_gn">새 그룹 이름을 입력해주세요</label>
+        </div>
+      </div>
+      <div class="input-field col s4">
+        <button class="btn right no-margin" th:onclick="delGroup()">그룹 삭제</button>
+        <button class="btn right no-margin" th:onclick="addGroup()">그룹 추가</button>
+      </div>
+    </div>
+
+    <table class="striped centered">
+      <thead>
+      <tr>
+        <th>종목코드</th>
+        <th>종목명</th>
+        <th>현재가</th>
+        <th>등락률</th>
+        <th>거래량</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="row: ${data_fav}">
+        <td th:each="header: ${header_fav}" th:text="${row.get(header)}"></td>
+        <td><a style="color:#D00" th:onclick="delStockOnGroup(this.getAttribute('cno'))" th:cno="${row.get('cno')}"><i class="material-icons text-red">delete</i></a></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <button class="btn" id="add" th:onclick="btnAddStockOnGroup()">종목 추가</button>
+  </div>
+</div>
+
+</html>
