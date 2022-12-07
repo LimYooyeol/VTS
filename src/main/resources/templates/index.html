@@ -29,7 +29,7 @@
                 </div>
                 <div id="list_inc" class="col s12">
                     <table>
-                        <tr th:each="data : ${data_list_top}">
+                        <tr th:each="data : ${data_list_inc}">
                             <td th:text="${data.cname}"></td>
                             <td th:text="${data.priceVO.close}"></td>
                             <td th:text="${data.priceVO.changeRate}"></td>
@@ -39,7 +39,7 @@
                 </div>
                 <div id="list_dec" class="col s12">
                     <table>
-                        <tr th:each="data : ${data_list_top}">
+                        <tr th:each="data : ${data_list_dec}">
                             <td th:text="${data.cname}"></td>
                             <td th:text="${data.priceVO.close}"></td>
                             <td th:text="${data.priceVO.changeRate}"></td>
