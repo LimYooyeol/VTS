@@ -19,31 +19,31 @@
                 </div>
                 <div id="list_top" class="col s12">
                     <table>
-                        <tr>
-                            <td>기업1</td>
-                            <td>1050</td>
-                            <td>140</td>
-                            <td>[[${#numbers.formatDecimal((((140+1050)/1050.0)-1)*100.0,2,2)}]]</td>
+                        <tr th:each="data : ${data_list_top}">
+                            <td th:text="${data.cname}"></td>
+                            <td th:text="${data.price}"></td>
+                            <td th:text="${data.price}"></td>
+                            <td>[[rate]]</td>
                         </tr>
                     </table>
                 </div>
                 <div id="list_inc" class="col s12">
                     <table>
-                        <tr>
-                            <td>기업2</td>
-                            <td>1050</td>
-                            <td>140</td>
-                            <td>[[${#numbers.formatDecimal((((140+1050)/1050.0)-1)*100.0,2,2)}]]</td>
+                        <tr th:each="data : ${data_list_top}">
+                            <td th:text="${data.cname}"></td>
+                            <td th:text="${data.price}"></td>
+                            <td th:text="${data.price}"></td>
+                            <td>[[rate]]</td>
                         </tr>
                     </table>
                 </div>
                 <div id="list_dec" class="col s12">
                     <table>
-                        <tr>
-                            <td>기업3</td>
-                            <td>1050</td>
-                            <td>140</td>
-                            <td>[[${#numbers.formatDecimal((((140+1050)/1050.0)-1)*100.0,2,2)}]]</td>
+                        <tr th:each="data : ${data_list_top}">
+                            <td th:text="${data.cname}"></td>
+                            <td th:text="${data.price}"></td>
+                            <td th:text="${data.price}"></td>
+                            <td>[[rate]]</td>
                         </tr>
                     </table>
                 </div>

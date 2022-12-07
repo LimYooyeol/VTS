@@ -19,10 +19,10 @@ public class MainController {
 //    , @PathVariable String type
     @GetMapping("/")
     public String a(Model model){
-        List<String> headers = Arrays.asList("cno", "cname", "price", "change_rate", "volume");
-        List<String> headers2 = Arrays.asList("cno", "cname", "overview", "volume", "sector");
-        List<String> headers3 = Arrays.asList("cno", "cname", "type", "price", "quantity", "order_time", "state");
-        List<String> headers4 = Arrays.asList("cno", "cname", "quantity", "appraisal", "loss", "rate", "price_cur", "price_buy");
+        List<String> headers_stock_fav = Arrays.asList("cno", "cname", "price", "change_rate", "volume");
+        List<String> headers_stock = Arrays.asList("cno", "cname", "overview", "volume", "sector");
+        List<String> headers_history = Arrays.asList("cno", "cname", "type", "price", "quantity", "order_time", "state");
+        List<String> headers_possessed = Arrays.asList("cno", "cname", "quantity", "appraisal", "loss", "rate", "price_cur", "price_buy");
         List<Map<String, Object>> rows = new ArrayList<>();
         List<Map<String, Object>> data = new ArrayList<>();
         List<Map<String, Object>> data2 = new ArrayList<>();
