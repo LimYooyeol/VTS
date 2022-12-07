@@ -5,8 +5,9 @@
 
 <mapper namespace="com.stock.db.mapper.BoardMapper">
 
-    <select id="getBoards" parameterType="com.stock.db.dto.Board.Criteria"
-            resultType="com.stock.db.dto.Board.BoardPreviewDto">
+
+    <select id="getBoards" parameterType="com.stock.db.dto.Board.BoardCriteria"
+            resultType="com.stock.db.dto.Board.BoardDetailDto">
         <if test = "writer == null">
             SELECT b.*, m.nickname, c.cname
             FROM BOARD b join MEMBER M on b.mno = m.mno left join CORPORATION c on c.cno = b.cno
@@ -92,7 +93,7 @@
     </select>
 
 
-    <select id="getMaxPageNum" parameterType="com.stock.db.dto.Board.Criteria"
+    <select id="getMaxPageNum" parameterType="com.stock.db.dto.Board.BoardCriteria"
             resultType="_int">
         <if test = "writer == null">
             SELECT (count(*)-1) DIV #{size} + 1
@@ -188,9 +189,9 @@
         WHERE bno = #{bno};
     </delete>
 
-    <select id="findByBno" resultType="com.stock.db.domain.BoardVO">
-        SELECT *
-        FROM BOARD
+    <select id="findByBno" resultType="com.stock.db.dto.Board.BoardDetailDto">
+        SELECT B.*, M.nickname, C.cname
+        FROM BOARD B JOIN MEMBER M ON B.Mno = M.Mno LEFT JOIN CORPORATION C ON B.Cno = C.Cno
         WHERE bno = #{bno};
     </select>
 

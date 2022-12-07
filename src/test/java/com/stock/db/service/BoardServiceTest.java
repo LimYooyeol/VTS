@@ -1,9 +1,8 @@
 package com.stock.db.service;
 
-import com.stock.db.domain.BoardVO;
-import com.stock.db.dto.Board.BoardPreviewDto;
+import com.stock.db.dto.Board.BoardCriteria;
+import com.stock.db.dto.Board.BoardDetailDto;
 import com.stock.db.dto.Board.BoardWriteDto;
-import com.stock.db.dto.Board.Criteria;
 import com.stock.db.dto.Member.MemberSignUpDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,7 +34,7 @@ class BoardServiceTest {
 
         // when
         int bno = boardService.insertBoard(boardWriteDto);
-        BoardVO findBoard = boardService.findByBno(bno);
+        BoardDetailDto findBoard = boardService.findByBno(bno);
 
         // then
         assertEquals(bno, boardWriteDto.getBno());
@@ -54,7 +53,7 @@ class BoardServiceTest {
 
         // when
         int bno = boardService.insertBoard(boardWriteDto);
-        BoardVO findBoard = boardService.findByBno(bno);
+        BoardDetailDto findBoard = boardService.findByBno(bno);
 
         // then
         assertEquals(bno, boardWriteDto.getBno());
@@ -76,14 +75,14 @@ class BoardServiceTest {
         insertDomesticStockBoards(mno, cno, insertNum1);
         insertEtcBoards(mno, insertNum2);
 
-        Criteria criteria1 = new Criteria(0,2, 5);
-        Criteria criteria2 = new Criteria(1, 2, 5);
-        Criteria criteria3 = new Criteria(2, 1, 5);
+        BoardCriteria boardCriteria1 = new BoardCriteria(0,2, 5);
+        BoardCriteria boardCriteria2 = new BoardCriteria(1, 2, 5);
+        BoardCriteria boardCriteria3 = new BoardCriteria(2, 1, 5);
 
         // when
-        List<BoardPreviewDto> page1 = boardService.getPage(criteria1);
-        List<BoardPreviewDto> page2 = boardService.getPage(criteria2);
-        List<BoardPreviewDto> page3 = boardService.getPage(criteria3);
+        List<BoardDetailDto> page1 = boardService.getPage(boardCriteria1);
+        List<BoardDetailDto> page2 = boardService.getPage(boardCriteria2);
+        List<BoardDetailDto> page3 = boardService.getPage(boardCriteria3);
 
         // then
         assertNotNull(page1);
@@ -99,12 +98,12 @@ class BoardServiceTest {
     @Test
     public void 검색_조건_테스트(){
         // given
-        Criteria criteria = new Criteria(0, 1,  5);
-        criteria.setCno("005930");
-        criteria.setTitle(null);
+        BoardCriteria boardCriteria = new BoardCriteria(0, 1,  5);
+        boardCriteria.setCno("005930");
+        boardCriteria.setTitle(null);
 
         // when
-        List<BoardPreviewDto> page = boardService.getPage(criteria);
+        List<BoardDetailDto> page = boardService.getPage(boardCriteria);
 
         // then
         assertNotNull(page);
@@ -121,12 +120,12 @@ class BoardServiceTest {
         insertEtcBoards(mno, 3);
         insertDomesticStockBoards(mno, "005930", 5);
 
-        Criteria criteria = new Criteria(2, 1, 5);
-        criteria.setCno(null);
-        criteria.setTitle("6");
+        BoardCriteria boardCriteria = new BoardCriteria(2, 1, 5);
+        boardCriteria.setCno(null);
+        boardCriteria.setTitle("6");
 
         // when
-        List<BoardPreviewDto> page = boardService.getPage(criteria);
+        List<BoardDetailDto> page = boardService.getPage(boardCriteria);
 
         // then
         assertEquals(0, page.size());
@@ -138,12 +137,12 @@ class BoardServiceTest {
         insertEtcBoards(mno, 3);
         insertDomesticStockBoards(mno, "005930", 5);
 
-        Criteria criteria = new Criteria(2, 1, 5);
-        criteria.setCno(null);
-        criteria.setWriter("스트");
+        BoardCriteria boardCriteria = new BoardCriteria(2, 1, 5);
+        boardCriteria.setCno(null);
+        boardCriteria.setWriter("스트");
 
         // when
-        List<BoardPreviewDto> page = boardService.getPage(criteria);
+        List<BoardDetailDto> page = boardService.getPage(boardCriteria);
 
         // then
         assertEquals(3, page.size());
@@ -155,10 +154,10 @@ class BoardServiceTest {
         int mno = createTestMember();
         insertEtcBoards(mno, 4);
         insertDomesticStockBoards(mno, "005930", 10);
-        Criteria criteria = new Criteria(1, 1, 5, null, null, null);
+        BoardCriteria boardCriteria = new BoardCriteria(1, 1, 5, null, null, null);
 
         // when
-        int maxPageNum = boardService.getMaxPageNum(criteria);
+        int maxPageNum = boardService.getMaxPageNum(boardCriteria);
 
         // then
         assertEquals(3, maxPageNum);
@@ -198,7 +197,7 @@ class BoardServiceTest {
         }
     }
 
-    public boolean is_sorted(List<BoardPreviewDto> findBoards){
+    public boolean is_sorted(List<BoardDetailDto> findBoards){
         for(int i = 0; i < findBoards.size() - 1; i++){
             if(findBoards.get(i).getBno() < findBoards.get(i + 1).getBno() ){
                 return false;

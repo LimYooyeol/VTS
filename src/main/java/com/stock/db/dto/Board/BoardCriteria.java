@@ -7,7 +7,7 @@ import lombok.Setter;
     @brief  : 게시물 페이징 시 사용
  */
 @Getter @Setter
-public class Criteria {
+public class BoardCriteria {
 
     private int page;
     private int size;
@@ -21,13 +21,13 @@ public class Criteria {
 
     private String writer;
 
-    public Criteria(int category, int page, int size){
+    public BoardCriteria(int category, int page, int size){
         this.category = category;
         this.page = page;
         this.size = size;
     }
 
-    public Criteria(int category, int page, int size, String cno, String title, String writer) {
+    public BoardCriteria(int category, int page, int size, String cno, String title, String writer) {
         this.category = category;
         this.page = page;
         this.size = size;

@@ -2,11 +2,10 @@ package com.stock.db.dto.Board;
 
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-public class BoardPreviewDto {
+public class BoardDetailDto {
     // 게시물 정보
     private int bno;
 

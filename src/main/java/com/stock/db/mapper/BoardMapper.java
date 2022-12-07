@@ -1,9 +1,9 @@
 package com.stock.db.mapper;
 
 import com.stock.db.domain.BoardVO;
-import com.stock.db.dto.Board.BoardPreviewDto;
+import com.stock.db.dto.Board.BoardCriteria;
+import com.stock.db.dto.Board.BoardDetailDto;
 import com.stock.db.dto.Board.BoardWriteDto;
-import com.stock.db.dto.Board.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public interface BoardMapper {
         @param  :
             bno : 조회할 게시물 번호
      */
-    public BoardVO findByBno(int Bno);
+    public BoardDetailDto findByBno(int Bno);
 
     /*
         @brief  : 게시물 작성
@@ -39,17 +39,17 @@ public interface BoardMapper {
         @brief  : 게시물 목록(페이지) 조회
         @return : 조회한 게시물 목록
         @param  :
-            criteria : 검색 정보(카테고리, 페이지 번호, 페이지 당 게시물 수 등)
+            boardCriteria : 검색 정보(카테고리, 페이지 번호, 페이지 당 게시물 수 등)
      */
-    public List<BoardPreviewDto> getBoards(Criteria criteria);
+    public List<BoardDetailDto> getBoards(BoardCriteria boardCriteria);
 
     /*
         @brief  : 해당 검색 조건에서 가능한 페이지 최대 값 조회
         @return : 해당 검색 조건에서 가능한 페이지 최대 값
         @param  :
-            criteria : 검색 정보(카테고리, 페이지 번호 등)
+            boardCriteria : 검색 정보(카테고리, 페이지 번호 등)
      */
-    public int getMaxPageNum(Criteria criteria);
+    public int getMaxPageNum(BoardCriteria boardCriteria);
 
     /*
         @brief  : 최근 게시물 조회

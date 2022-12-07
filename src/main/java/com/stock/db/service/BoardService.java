@@ -1,9 +1,9 @@
 package com.stock.db.service;
 
 import com.stock.db.domain.BoardVO;
-import com.stock.db.dto.Board.BoardPreviewDto;
+import com.stock.db.dto.Board.BoardCriteria;
+import com.stock.db.dto.Board.BoardDetailDto;
 import com.stock.db.dto.Board.BoardWriteDto;
-import com.stock.db.dto.Board.Criteria;
 import com.stock.db.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,11 +35,11 @@ public class BoardService {
         @return : 조회한 게시물 목록
         @param  :
             category : [0: 전체, 1: 국내 주식, 2: 기타]
-            criteria : 페이징 정보(페이지 번호, 페이지 당 게시물 수 등)
+            boardCriteria : 페이징 정보(페이지 번호, 페이지 당 게시물 수 등)
      */
     @Transactional(readOnly = true)
-    public List<BoardPreviewDto> getPage(Criteria criteria){
-        return boardMapper.getBoards(criteria);
+    public List<BoardDetailDto> getPage(BoardCriteria boardCriteria){
+        return boardMapper.getBoards(boardCriteria);
     }
 
     /*
@@ -49,7 +49,7 @@ public class BoardService {
             bno : 게시물 번호
      */
     @Transactional(readOnly = true)
-    public BoardVO findByBno(int bno){
+    public BoardDetailDto findByBno(int bno){
         return boardMapper.findByBno(bno);
     };
 
@@ -76,8 +76,8 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public int getMaxPageNum(Criteria criteria){
-        return boardMapper.getMaxPageNum(criteria);
+    public int getMaxPageNum(BoardCriteria boardCriteria){
+        return boardMapper.getMaxPageNum(boardCriteria);
     }
 
 }

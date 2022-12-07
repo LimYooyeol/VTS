@@ -2,6 +2,7 @@ package com.stock.db.service;
 
 import com.stock.db.domain.BoardVO;
 import com.stock.db.domain.ReplyVO;
+import com.stock.db.dto.Board.BoardDetailDto;
 import com.stock.db.dto.Board.BoardWriteDto;
 import com.stock.db.dto.Member.MemberSignUpDto;
 import com.stock.db.dto.Reply.ReplyDto;
@@ -117,7 +118,7 @@ class ReplyServiceTest {
 
         // when
         boardService.deleteBoard(bno);
-        BoardVO findBoard = boardService.findByBno(bno);
+        BoardDetailDto findBoard = boardService.findByBno(bno);
         List<ReplyVO> replies = replyService.findRepliesByBno(bno);
 
         // then

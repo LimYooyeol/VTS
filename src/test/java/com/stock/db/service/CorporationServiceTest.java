@@ -1,6 +1,7 @@
 package com.stock.db.service;
 
 import com.stock.db.domain.CorporationVO;
+import com.stock.db.dto.Corporation.CorporationCriteria;
 import com.stock.db.dto.Corporation.SectorChangeRateDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -65,4 +66,31 @@ class CorporationServiceTest {
         assertEquals(findNum, findSectors.size());
         System.out.println(findSectors);
     }
+
+    @Test
+    public void 기업_검색_테스트(){
+        // given
+        CorporationCriteria criteria = new CorporationCriteria(2, 5, 3, null, 0, 1);
+
+        // when
+        List<CorporationVO> page = corporationService.getPage(criteria);
+
+        // then
+        assertNotNull(page);
+        //assertEquals(1, page.size());
+        System.out.println(page);
+    }
+
+    @Test
+    public void 최대_페이지_번호_테스트(){
+        // given
+        CorporationCriteria criteria = new CorporationCriteria(2, 50, 3, null, null, null);
+
+        // when
+        int maxPageNum = corporationService.getMaxPageNum(criteria);
+
+        // then
+        assertEquals(4, maxPageNum);
+    }
+
 }

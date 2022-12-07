@@ -2,10 +2,11 @@ package com.stock.db.domain;
 
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
-@Getter
+@Getter @ToString
 public class PriceVO {
     private String cno;
     private LocalDate date;

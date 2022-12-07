@@ -31,6 +31,69 @@
         order by p.change_rate desc limit #{num};
     </select>
 
+    <select id="getMaxPageNum" parameterType="com.stock.db.dto.Corporation.CorporationCriteria"
+        resultType="_int">
+        SELECT (COUNT(*)-1) DIV #{size} + 1
+        FROM CORPORATION C JOIN PRICE P ON C.Cno = P.Cno
+        where P.date = date_format(now(), '%Y-%m-%d')
+        <if test="min != null">
+            AND #{min} &lt;= P.change_rate*100 and P.change_rate*100 &lt;= #{max}
+            <if test="cname != null">
+                AND C.cname like CONCAT('%', #{cname},'%')
+            </if>
+        </if>
+        <if test="min == null">
+            <if test="cname != null">
+                AND C.cname LIKE CONCAT('%', #{cname},'%')
+            </if>
+        </if>
+
+        <if test="sorting == 0">
+            ORDER BY C.Cno
+        </if>
+        <if test="sorting == 1">
+            ORDER BY C.CNO DESC
+        </if>
+        <if test="sorting == 2">
+            ORDER BY P.change_rate
+        </if>
+        <if test="sorting == 3">
+            ORDER BY P.change_rate DESC
+        </if>
+
+    </select>
+
+    <select id="getPage" resultMap="corpMap" parameterType="com.stock.db.dto.Corporation.CorporationCriteria">
+        SELECT *
+        FROM CORPORATION C JOIN PRICE P ON C.Cno = P.Cno
+        where P.date = date_format(now(), '%Y-%m-%d')
+        <if test="min != null">
+            AND #{min} &lt;= P.change_rate*100 and P.change_rate*100 &lt;= #{max}
+            <if test="cname != null">
+                AND C.cname like CONCAT('%', #{cname},'%')
+            </if>
+        </if>
+        <if test="min == null">
+            <if test="cname != null">
+                AND C.cname LIKE CONCAT('%', #{cname},'%')
+            </if>
+        </if>
+
+        <if test="sorting == 0">
+            ORDER BY C.Cno
+        </if>
+        <if test="sorting == 1">
+            ORDER BY C.CNO DESC
+        </if>
+        <if test="sorting == 2">
+            ORDER BY P.change_rate
+        </if>
+        <if test="sorting == 3">
+            ORDER BY P.change_rate DESC
+        </if>
+        LIMIT ${skip}, ${size};
+    </select>
+
     <select id="getTopRisingSectors" resultType="com.stock.db.dto.Corporation.SectorChangeRateDto">
         SELECT C.SECTOR, AVG(change_rate) AS change_rate
         FROM CORPORATION C JOIN PRICE P ON C.CNO = P.CNO

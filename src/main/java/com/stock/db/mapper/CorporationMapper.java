@@ -1,6 +1,7 @@
 package com.stock.db.mapper;
 
 import com.stock.db.domain.CorporationVO;
+import com.stock.db.dto.Corporation.CorporationCriteria;
 import com.stock.db.dto.Corporation.SectorChangeRateDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -34,4 +35,22 @@ public interface CorporationMapper {
             num : 조회할 섹터의 수(상위 몇 개 섹터까지 조회할 것인지)
      */
     public List<SectorChangeRateDto> getTopRisingSectors(int num);
+
+
+    /*
+        @brief  : 검색 조건에 해당하는 종목 목록 조회
+        @return : 검색 조건에 해당 하는 종목 목록
+        @param  :
+            corporationCriteria : 종목 검색 조건(페이징 정보, 정렬 조건, 등락률 필터, 종목명)
+     */
+    public List<CorporationVO> getPage(CorporationCriteria corporationCriteria);
+
+    /*
+        @brief  : 해당 검색 조건에서 최대 페이지 수 설정
+        @return : 해당 검색 조건에서 최대 페이지 수
+        @param  :
+            corporationCriteria : 종목 검색 조건(페이징 정보, 정렬 조건, 등락률 필터, 종목명)
+
+     */
+    public int getMaxPageNum(CorporationCriteria criteria);
 }
