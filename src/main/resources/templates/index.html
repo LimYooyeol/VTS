@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{layout/default_layout}">
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
 
 <div layout:fragment="content" class="content container">
     <div class="card row z-depth-5">
@@ -21,8 +21,8 @@
                     <table>
                         <tr th:each="data : ${data_list_top}">
                             <td th:text="${data.cname}"></td>
-                            <td th:text="${data.price}"></td>
-                            <td th:text="${data.price}"></td>
+                            <td th:text="${data.priceVO.close}"></td>
+                            <td th:text="${data.priceVO.changeRate}"></td>
                             <td>[[rate]]</td>
                         </tr>
                     </table>
@@ -31,8 +31,8 @@
                     <table>
                         <tr th:each="data : ${data_list_top}">
                             <td th:text="${data.cname}"></td>
-                            <td th:text="${data.price}"></td>
-                            <td th:text="${data.price}"></td>
+                            <td th:text="${data.priceVO.close}"></td>
+                            <td th:text="${data.priceVO.changeRate}"></td>
                             <td>[[rate]]</td>
                         </tr>
                     </table>
@@ -41,8 +41,8 @@
                     <table>
                         <tr th:each="data : ${data_list_top}">
                             <td th:text="${data.cname}"></td>
-                            <td th:text="${data.price}"></td>
-                            <td th:text="${data.price}"></td>
+                            <td th:text="${data.priceVO.close}"></td>
+                            <td th:text="${data.priceVO.changeRate}"></td>
                             <td>[[rate]]</td>
                         </tr>
                     </table>
@@ -69,7 +69,7 @@
                 </tr>
             </table>
             <h5>게시판</h5>
-<!--            <div th:insert="@{board}"></div>-->
+            <!--            <div th:insert="@{board}"></div>-->
         </div>
         <div class="col s4">
             <h5>코스피 지수</h5>

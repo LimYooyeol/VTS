@@ -47,6 +47,7 @@ class CorporationServiceTest {
 
         // then
         assertNotNull(findCorps);
+        assertNotNull(findCorps.get(0).getPriceVO());
         assertEquals(findNum, findCorps.size());
     }
 

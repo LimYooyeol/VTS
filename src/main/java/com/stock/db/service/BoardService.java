@@ -1,6 +1,7 @@
 package com.stock.db.service;
 
 import com.stock.db.domain.BoardVO;
+import com.stock.db.dto.Board.BoardPreviewDto;
 import com.stock.db.dto.Board.BoardWriteDto;
 import com.stock.db.dto.Board.Criteria;
 import com.stock.db.mapper.BoardMapper;
@@ -33,13 +34,13 @@ public class BoardService {
         @brief  : 게시물 목록(페이지) 조회
         @return : 조회한 게시물 목록
         @param  :
-            criteria : 페이징 정보(페이지 번호, 페이지 당 게시물 수)
+            category : [0: 전체, 1: 국내 주식, 2: 기타]
+            criteria : 페이징 정보(페이지 번호, 페이지 당 게시물 수 등)
      */
     @Transactional(readOnly = true)
-    public List<BoardVO> getPage(Criteria criteria){
-
-        return null;
-    };
+    public List<BoardPreviewDto> getPage(Criteria criteria){
+        return boardMapper.getBoards(criteria);
+    }
 
     /*
         @brief  : 게시물 번호로 조회
@@ -60,6 +61,23 @@ public class BoardService {
      */
     public int deleteBoard(int bno){
         return boardMapper.deleteBoard(bno);
+    }
+
+    /*
+        @brief  : 최근 게시물 조회
+        @return : 최근 num 개의 게시물
+        @param  :
+            num : 최근 몇 개의 게시물을 볼 것인지
+     */
+    @Transactional(readOnly = true)
+    public List<BoardVO> getNewBoards(){
+        int num = 5;
+        return boardMapper.getNewBoards(num);
+    }
+
+    @Transactional(readOnly = true)
+    public int getMaxPageNum(Criteria criteria){
+        return boardMapper.getMaxPageNum(criteria);
     }
 
 }

@@ -29,4 +29,17 @@
         WHERE Mno = #{mno};
     </update>
 
+    <select id="getTopUsers" resultType="com.stock.db.dto.Member.MemberNickNameDto">
+        SELECT M.Mno, M.Nickname
+        FROM MEMBER M
+        WHERE NOT EXISTS (
+            SELECT DISTINCT T.cno
+            FROM (SELECT cno FROM PRICE WHERE date = date_format(now(), '%Y-%m-%d') ORDER BY change_rate DESC LIMIT 3) as T
+            WHERE T.Cno
+            NOT IN (SELECT DISTINCT P.Cno FROM POSSESSES P WHERE P.Mno = M.Mno)
+        )
+        ORDER BY M.Deposit DESC
+        LIMIT #{num};
+    </select>
+
 </mapper>

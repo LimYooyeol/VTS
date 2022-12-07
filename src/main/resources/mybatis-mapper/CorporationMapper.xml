@@ -25,7 +25,7 @@
         <collection property="priceVO" resultMap="priceMap"/>
     </resultMap>
 
-    <select id = "getTopRisingCorporations" resultType="com.stock.db.domain.CorporationVO">
+    <select id = "getTopRisingCorporations" resultMap="corpMap" resultType="com.stock.db.domain.CorporationVO">
         select * from price p join corporation c on p.cno = c.cno
         where p.date = date_format(now(), '%Y-%m-%d')
         order by p.change_rate desc limit #{num};

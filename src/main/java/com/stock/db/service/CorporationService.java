@@ -40,7 +40,7 @@ public class CorporationService {
         List<CorporationVO> findCorps = corporationMapper.getTopRisingCorporations(num);
 
         /*
-            #휴장인 경우 처리하는 로직 추가하기
+            #fix: 휴장인 경우 처리하는 로직 추가하기
          */
 
         return findCorps;

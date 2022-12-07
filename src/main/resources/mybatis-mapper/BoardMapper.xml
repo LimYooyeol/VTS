@@ -5,6 +5,175 @@
 
 <mapper namespace="com.stock.db.mapper.BoardMapper">
 
+    <select id="getBoards" parameterType="com.stock.db.dto.Board.Criteria"
+            resultType="com.stock.db.dto.Board.BoardPreviewDto">
+        <if test = "writer == null">
+            SELECT b.*, m.nickname, c.cname
+            FROM BOARD b join MEMBER M on b.mno = m.mno left join CORPORATION c on c.cno = b.cno
+            <if test="category == 0">
+                <if test="cno != null and title == null">
+                    WHERE b.cno = #{cno}
+                </if>
+                <if test = "cno == null and title != null">
+                    WHERE b.title like CONCAT('%', #{title},'%')
+                </if>
+                <if test="cno != null and title != null">
+                    WHERE b.cno = #{cno} AND b.title like CONCAT('%', #{title},'%')
+                </if>
+            </if>
+            <if test="category == 1">
+                WHERE b.Cno IS NOT NULL
+                <if test="cno != null and title == null">
+                    AND b.cno = #{cno}
+                </if>
+                <if test = "cno == null and title != null">
+                    AND b.title like CONCAT('%', #{title},'%')
+                </if>
+                <if test="cno != null and title != null">
+                    AND b.cno = #{cno} AND b.title like CONCAT('%', #{title},'%')
+                </if>
+            </if>
+            <if test="category == 2">
+                WHERE b.Cno IS NULL
+                <if test="cno != null and title == null">
+                    AND b.cno = #{cno}
+                </if>
+                <if test = "cno == null and title != null">
+                    AND b.title like CONCAT('%', #{title},'%')
+                </if>
+                <if test="cno != null and title != null">
+                    AND b.cno = #{cno} and b.title like CONCAT('%', #{title},'%')
+                </if>
+            </if>
+            ORDER BY bno DESC
+            LIMIT ${skip}, ${size};
+        </if>
+        <if test = "writer != null">
+            SELECT b.*, m.nickname, c.cname
+            FROM BOARD b join MEMBER M on b.mno = m.mno left join CORPORATION c on c.cno = b.cno
+            <if test="category == 0">
+                <if test="cno != null and writer == null">
+                    WHERE b.cno = #{cno}
+                </if>
+                <if test = "cno == null and writer != null">
+                    WHERE m.nickname like CONCAT('%', #{writer},'%')
+                </if>
+                <if test="cno != null and writer != null">
+                    WHERE b.cno = #{cno} AND m.nickname like CONCAT('%', #{writer},'%')
+                </if>
+            </if>
+            <if test="category == 1">
+                WHERE b.Cno IS NOT NULL
+                <if test="cno != null and writer == null">
+                    AND b.cno = #{cno}
+                </if>
+                <if test = "cno == null and writer != null">
+                    AND m.nickname like CONCAT('%', #{writer},'%')
+                </if>
+                <if test="cno != null and writer != null">
+                    AND b.cno = #{cno} AND m.nickname like CONCAT('%', #{writer},'%')
+                </if>
+            </if>
+            <if test="category == 2">
+                WHERE b.Cno IS NULL
+                <if test="cno != null and writer == null">
+                    AND b.cno = #{cno}
+                </if>
+                <if test = "cno == null and writer != null">
+                    AND m.nickname like CONCAT('%', #{writer},'%')
+                </if>
+                <if test="cno != null and writer != null">
+                    AND b.cno = #{cno} and m.nickname like CONCAT('%', #{writer},'%')
+                </if>
+            </if>
+            ORDER BY bno DESC
+            LIMIT ${skip}, ${size};
+        </if>
+    </select>
+
+
+    <select id="getMaxPageNum" parameterType="com.stock.db.dto.Board.Criteria"
+            resultType="_int">
+        <if test = "writer == null">
+            SELECT (count(*)-1) DIV #{size} + 1
+            FROM BOARD b join MEMBER M on b.mno = m.mno left join CORPORATION c on c.cno = b.cno
+            <if test="category == 0">
+                <if test="cno != null and title == null">
+                    WHERE b.cno = #{cno}
+                </if>
+                <if test = "cno == null and title != null">
+                    WHERE b.title like CONCAT('%', #{title},'%')
+                </if>
+                <if test="cno != null and title != null">
+                    WHERE b.cno = #{cno} AND b.title like CONCAT('%', #{title},'%')
+                </if>
+            </if>
+            <if test="category == 1">
+                WHERE b.Cno IS NOT NULL
+                <if test="cno != null and title == null">
+                    AND b.cno = #{cno}
+                </if>
+                <if test = "cno == null and title != null">
+                    AND b.title like CONCAT('%', #{title},'%')
+                </if>
+                <if test="cno != null and title != null">
+                    AND b.cno = #{cno} AND b.title like CONCAT('%', #{title},'%')
+                </if>
+            </if>
+            <if test="category == 2">
+                WHERE b.Cno IS NULL
+                <if test="cno != null and title == null">
+                    AND b.cno = #{cno}
+                </if>
+                <if test = "cno == null and title != null">
+                    AND b.title like CONCAT('%', #{title},'%')
+                </if>
+                <if test="cno != null and title != null">
+                    AND b.cno = #{cno} and b.title like CONCAT('%', #{title},'%')
+                </if>
+            </if>
+        </if>
+        <if test = "writer != null">
+            SELECT (count(*)-1) DIV #{size} + 1
+            FROM BOARD b join MEMBER M on b.mno = m.mno left join CORPORATION c on c.cno = b.cno
+            <if test="category == 0">
+                <if test="cno != null and writer == null">
+                    WHERE b.cno = #{cno}
+                </if>
+                <if test = "cno == null and writer != null">
+                    WHERE m.nickname like CONCAT('%', #{writer},'%')
+                </if>
+                <if test="cno != null and writer != null">
+                    WHERE b.cno = #{cno} AND m.nickname like CONCAT('%', #{writer},'%')
+                </if>
+            </if>
+            <if test="category == 1">
+                WHERE b.Cno IS NOT NULL
+                <if test="cno != null and writer == null">
+                    AND b.cno = #{cno}
+                </if>
+                <if test = "cno == null and writer != null">
+                    AND m.nickname like CONCAT('%', #{writer},'%')
+                </if>
+                <if test="cno != null and writer != null">
+                    AND b.cno = #{cno} AND m.nickname like CONCAT('%', #{writer},'%')
+                </if>
+            </if>
+            <if test="category == 2">
+                WHERE b.Cno IS NULL
+                <if test="cno != null and writer == null">
+                    AND b.cno = #{cno}
+                </if>
+                <if test = "cno == null and writer != null">
+                    AND m.nickname like CONCAT('%', #{writer},'%')
+                </if>
+                <if test="cno != null and writer != null">
+                    AND b.cno = #{cno} and m.nickname like CONCAT('%', #{writer},'%')
+                </if>
+            </if>
+        </if>
+    </select>
+
     <insert id="insertBoard" parameterType="com.stock.db.dto.Board.BoardWriteDto">
         INSERT INTO BOARD(title, content, mno, cno)
         VALUES(#{title}, #{content}, #{mno}, #{cno});
@@ -25,5 +194,11 @@
         WHERE bno = #{bno};
     </select>
 
+    <select id="getNewBoards" resultType="com.stock.db.domain.BoardVO">
+        SELECT *
+        FROM BOARD
+        ORDER BY bno DESC
+        LIMIT #{num};
+    </select>
 
 </mapper>

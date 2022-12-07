@@ -1,6 +1,7 @@
 package com.stock.db.service;
 
 import com.stock.db.domain.MemberVO;
+import com.stock.db.dto.Member.MemberNickNameDto;
 import com.stock.db.dto.Member.MemberSignUpDto;
 import com.stock.db.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -56,5 +59,17 @@ public class MemberService implements UserDetailsService {
                 .password(memberVO.getPwd())
                 .roles(role)
                 .build();
+    }
+
+
+    /*
+        @brief  : 상승률 상위 3개 종목을 모두 보유하고 있는 회원 조회
+        @detail : num 명 이상일 경우 보유자산(deposit)이 많은 경우가 우위
+        @return : 상승률 상위 3개 종목을 모두 보유하고 있는 회원의 목록
+     */
+    public List<MemberNickNameDto> getTopUsers(){
+        int limit = 3;
+
+        return memberMapper.getTopUsers(limit);
     }
 }
