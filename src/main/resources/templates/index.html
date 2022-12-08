@@ -22,7 +22,8 @@
                         <tr th:each="data : ${data_list_top}">
                             <td th:text="${data.cname}"></td>
                             <td th:text="${data.priceVO.close}"></td>
-                            <td><span>[[${#numbers.formatDecimal(data.priceVO.changeRate*100, 2, 2)}]]</span><span class="red-text text-bold"> %</span></td>
+                            <td th:class="${data.priceVO.changeRate > 0 ? 'red-text' : 'blue-text'}"
+                                th:text="${#numbers.formatPercent(data.priceVO.changeRate, 2, 2)}"></td>
                         </tr>
                     </table>
                 </div>
@@ -31,7 +32,8 @@
                         <tr th:each="data : ${data_list_inc}">
                             <td th:text="${data.cname}"></td>
                             <td th:text="${data.priceVO.close}"></td>
-                            <td><span>[[${#numbers.formatDecimal(data.priceVO.changeRate*100, 2, 2)}]]</span><span class="red-text text-bold"> %</span></td>
+                            <td th:class="${data.priceVO.changeRate > 0 ? 'red-text' : 'blue-text'}"
+                                th:text="${#numbers.formatPercent(data.priceVO.changeRate, 2, 2)}"></td>
                         </tr>
                     </table>
                 </div>
@@ -40,7 +42,8 @@
                         <tr th:each="data : ${data_list_dec}">
                             <td th:text="${data.cname}"></td>
                             <td th:text="${data.priceVO.close}"></td>
-                            <td><span>[[${#numbers.formatDecimal(data.priceVO.changeRate*100, 2, 2)}]]</span><span class="red-text text-bold"> %</span></td>
+                            <td th:class="${data.priceVO.changeRate > 0 ? 'red-text' : 'blue-text'}"
+                                th:text="${#numbers.formatPercent(data.priceVO.changeRate, 2, 2)}"></td>
                         </tr>
                     </table>
                 </div>
@@ -51,7 +54,8 @@
             <table class="striped">
                 <tr th:each="data: ${data_list_sectors}">
                     <th th:text="${data.sector}"></th>
-                    <td><span>[[${#numbers.formatDecimal(data.changeRate*100 - 100, 2, 2)}]]</span><span class="red-text text-bold"> %</span></td>
+                    <td th:class="${data.changeRate > 0 ? 'red-text' : 'blue-text'}"
+                        th:text="${#numbers.formatPercent(data.changeRate, 2, 2)}"></td>
                 </tr>
             </table>
             <h5>게시판</h5>
@@ -61,7 +65,7 @@
             <h5>코스피 지수</h5>
             <img src="https://ssl.pstatic.net/imgfinance/chart/main/KOSPI.png?sidcode=1670389860607">
             <h5>오늘의 주식왕</h5>
-            <table>
+            <table class="striped">
                 <tr th:each="member: ${top_users}">
                     <td th_text="${member.nickname}"></td>
                 </tr>
