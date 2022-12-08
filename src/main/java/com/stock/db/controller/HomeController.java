@@ -33,7 +33,6 @@ public class HomeController {
 
     @GetMapping(value = "/")
     public String homePage(Model model, Principal principal){
-
         List<CorporationVO> topRisingCorporations = corporationService.getTopRisingCorporations();
         List<CorporationVO> topDropCorporations = corporationService.getTopDropCorporations();
         List<SectorChangeRateDto> topRisingSectors = corporationService.getTopRisingSectors();

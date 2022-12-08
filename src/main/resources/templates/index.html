@@ -22,8 +22,7 @@
                         <tr th:each="data : ${data_list_top}">
                             <td th:text="${data.cname}"></td>
                             <td th:text="${data.priceVO.close}"></td>
-                            <td th:text="${data.priceVO.changeRate}"></td>
-                            <td>[[rate]]</td>
+                            <td><span>[[${#numbers.formatDecimal(data.priceVO.changeRate*100, 2, 2)}]]</span><span class="red-text text-bold"> %</span></td>
                         </tr>
                     </table>
                 </div>
@@ -32,8 +31,7 @@
                         <tr th:each="data : ${data_list_inc}">
                             <td th:text="${data.cname}"></td>
                             <td th:text="${data.priceVO.close}"></td>
-                            <td th:text="${data.priceVO.changeRate}"></td>
-                            <td>[[rate]]</td>
+                            <td><span>[[${#numbers.formatDecimal(data.priceVO.changeRate*100, 2, 2)}]]</span><span class="red-text text-bold"> %</span></td>
                         </tr>
                     </table>
                 </div>
@@ -42,8 +40,7 @@
                         <tr th:each="data : ${data_list_dec}">
                             <td th:text="${data.cname}"></td>
                             <td th:text="${data.priceVO.close}"></td>
-                            <td th:text="${data.priceVO.changeRate}"></td>
-                            <td>[[rate]]</td>
+                            <td><span>[[${#numbers.formatDecimal(data.priceVO.changeRate*100, 2, 2)}]]</span><span class="red-text text-bold"> %</span></td>
                         </tr>
                     </table>
                 </div>
@@ -52,20 +49,9 @@
         <div class="col s4">
             <h5>최근상승종목섹터</h5>
             <table class="striped">
-                <tr>
-                    <th>전기제품</th>
-                    <td>전기1</td>
-                    <td>전기2</td>
-                </tr>
-                <tr>
-                    <th>교육서비스</th>
-                    <td>교육1</td>
-                    <td>교육2</td>
-                </tr>
-                <tr>
-                    <th>문구류</th>
-                    <td>문구1</td>
-                    <td>문구2</td>
+                <tr th:each="data: ${data_list_sectors}">
+                    <th th:text="${data.sector}"></th>
+                    <td><span>[[${#numbers.formatDecimal(data.changeRate*100 - 100, 2, 2)}]]</span><span class="red-text text-bold"> %</span></td>
                 </tr>
             </table>
             <h5>게시판</h5>
@@ -74,8 +60,12 @@
         <div class="col s4">
             <h5>코스피 지수</h5>
             <img src="https://ssl.pstatic.net/imgfinance/chart/main/KOSPI.png?sidcode=1670389860607">
-            <h5>환율</h5>
-            [[환율]]
+            <h5>오늘의 주식왕</h5>
+            <table>
+                <tr th:each="member: ${top_users}">
+                    <td th_text="${member.nickname}"></td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

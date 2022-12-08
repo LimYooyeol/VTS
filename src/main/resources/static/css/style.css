@@ -33,3 +33,7 @@ body {
 .no-margin {
   margin: 2% !important;
 }
+
+.text-bold {
+  font-weight: bold;
+}
