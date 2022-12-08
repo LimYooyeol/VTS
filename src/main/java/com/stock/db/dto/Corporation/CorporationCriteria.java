@@ -1,7 +1,9 @@
 package com.stock.db.dto.Corporation;
 
 import com.stock.db.controller.CorporationController;
+import lombok.Data;
 
+@Data
 public class CorporationCriteria {
 
     private int page;

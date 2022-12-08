@@ -29,10 +29,21 @@ public class CorporationController {
             @RequestParam(required = false, defaultValue = "-50") int min,
             @RequestParam(required = false, defaultValue = "50") int max,
             @RequestParam(required = false) String cname,
-            Model model, Principal principal
+            Model model, Principal principal, HttpServletRequest request
     ){
+        if(page < 1){
+            model.addAttribute("warning", "더 이상 게시물이 존재하지 않습니다.");
+            return "redirect:" + request.getHeader("Referer");
+        }
+
         CorporationCriteria criteria = new CorporationCriteria(page, 10, sorting, cname, min, max);
         List<CorporationVO> corpList = corporationService.getPage(criteria);
+
+        if(corpList.size() == 0){
+            model.addAttribute("warning", "더 이상 게시물이 존재하지 않습니다.");
+            return "redirect:" + request.getHeader("Referer");
+        }
+
         int maxPageNum = corporationService.getMaxPageNum(criteria);
 
         if(principal != null){
