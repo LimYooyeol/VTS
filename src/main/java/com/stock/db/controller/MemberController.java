@@ -24,7 +24,10 @@ public class MemberController {
     }
 
     @GetMapping("/members/signup")
-    public String memberSignUp(){
+    public String memberSignUp(Model model){
+
+        model.addAttribute("memberSignUpDto", new MemberSignUpDto());
+
         return "/member/signUpForm";
     }
 
@@ -45,6 +48,7 @@ public class MemberController {
 
         return "redirect:/";
     }
+
 
     @GetMapping("/members/mypage")
     public String myPage(Model model, Principal principal){

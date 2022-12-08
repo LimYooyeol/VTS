@@ -83,6 +83,13 @@
                 </tr>
             </table>
         </div>
+        <a th:if = "${user_id == null}" href="/members/login">로그인</a>
+        <form th:if="${user_id} != null" action = "/members/logout" method="post">
+            <button type="submit">로그아웃</button>
+        </form>
+        <a th:if = "${user_id != null}" th:text = "${user_id}" href="/members/mypage"></a>
+        <br>
+        <a href="/corporations/search">종목조회 페이지</a>
     </div>
 </div>
 

@@ -22,7 +22,7 @@ public class CorporationController {
     private final CorporationService corporationService;
     private final HoldersService holdersService;
 
-    @GetMapping(value = "corporations/search")
+    @GetMapping(value = "/corporations/search")
     public String searchCorporation(
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "0") int sorting,
@@ -43,10 +43,10 @@ public class CorporationController {
         model.addAttribute("criteria", criteria);
         model.addAttribute("max_page_num", maxPageNum);
 
-        return "corporations/searchCorporation";
+        return "stock/stock";
     }
 
-    @GetMapping(value = "corporations/{cno}")
+    @GetMapping(value = "/corporations/{cno}")
     public String corporationInfo(
             @PathVariable(required = true) String cno,
             Model model
@@ -55,7 +55,7 @@ public class CorporationController {
         return "corporation/info";
     }
 
-    @GetMapping(value = "corporations/details/{cno}")
+    @GetMapping(value = "/corporations/details/{cno}")
     public String corporationDetail(
             @PathVariable String cno,
             Model model, HttpServletRequest request, Principal principal

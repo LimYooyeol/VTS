@@ -32,6 +32,10 @@ public class SecurityConfig{
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
+                .cors().disable();
+
 
         http.formLogin()
                 .loginPage("/members/login")
@@ -40,6 +44,11 @@ public class SecurityConfig{
                 .usernameParameter("id")
                 .passwordParameter("pwd")
         ;
+
+        http.logout()
+                .logoutUrl("/members/logout")
+                .logoutSuccessUrl("/");
+
 
 
         http.authorizeRequests()
