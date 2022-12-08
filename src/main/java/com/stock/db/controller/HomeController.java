@@ -2,6 +2,7 @@ package com.stock.db.controller;
 
 import com.stock.db.domain.BoardVO;
 import com.stock.db.domain.CorporationVO;
+import com.stock.db.dto.Board.BoardPreviewDto;
 import com.stock.db.dto.Corporation.SectorChangeRateDto;
 import com.stock.db.dto.Member.MemberNickNameDto;
 import com.stock.db.service.BoardService;
@@ -37,7 +38,7 @@ public class HomeController {
         List<CorporationVO> topDropCorporations = corporationService.getTopDropCorporations();
         List<SectorChangeRateDto> topRisingSectors = corporationService.getTopRisingSectors();
         List<CorporationVO> topTradingCorporations = corporationService.getTopTradingCorporations();
-        List<BoardVO> newBoards = boardService.getNewBoards();
+        List<BoardPreviewDto> newBoards = boardService.getNewBoardsPreview();
         List<MemberNickNameDto> topUsers = memberService.getTopUsers();
 
         if(principal != null){

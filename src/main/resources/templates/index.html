@@ -62,6 +62,15 @@
                 </tr>
             </table>
             <h5>게시판</h5>
+            <span>최근 게시물</span><a href ="">더보기</a>
+            <table class="striped">
+                <tr th:each="board : ${new_boards}">
+                    <th th:text = "[ + ${board.cname} + ]"></th>
+                    <td th:text = "${board.title}"></td>
+                    <td th:text = "[ + ${board.reply} + ]"></td>
+                    <td th:text = "${board.writeDate}"></td>
+                </tr>
+            </table>
             <!--            <div th:insert="@{board}"></div>-->
         </div>
         <div class="col s4">
@@ -70,7 +79,7 @@
             <h5>오늘의 주식왕</h5>
             <table class="striped">
                 <tr th:each="member: ${top_users}">
-                    <td th_text="${member.nickname}"></td>
+                    <td th:text="${member.nickname}"></td>
                 </tr>
             </table>
         </div>

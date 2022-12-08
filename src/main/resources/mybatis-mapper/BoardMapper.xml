@@ -195,10 +195,11 @@
         WHERE bno = #{bno};
     </select>
 
-    <select id="getNewBoards" resultType="com.stock.db.domain.BoardVO">
-        SELECT *
-        FROM BOARD
-        ORDER BY bno DESC
+    <select id="getNewBoardsPreview" resultType="com.stock.db.dto.Board.BoardPreviewDto">
+        SELECT b.bno, c.cname, b.title, date_format(b.write_date, '%Y-%m-%d') as write_date, count(r.rno) as reply
+        FROM board b left join corporation c on b.cno = c.cno left join reply r on b.bno = r.bno
+        GROUP BY b.bno
+        ORDER BY b.bno DESC
         LIMIT #{num};
     </select>
 

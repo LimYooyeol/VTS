@@ -3,6 +3,7 @@ package com.stock.db.mapper;
 import com.stock.db.domain.BoardVO;
 import com.stock.db.dto.Board.BoardCriteria;
 import com.stock.db.dto.Board.BoardDetailDto;
+import com.stock.db.dto.Board.BoardPreviewDto;
 import com.stock.db.dto.Board.BoardWriteDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -57,6 +58,6 @@ public interface BoardMapper {
         @param  :
             num : 최근 몇 개의 게시물을 볼 것인지
      */
-    public List<BoardVO> getNewBoards(int num);
+    public List<BoardPreviewDto> getNewBoardsPreview(int num);
 
 }

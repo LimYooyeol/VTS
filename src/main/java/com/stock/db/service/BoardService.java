@@ -3,6 +3,7 @@ package com.stock.db.service;
 import com.stock.db.domain.BoardVO;
 import com.stock.db.dto.Board.BoardCriteria;
 import com.stock.db.dto.Board.BoardDetailDto;
+import com.stock.db.dto.Board.BoardPreviewDto;
 import com.stock.db.dto.Board.BoardWriteDto;
 import com.stock.db.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
@@ -70,9 +71,15 @@ public class BoardService {
             num : 최근 몇 개의 게시물을 볼 것인지
      */
     @Transactional(readOnly = true)
-    public List<BoardVO> getNewBoards(){
+    public List<BoardPreviewDto> getNewBoardsPreview(){
         int num = 5;
-        return boardMapper.getNewBoards(num);
+        List<BoardPreviewDto> newBoardsPreview = boardMapper.getNewBoardsPreview(num);
+        for(BoardPreviewDto b : newBoardsPreview){
+            if(b.getCname() == null)
+                b.setCname("기타");
+        }
+
+        return newBoardsPreview;
     }
 
     @Transactional(readOnly = true)
