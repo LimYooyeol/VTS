@@ -26,19 +26,19 @@
     </resultMap>
 
     <select id = "getTopRisingCorporations" resultMap="corpMap" resultType="com.stock.db.domain.CorporationVO">
-        select * from price p join corporation c on p.cno = c.cno
+        select * from PRICE p join CORPORATION c on p.cno = c.cno
         where p.date = date_format(now(), '%Y-%m-%d')
         order by p.change_rate desc limit #{num};
     </select>
 
     <select id = "getTopDropCorporations" resultMap="corpMap" resultType="com.stock.db.domain.CorporationVO">
-        select * from price p join corporation c on p.cno = c.cno
+        select * from PRICE p join CORPORATION c on p.cno = c.cno
         where p.date = date_format(now(), '%Y-%m-%d')
         order by p.change_rate limit #{num};
     </select>
 
     <select id = "getTopTradingCorporations" resultMap="corpMap" resultType="com.stock.db.domain.CorporationVO">
-        select * from corporation c join price p on p.cno = c.cno
+        select * from CORPORATION c join PRICE p on p.cno = c.cno
         where p.date = date_format(now(), '%Y-%m-%d')
         order by p.volume DESC limit #{num};
     </select>
