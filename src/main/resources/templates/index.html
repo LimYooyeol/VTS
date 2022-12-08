@@ -21,6 +21,7 @@
                     <table>
                         <tr th:each="data : ${data_list_top}">
                             <td th:text="${data.cname}"></td>
+                            <td th:text="${data.sharesOutstanding}"></td>
                             <td th:text="${data.priceVO.close}"></td>
                             <td th:class="${data.priceVO.changeRate > 0 ? 'red-text' : 'blue-text'}"
                                 th:text="${#numbers.formatPercent(data.priceVO.changeRate, 2, 2)}"></td>
@@ -31,6 +32,7 @@
                     <table>
                         <tr th:each="data : ${data_list_inc}">
                             <td th:text="${data.cname}"></td>
+                            <td th:text="${data.sharesOutstanding}"></td>
                             <td th:text="${data.priceVO.close}"></td>
                             <td th:class="${data.priceVO.changeRate > 0 ? 'red-text' : 'blue-text'}"
                                 th:text="${#numbers.formatPercent(data.priceVO.changeRate, 2, 2)}"></td>
@@ -41,6 +43,7 @@
                     <table>
                         <tr th:each="data : ${data_list_dec}">
                             <td th:text="${data.cname}"></td>
+                            <td th:text="${data.sharesOutstanding}"></td>
                             <td th:text="${data.priceVO.close}"></td>
                             <td th:class="${data.priceVO.changeRate > 0 ? 'red-text' : 'blue-text'}"
                                 th:text="${#numbers.formatPercent(data.priceVO.changeRate, 2, 2)}"></td>
