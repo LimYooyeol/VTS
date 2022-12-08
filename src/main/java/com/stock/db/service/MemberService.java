@@ -24,6 +24,11 @@ public class MemberService implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional(readOnly = true)
+    public long checkDeposit(String userId){
+        return memberMapper.findById(userId).getDeposit();
+    }
+
     /*
         @brief  : 회원가입 처리
         @return : 가입한 회원의 회원번호

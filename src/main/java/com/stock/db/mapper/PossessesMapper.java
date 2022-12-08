@@ -2,12 +2,23 @@ package com.stock.db.mapper;
 
 import com.stock.db.domain.PossessesVO;
 import com.stock.db.dto.Orders.MakeOrdersDto;
+import com.stock.db.dto.Possesses.PossessesDetailDto;
 import com.stock.db.dto.Possesses.PossessesDto;
 import com.stock.db.dto.Possesses.PossessesKey;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface PossessesMapper {
+
+    /*
+        @brief  : 사용자가 보유 중인 주식 조회
+        @return : 사용자가 보유 중인 주식 목록
+        @param  :
+            userId : 사용자 ID
+     */
+    public List<PossessesDetailDto> findPossessesByUserId(String userId);
 
     /*
         @brief  : 체결 시 주식 보유 정보 반영

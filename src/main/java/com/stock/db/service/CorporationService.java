@@ -26,24 +26,49 @@ public class CorporationService {
     @Transactional(readOnly = true)
     public CorporationVO findByCno(String cno){
 
-        return null;
+        return corporationMapper.findByCno(cno);
     }
 
 
     /*
         @brief  : 상승률 상위 종목 조회
         @return : 상승률 상위 종목 목록
-        @param  :
-            num : 조회할 종목의 수(상위 몇 개 종목까지 조회할 것인지)
      */
     @Transactional(readOnly = true)
-    public List<CorporationVO> getTopRisingCorporations(int num){
+    public List<CorporationVO> getTopRisingCorporations(){
+        int num = 10;
         List<CorporationVO> findCorps = corporationMapper.getTopRisingCorporations(num);
 
         /*
             #fix: 휴장인 경우 처리하는 로직 추가하기
          */
 
+        return findCorps;
+    }
+
+    /*
+        @brief  : 상승률 하위 종목 조회
+        @return : 상승률 하위 종목 목록
+     */
+    @Transactional(readOnly = true)
+    public List<CorporationVO> getTopDropCorporations(){
+        int num = 10;
+        List<CorporationVO> findCorps = corporationMapper.getTopDropCorporations(num);
+
+        // #fix: 휴장인 경우
+        return findCorps;
+    }
+
+    /*
+        @brief  : 거래량 상위 종목 조회
+        @return : 거래량 상위 종목 목록
+     */
+    @Transactional(readOnly = true)
+    public List<CorporationVO> getTopTradingCorporations(){
+        int num = 10;
+        List<CorporationVO> findCorps = corporationMapper.getTopTradingCorporations(num);
+
+        // #fix: 휴장인 경우
         return findCorps;
     }
 
@@ -55,7 +80,8 @@ public class CorporationService {
             num : 조회할 섹터의 수(상위 몇 개 섹터까지 조회할 것인지)
      */
     @Transactional(readOnly = true)
-    public List<SectorChangeRateDto> getTopRisingSectors(int num){
+    public List<SectorChangeRateDto> getTopRisingSectors(){
+        int num = 9;
         List<SectorChangeRateDto> findSectors = corporationMapper.getTopRisingSectors(num);
 
         /*

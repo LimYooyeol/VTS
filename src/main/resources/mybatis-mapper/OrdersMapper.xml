@@ -33,7 +33,7 @@
     <select id="getWaitOrders" resultType="com.stock.db.domain.OrdersVO">
         SELECT *
         FROM	ORDERS
-        WHERE Trade_time is null;
+        WHERE State == 'WAIT';
     </select>
 
 </mapper>

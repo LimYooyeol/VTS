@@ -44,26 +44,26 @@ class CorporationServiceTest {
         int findNum = 10;
 
         // when
-        List<CorporationVO> findCorps = corporationService.getTopRisingCorporations(10);
+        List<CorporationVO> findCorps = corporationService.getTopRisingCorporations();
 
         // then
         assertNotNull(findCorps);
         assertNotNull(findCorps.get(0).getPriceVO());
         assertEquals(findNum, findCorps.size());
+        System.out.println(findCorps);
     }
 
     @Test
     @DisplayName("상승률 상위 섹터 조회 성공")
     public void 상승률_상위섹터_조회_테스트(){
         // given
-        int findNum = 10;
 
         // when
-        List<SectorChangeRateDto> findSectors = corporationService.getTopRisingSectors(findNum);
+        List<SectorChangeRateDto> findSectors = corporationService.getTopRisingSectors();
 
         // then
         assertNotNull(findSectors);
-        assertEquals(findNum, findSectors.size());
+        assertEquals(9, findSectors.size());
         System.out.println(findSectors);
     }
 

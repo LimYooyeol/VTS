@@ -34,16 +34,21 @@ public class HomeController {
     @GetMapping(value = "/")
     public String homePage(Model model, Principal principal){
 
-        List<CorporationVO> topRisingCorporations = corporationService.getTopRisingCorporations(10);
-        List<SectorChangeRateDto> topRisingSectors = corporationService.getTopRisingSectors(9);
+        List<CorporationVO> topRisingCorporations = corporationService.getTopRisingCorporations();
+        List<CorporationVO> topDropCorporations = corporationService.getTopDropCorporations();
+        List<SectorChangeRateDto> topRisingSectors = corporationService.getTopRisingSectors();
+        List<CorporationVO> topTradingCorporations = corporationService.getTopTradingCorporations();
         List<BoardVO> newBoards = boardService.getNewBoards();
         List<MemberNickNameDto> topUsers = memberService.getTopUsers();
 
         if(principal != null){
             model.addAttribute("user_id", principal.getName().toString());
         }
-        model.addAttribute("top_rising_corps", topRisingCorporations);
-        model.addAttribute("top_rising_sectors", topRisingSectors);
+        model.addAttribute("data_list_inc", topRisingCorporations);
+        model.addAttribute("data_list_dec", topDropCorporations);
+        model.addAttribute("data_list_top", topTradingCorporations);
+
+        model.addAttribute("data_list_sectors", topRisingSectors);
         model.addAttribute("new_boards", newBoards);
         // #fix: 코스피 추가
         model.addAttribute("top_users", topUsers);

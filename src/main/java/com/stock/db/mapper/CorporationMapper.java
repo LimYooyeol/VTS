@@ -53,4 +53,19 @@ public interface CorporationMapper {
 
      */
     public int getMaxPageNum(CorporationCriteria criteria);
+
+    /*
+        @brief  : 상승률 하위 종목 조회
+        @return : 상승률 하위 종목 목록
+        @param  :
+            num : 조회할 종목의 수(상위 몇 개 종목까지 조회할 것인지)
+     */
+    public List<CorporationVO> getTopDropCorporations(int num);
+
+
+    /*
+        @brief  : 거래량 상위 종목 조회
+        @return : 거래량 상위 종목 목록
+     */
+    public List<CorporationVO> getTopTradingCorporations(int num);
 }
