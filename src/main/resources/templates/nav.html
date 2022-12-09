@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/corporations/search">종목조회</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="#">보유주식</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="#">관심종목</a>
+  <a class="nav-link" style="color:black" href="/members/login">로그인</a>
+</nav>
+
+
+<ul id="nav-mobile" class="right hide-on-med-and-down">
+  <li th:if="${logined==null}"><a class="waves-effect waves-light modal-trigger" href="#login">로그인</a></li>
+  <li th:if="${logined}"><a class="waves-effect waves-light" href="#logout">로그아웃</a></li>
+</ul>
+</body>
+</html>
