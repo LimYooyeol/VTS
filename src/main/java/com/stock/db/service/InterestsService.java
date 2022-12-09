@@ -1,6 +1,6 @@
 package com.stock.db.service;
 
-import com.stock.db.domain.InterestsVO;
+import com.stock.db.domain.CorporationVO;
 import com.stock.db.mapper.InterestsMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -52,7 +52,7 @@ public class InterestsService {
                 gname   : 관심그룹 이룸
          */
     @Transactional(readOnly = true)
-    public List<InterestsVO> findInterestsList(int mno, String gname){
+    public List<CorporationVO> findInterestsList(int mno, String gname){
         return interestsMapper.findInterestsList(mno, gname);
     }
 

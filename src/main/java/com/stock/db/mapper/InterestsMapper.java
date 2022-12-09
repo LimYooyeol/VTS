@@ -1,5 +1,6 @@
 package com.stock.db.mapper;
 
+import com.stock.db.domain.CorporationVO;
 import com.stock.db.domain.InterestsVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -36,6 +37,7 @@ public interface InterestsMapper {
             mno     : 회원번호
             gname   : 관심그룹 이룸
      */
-    public List<InterestsVO> findInterestsList(int mno, String gname);
+    public List<CorporationVO> findInterestsList(int mno, String gname);
 
+    public List<String> findInterestsGroups(int mno);
 }

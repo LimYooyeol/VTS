@@ -3,6 +3,8 @@ package com.stock.db.mapper;
 import com.stock.db.domain.InterestGroupVO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface InterestGroupMapper {
 
@@ -34,4 +36,5 @@ public interface InterestGroupMapper {
      */
     public InterestGroupVO findInterestGroup(int mno, String gname);
 
+    public List<String> findInterestGroupsByMno(int mno);
 }

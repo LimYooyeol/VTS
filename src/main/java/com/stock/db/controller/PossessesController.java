@@ -34,6 +34,6 @@ public class PossessesController {
         model.addAttribute("possesses", possesses);
         model.addAttribute("deposit", deposit);
 
-        return "";
+        return "mypage/possess";
     }
 }

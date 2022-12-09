@@ -5,6 +5,13 @@
 
 <mapper namespace="com.stock.db.mapper.InterestGroupMapper">
 
+    <select id="findInterestGroupsByMno" resultType="String">
+        SELECT gname
+        FROM INTEREST_GROUP
+        WHERE Mno = #{mno}
+        ORDER BY gname;
+    </select>
+
     <insert id="insertInterestGroup">
         INSERT INTO INTEREST_GROUP
         VALUES (#{mno}, #{gname});

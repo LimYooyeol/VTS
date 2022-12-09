@@ -1,147 +1,200 @@
-<!DOCTYPE html>
-<html lang="ko"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default_layout}">
+<html xmlns:th="http://www.thymeleaf.org">
 
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>거래내역</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
 
-<div layout:fragment="content" class="content container">
-  [[${data_favGroup}]]
-  <script th:inline="javascript">
-    function delGroup(){
-      if(confirm("삭제할까요 ?")){
-        var gn = $("#interest_group option:selected").text();
-        console.log("delete group name : ", gn);
-
-        /*
-        var req = {mno: mno, gn: gn};
-
-        $.post(url, req, function(res){
-          if(!res)  M.toast({html: "삭제 실패"});
-          else  M.toast({html: "삭제 성공"});
-        });
-        */
-      }
-    }
-    function addGroup(){
-      var agf = $('#addGroupField');
-
-      if(agf.hasClass('hide')){
-        agf.removeClass('hide');
-        $('#input_gn').focus();
-      }
-      else {
-        if(confirm("추가할까요 ?")){
-          var gn = $('#input_gn').val();
-
-          /*
-          var req = {mno: mno, gn: gn};
-
-          $.post(url, req, function(res){
-            if(!res)  M.toast({html:"추가 실패"});
-            else      M.toast({html: "추가 완료"});
-          });
-          */
-
-          // rollback input group anyway
-          $('#input_gn').val('');
-          agf.addClass('hide');
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/sign-in/">
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/components/dropdowns/">
+  <link rel="preconnect" href="https://AK7KMZKZHQ-dsn.algolia.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+  <style>
+        a {
+            color: black;
+            text-decoration: none;
         }
-      }
+
+        .v-line {
+            display: flex;
+            border-left: 2px solid black;
+            height: 700px;
+            float: left;
+            position: relative;
+        }
+
+        .cover {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 200px 30px 50px;
+        }
+
+        .cover2 {
+            display: flex;
+            justify-content: center;
+        }
+
+        .pl {
+            width: 200px;
+            border: 1px solid #C4C4C4;
+            box-sizing: border-box;
+            border-radius: 10px;
+            padding: 12px 13px;
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+        .pl:focus {
+            border: 1px solid #9B51E0;
+            box-sizing: border-box;
+            border-radius: 10px;
+            outline: 3px solid #F8E4FF;
+            border-radius: 10px;
+        }
+
+        #container {
+            display: flex;
+        }
+
+        #box-left {
+            flex: 2;
+        }
+
+        #box-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        #box-right {
+            flex: 20;
+            text-align: right;
+        }
+    </style>
+
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script>
+    $(function(){
+      $('#selectGroup').change(function(){
+        var form = $('#changeGroupForm');
+        $('#change_gname').val(this.value);
+
+        form.submit();
+      })
+    });
+
+    function addGroup(){
+      var gname = prompt('새 그룹명을 입력하세요.');
+      if(gname == null || gname == '') {return;}
+      var form = document.getElementById('newGroupForm');
+
+      document.getElementById("gname").value = gname;
+
+      form.submit();
     }
 
-    function btnAddStockOnGroup(){
-      M.Modal.getInstance($('#modalAddStockOnGroup')).open();
+    function deleteGroup(){
+      var form = document.getElementById('deleteGroupForm');
+
+      document.getElementById('delete_gname').value = document.getElementById('current_group').value;
+
+      form.submit();
     }
 
-    function addStockOnGroup(){
-      if(confirm("추가할까요 ?")){
-        // ajax post
+    function addInterest(){
+      var cno = document.getElementById("new_corp").value;
+      var form = document.getElementById('newCorpForm');
 
-        M.toast({html: "추가완료"});
-      }
-    }
+      document.getElementById('newCno').value = cno;
+      document.getElementById('curGname').value = document.getElementById('current_group').value;
 
-    function delStockOnGroup(cno){
-      if(confirm("삭제할까요 ?")){
-        // ajax post
-
-        M.toast({html: "삭제완료"});
-      }
+      form.submit();
     }
 
   </script>
-  <div class="modal" id="modalAddStockOnGroup">
-    <div class="modal-content">
-      <table class="highlight">
-        <thead>
-        <tr>
-          <th>종목코드</th>
-          <th>기업명</th>
-          <th>개요</th>
-          <th>상장주식수</th>
-          <th>섹터</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="row: ${data_addStock}" th:onclick="alert('a')">
-          <td th:each="header: ${header_addStock}" th:text="${row.get(header)}"></td>
-        </tr>
-        </tbody>
-      </table>
-      <form>
-        <div class="input-field">
-          <input id="search" type="search" required>
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-      </form>
-    </div>
+</head>
+
+<body>
+<input id = "current_group" type="hidden" th:value = "${current_group}">
+
+<form id="newCorpForm" action="/members/interests/new" method="post">
+  <input id = "newCno" name="cno" type="hidden">
+  <input id = "curGname" name="gname" type="hidden">
+</form>
+
+<form id="newGroupForm" action="/members/interests_group/new" method="post">
+  <input id = "gname" name="gname" type="hidden">
+</form>
+
+<form id = "changeGroupForm" action="/members/interests" method="get">
+  <input id="change_gname" name="gname" type="hidden">
+</form>
+
+<form id = "deleteGroupForm" action="/members/interests_group/delete" method="post">
+  <input id = "delete_gname" name="gname" type="hidden">
+</form>
+
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/corporations/search">종목조회</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/members/possession">보유주식</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/members/interests">관심종목</a>
+  <a th:if = "${user_id == null}" class="nav-link" style="color:black" href="/login">로그인</a>
+  <a th:if = "${user_id}" th:text = "${user_id}" href="/members/mypage"></a>
+  <a th:if = "${user_id != null}" class="nav-link" style="color:black" href="/logout">로그아웃</a>
+</nav>
+
+<div style=" justify-content: center; margin:50px 100px 30px;">
+  <div style="float:right; margin-top:50px">
+    <h1 style=" float:right;">거래 내역</h1>
   </div>
-  <div class="card">
-
-    <div class="row">
-      <div class="input-field col s4">
-        <select id="interest_group">
-          <option value="" disabled selected>관심그룹</option>
-          <option th:each="gn, i : ${data_favGroup}" th:value="${i.count}" th:text="${gn.group_name}" th:id="'g_'+${gn.group_name}"></option>
-        </select>
-        <label>관심 그룹을 선택해주세요</label>
-      </div>
-      <div class="input-field col s4">
-        <div class="input-field col s12 hide" id="addGroupField">
-          <input id="input_gn" type="text" data-length="100">
-          <label for="input_gn">새 그룹 이름을 입력해주세요</label>
-        </div>
-      </div>
-      <div class="input-field col s4">
-        <button class="btn right no-margin" th:onclick="delGroup()">그룹 삭제</button>
-        <button class="btn right no-margin" th:onclick="addGroup()">그룹 추가</button>
-      </div>
-    </div>
-
-    <table class="striped centered">
+  <div>
+    <select id="selectGroup">
+      <th:block>
+        <option th:each = "gname : ${groups}" th:text = "${gname}" th:selected="${gname} == ${current_group}"></option>
+      </th:block>
+    </select>
+    <button type="button" onclick="addGroup();">그룹 추가</button>
+    <button type="button" onclick="deleteGroup();">그룹 삭제</button>
+    <table class="table table-striped">
       <thead>
       <tr>
-        <th>종목코드</th>
-        <th>종목명</th>
-        <th>현재가</th>
-        <th>등락률</th>
-        <th>거래량</th>
-        <th></th>
+        <th scope="col">종목 코드</th>
+        <th scope="col">종목명</th>
+        <th scope="col">현재가</th>
+        <th scope="col">등락률</th>
+        <th scope="col">거래량</th>
       </tr>
       </thead>
       <tbody>
-      <tr th:each="row: ${data_fav}">
-        <td th:each="header: ${header_fav}" th:text="${row.get(header)}"></td>
-        <td><a style="color:#D00" th:onclick="delStockOnGroup(this.getAttribute('cno'))" th:cno="${row.get('cno')}"><i class="material-icons text-red">delete</i></a></td>
+      <tr th:each="interest : ${interests}">
+        <td th:text="${interest.cno}"></td>
+        <td>
+          <a th:text="${interest.cname}" th:href = "@{/corporations/market/{cno}(cno=${interest.cno})}"></a>
+        </td>
+        <td th:text="${interest.priceVO.close}"></td>
+        <td><span class="rate" th:text = "${interest.priceVO.changeRate}"></span></td>
+        <td th:text="${interest.priceVO.volume}"></td>
       </tr>
       </tbody>
     </table>
+    <p th:if="${msg}" th:text = "${msg}"></p>
 
-    <button class="btn" id="add" th:onclick="btnAddStockOnGroup()">종목 추가</button>
+    <select id = "new_corp">
+      <option th:each = "corp : ${corps}" th:value = "${corp.cno}" th:text = "${corp.cname}"></option>
+    </select>
+    <button th:if="${msg == null}" onclick="addInterest()">종목 추가</button>
   </div>
 </div>
-
+</body>
 </html>

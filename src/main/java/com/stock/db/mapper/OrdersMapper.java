@@ -2,6 +2,7 @@ package com.stock.db.mapper;
 
 import com.stock.db.domain.OrdersVO;
 import com.stock.db.dto.Orders.MakeOrdersDto;
+import com.stock.db.dto.Orders.OrdersDetailDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -42,4 +43,6 @@ public interface OrdersMapper {
         @return : 대기 중인 주문 목록
      */
     public List<OrdersVO> getWaitOrders();
+
+    public List<OrdersDetailDto> getOrdersByMno(int mno);
 }

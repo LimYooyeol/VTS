@@ -76,12 +76,14 @@
 </head>
 <body class="bg-light">
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="#">KW-DBS</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="#">게시판</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="#">종목조회</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="#">보유주식</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="#">관심종목</a>
-    <a class="nav-link" style="color:black" href="#">로그인</a>
+    <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
+    <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
+    <a class="nav-link" style="color:gray; font-size:26px" href="/corporations/search">종목조회</a>
+    <a class="nav-link" style="color:gray; font-size:26px" href="/members/possession">보유주식</a>
+    <a class="nav-link" style="color:gray; font-size:26px" href="/members/interests">관심종목</a>
+    <a th:if = "${user_id == null}" class="nav-link" style="color:black" href="/login">로그인</a>
+    <a th:if = "${user_id}" th:text = "${user_id}" href="/members/mypage"></a>
+    <a th:if = "${user_id != null}" class="nav-link" style="color:black" href="/logout">로그아웃</a>
 </nav>
 <div style="margin-top:10px;" id="container">
   <div id="box-left">

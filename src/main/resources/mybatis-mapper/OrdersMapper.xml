@@ -5,6 +5,13 @@
 
 <mapper namespace="com.stock.db.mapper.OrdersMapper">
 
+    <select id="getOrdersByMno" resultType="com.stock.db.dto.Orders.OrdersDetailDto">
+        SELECT C.Cno, C.Cname, O.is_sale, O.price, O.quantity, O.Ono, O.state
+        FROM ORDERS O JOIN CORPORATION C ON O.Cno = C.Cno
+        WHERE O.Mno = #{mno}
+        ORDER BY O.Ono DESC;
+    </select>
+
     <select id = "findByOno" resultType="com.stock.db.domain.OrdersVO">
         SELECT * FROM ORDERS WHERE ono = #{ono};
     </select>
