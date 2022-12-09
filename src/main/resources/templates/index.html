@@ -150,20 +150,6 @@
 
 <script async src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"></script>
 
-
-<div layout:fragment="content" class="content container">
-    <div class="card row z-depth-5">
-        <a th:if = "${user_id == null}" href="/members/login">로그인</a>
-        <form th:if="${user_id} != null" action = "/members/logout" method="post">
-            <button type="submit">로그아웃</button>
-        </form>
-        <a th:if = "${user_id != null}" th:text = "${user_id}" href="/members/mypage"></a>
-        <br>
-        <a href="/corporations/search">종목조회 페이지</a>
-    </div>
-</div>
-
-
 </body>
 
 </html>
