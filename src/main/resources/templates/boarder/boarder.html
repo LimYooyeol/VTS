@@ -4,8 +4,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
@@ -85,13 +85,32 @@
 </nav>
 <div style="margin-top:10px;" id="container">
   <div id="box-left">
-  <a href="#" style="font-weight: bold;margin-top:20px;margin-left:20px;float:left;">국내주식</a>
+      <a th:if="${criteria.category} == 0" onclick="setCategory(0)" style="font-weight: bold;margin-top:20px;margin-left:20px;float:left;">전체</a> <br>
+      <a th:if="${criteria.category} != 0" onclick="setCategory(0)" style="margin-top:20px;margin-left:20px;float:left;">전체</a> <br>
   <br>
-  <a href="#" style="font-weight: bold;margin-left:20px;float:left">기타</a>
+      <a th:if="${criteria.category} == 1" onclick="setCategory(1)" style="font-weight: bold;margin-top:20px;margin-left:20px;float:left;">국내주식</a>
+      <a th:if="${criteria.category} != 1" onclick="setCategory(1)" style="margin-top:20px;margin-left:20px;float:left;">국내주식</a>
+
+      <br>
+      <a th:if="${criteria.category} == 2" onclick="setCategory(2)" style="font-weight: bold;margin-left:20px;float:left">기타</a>
+      <a th:if="${criteria.category} != 2" onclick="setCategory(2)" style="margin-left:20px;float:left">기타</a>
 </div>
 <div class="v-line" id="box-center"></div>
 <div id="box-right">
   <h1  style="padding: 30px 200px 10px 10px; float:right">게시판</h1>
+    <div style="float:left;">
+        <b>종목</b>
+        <select id="cno_filter" class="pl" style="height:40px; width:100px;font-size:12px;">
+            <option value="" th:selected="${criteria.cno == null}">전체</option>
+            <option th:each = "info : ${corps_info}" th:value = "${info.cno}" th:text="${info.cname}"
+                th:selected="${criteria.cno} == ${info.cno}"></option>
+        </select>
+        <b>제목</b>
+        <input id = "title_filter" type="text" th:value = "${criteria.title}">
+        <b>작성자</b>
+        <input id = "writer_filter" type="text" th:value = "${criteria.writer}">
+        <button type="button" onclick="setFilter()">적용</button>
+    </div>
   <div style="padding:100px 200px 0px 10px;">
     <table class="table table-striped">
         <thead>
@@ -105,96 +124,110 @@
           </thead>
     
           <tbody>
-            <tr th:each="board: ${boardList}">
-                <td th:text="${board.index+1}"> </td>
-                <td th:text="${board.date}" onClick="location.href='boarder_read.html'" style="cursor:pointer;"></td>
-                <td th:text="${board.title}"> </td>
-                <td th:text="${board.writer}"> </td>
-                <td th:text="${board.stock}"> </td>
+            <tr th:each="board: ${boards}">
+                <td th:text="${board.bno}"> </td>
+                <td th:text="${board.writeDate}" onClick="location.href='boarder_read.html'" style="cursor:pointer;"></td>
+                <td> <a style="color:black" th:href="@{/boards/{bno}(bno=${board.bno})}" th:text = "${board.title}"></a></td>
+                <td th:text="${board.nickname}"> </td>
+                <td th:text="${board.cname}"> </td>
             </tr>
           </tbody>
       </table>
 
       <div style="display: flex; justify-content: center; margin-top:20px;">
-          <nav aria-label="..." >
-              <ul class="pagination">
-                  <li class="page-item">
-                      <a value="1" class="page-link active" href="#"  onclick="activeLink()">1</a>
-                  </li>
-                  <li class="page-item" aria-current="page">
-                      <a value="2" class="page-link" href="#" onclick="activeLink()">2</a>
-                  </li>
-                  <li class="page-item" >
-                      <a class="page-link"  value="3" href="#" onclick="activeLink()">3</a>
-                  </li>
+          <nav aria-label="Page navigation example">
+              <ul class="pagination pagination-sm"
+                  th:with = "start=(${criteria.page > 2 ? criteria.page - 2 : 1}),
+                                          last = ${start + 3}">
+                  <th:block>
+                      <li class="page-item">
+                          <a class="page-link" th:onclick="movePage(-1);">&lt;</a>
+                      </li>
+                      <li th:each = "page : ${#numbers.sequence(start, last)}"
+                          th:class="${page == criteria.page}?'active'">
+                          <a class="page-link" th:text = "${page}" th:param = "${page}" th:onclick="movePage(this.getAttribute('param'));"></a>
+                      </li>
+                      <li class="page-item">
+                          <a class="page-link" th:onclick="movePage(-2);">&gt;</a>
+                      </li>
+                  </th:block>
               </ul>
           </nav>
       </div>
-        
-        <div class="cover2">
-          <h4 style="margin-right:30px;font-size:20px">종목</h4>
-          <form method="post" action="search1" class="d-flex" role="search">
-          <input class="form-control me-2" type="search" th:field="${board.search_stock}" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit"style="width:100px">검색</button>
-        </form>
-        </div>
-        
-        <div class="cover2">
-          <select th:field="${board.search_type}" class="pl" style="height:40px; width:100px;margin-right:30px;font-size:11px;">
-            <option value="title" selected>글 제목</option>
-            <option value="writer">글쓴이</option>
-        </select>
-          <form method="post" action="search2"  class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" th:field="${board.search_target}">
-            <button class="btn btn-outline-success" type="submit" style="width:100px">검색</button>
-          </form>
-        
-        </div>
 
     </div>
-    <div class="cover" style="display: flex; justify-content: right; margin-top:20px;">
-      <button type="button" class="btn btn-secondary"
-              style="float:left;--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;width:100px;margin-right:30px;height:30px" onclick="location.href='myboarder.html'">
-        내 글 보기
-      </button>
+
+</div>
+    <div>
       <button type="button" class="btn btn-outline-success"
-      onclick="location.href='boarder_write.html'"
+      onclick="location.href='/boards/new'"
               style="float:right;--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;width:100px;">
         글 쓰기
       </button>
-      </div>
-
+    </div>
 </div>
-  </div>
+    <input id = "prev_category" type="hidden" th:value="${criteria.category}">
+    <input id = "prev_cno" type="hidden" th:value="${criteria.cno}">
+    <input id = "prev_title" type="hidden" th:value="${criteria.title}">
+    <input id = "prev_writer" type="hidden" th:value="${criteria.writer}">
+    <input id = "current_page" type="hidden" th:value="${criteria.page}">
+
+    <form id="searchFilterForm" action="/boards" method="get">
+        <input name="cno" id = "cno" type="hidden">
+        <input name="title" id = "title" type="hidden">
+        <input name="writer"  id = "writer" type="hidden">
+        <input name="category" id = "category" type="hidden">
+        <input name="page" id="page" type="hidden">
+    </form>
 </body>
 <script>
-  let pi=document.getElementsByClassName("page-link")
-  let currentValue=1;
 
-  function activeLink(){
-    for(l of pi){
-      l.classList.remove("active");
-    }
-    event.target.classList.add("active");
-    currentValue=event.target.value;
+  function setCategory(category){
+    var form = document.getElementById("searchFilterForm");
+
+    document.getElementById("category").value = category;
+    document.getElementById("page").value = 1;
+
+    form.submit();
   }
-  function backBtn(){
-    if(currentValue>1){
-      for(l of pi){
-        l.classList.remove("active");
-      }
-      currentValue--;
-      pi[currentValue-1].classList.add("active");
-    }
+
+  function setFilter(){
+        var form = document.getElementById("searchFilterForm");
+
+        var cno = document.getElementById("cno_filter").value;
+        document.getElementById("cno").value=cno;
+
+        var title = document.getElementById("title_filter").value;
+        if(title != "") {document.getElementById("title").value = title;}
+
+        var writer = document.getElementById("writer_filter").value;
+        if(writer != "") {document.getElementById("writer").value = writer;}
+
+        document.getElementById("category").value = document.getElementById("prev_category").value;
+        document.getElementById("page").value = 1;
+
+        form.submit();
   }
-  function nextBtn(){
-    if(currentValue<3){
-      for(l of pi){
-        l.classList.remove("active");
-      }
-      currentValue++;
-      pi[currentValue+1].classList.add("active");
+
+  function movePage(pageNum){
+    var form = document.getElementById('searchFilterForm');
+
+    document.getElementById('category').value = document.getElementById('prev_category').value;
+    document.getElementById('cno').value = document.getElementById('prev_cno').value;
+    document.getElementById('title').value = document.getElementById('prev_title').value;
+    document.getElementById('writer').value = document.getElementById('prev_writer').value;
+
+    if(pageNum == -1){
+        document.getElementById('page').value = parseInt(document.getElementById('current_page').value) - 1;
     }
+    else if(pageNum == -2){
+        document.getElementById('page').value = parseInt(document.getElementById('current_page').value) + 1;
+    }else{
+        document.getElementById('page').value = pageNum;
+    }
+
+    form.submit();
   }
+
 </script>
 </html>

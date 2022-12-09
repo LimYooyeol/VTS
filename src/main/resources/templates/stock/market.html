@@ -75,10 +75,64 @@
         var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
+
+
+      function makeBuyingOrders(){
+        if(document.getElementById("user_id").value == ""){
+          alert('로그인 후 이용해주세요.');
+          return;
+        }
+
+        const data = {
+          "cno" : document.getElementById("cno").value,
+          "isSale"  : false,
+          "quantity" : document.getElementById("buying_quantity").value,
+          "price" : document.getElementById("buying_price").value
+        }
+
+        fetch('/orders/buying',
+          {
+            method : 'post',
+            headers : {
+              'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(data)
+          }
+        ).then((response) => {
+          return response.json();
+        }).then((json) => {
+          if(json.result > 0){
+            alert('주문 성공');
+          }
+          else if(json.result == -2){
+            alert('예치금이 부족합니다.');
+          }
+          else if(json.result == - 1){
+            alert('매도수량이 보유수량보다 많습니다.');
+          }
+        })
+      }
   </script>
   <div class="card">
     <div id="chart_div"></div>
   </div>
+  <input id="cno" type="hidden" th:value="${corp.cno}">
+  <div>
+    <table>
+      <thead>
+        <th></th><th>매수</th><th>매도</th>
+      </thead>
+      <tr>
+        <th>가격</th><td><input id = "buying_price" type="number"></td><td><input type="number"></td>
+      </tr>
+      <tr>
+        <th>수량</th><td><input id = "buying_quantity" type="number"></td><td><input type="number"></td>
+      </tr>
+      <tr>
+        <td></td><td><button type="button" onclick="makeBuyingOrders()">매수 신청</button><button type="button">매도 신청</button> </td>
+      </tr>
+    </table>
+  </div>
+  <input id = "user_id" type="hidden" th:value = "${user_id}">
 </div>
-
 </html>

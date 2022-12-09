@@ -29,6 +29,12 @@
         WHERE Mno = #{mno};
     </update>
 
+    <select id="findMnoByUserId" resultType="_int">
+        SELECT Mno
+        FROM MEMBER
+        WHERE id = #{userId};
+    </select>
+
     <select id="getTopUsers" resultType="com.stock.db.dto.Member.MemberNickNameDto">
         SELECT M.Mno, M.Nickname
         FROM MEMBER M

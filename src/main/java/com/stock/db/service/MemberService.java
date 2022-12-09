@@ -29,6 +29,9 @@ public class MemberService implements UserDetailsService {
         return memberMapper.findById(userId).getDeposit();
     }
 
+    @Transactional(readOnly = true)
+    public int getMno(String userId) {return memberMapper.findMnoByUserId(userId);}
+
     /*
         @brief  : 회원가입 처리
         @return : 가입한 회원의 회원번호
@@ -60,7 +63,7 @@ public class MemberService implements UserDetailsService {
         String role = (memberVO.isAdmin() == true) ? "ADMIN" : "MEMBER";
 
         return User.builder()
-                .username(memberVO.getMname())
+                .username(memberVO.getId())
                 .password(memberVO.getPwd())
                 .roles(role)
                 .build();

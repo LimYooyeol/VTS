@@ -1,6 +1,7 @@
 package com.stock.db.service;
 
 import com.stock.db.domain.CorporationVO;
+import com.stock.db.dto.Corporation.CorporationBriefDto;
 import com.stock.db.dto.Corporation.CorporationCriteria;
 import com.stock.db.dto.Corporation.SectorChangeRateDto;
 import com.stock.db.mapper.CorporationMapper;
@@ -111,5 +112,10 @@ public class CorporationService {
     @Transactional(readOnly = true)
     public int getMaxPageNum(CorporationCriteria criteria) {
         return corporationMapper.getMaxPageNum(criteria);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CorporationBriefDto> getCnames() {
+        return corporationMapper.getCnames();
     }
 }

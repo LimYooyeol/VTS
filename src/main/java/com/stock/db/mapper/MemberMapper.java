@@ -52,4 +52,5 @@ public interface MemberMapper {
      */
     public List<MemberNickNameDto> getTopUsers(int num);
 
+    public int findMnoByUserId(String userId);
 }

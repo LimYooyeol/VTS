@@ -1,6 +1,7 @@
 package com.stock.db.mapper;
 
 import com.stock.db.domain.CorporationVO;
+import com.stock.db.dto.Corporation.CorporationBriefDto;
 import com.stock.db.dto.Corporation.CorporationCriteria;
 import com.stock.db.dto.Corporation.SectorChangeRateDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -68,4 +69,6 @@ public interface CorporationMapper {
         @return : 거래량 상위 종목 목록
      */
     public List<CorporationVO> getTopTradingCorporations(int num);
+
+    public List<CorporationBriefDto> getCnames();
 }
