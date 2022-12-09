@@ -40,7 +40,13 @@ public class BoardService {
      */
     @Transactional(readOnly = true)
     public List<BoardDetailDto> getPage(BoardCriteria boardCriteria){
-        return boardMapper.getBoards(boardCriteria);
+        List<BoardDetailDto> boards = boardMapper.getBoards(boardCriteria);
+        for(BoardDetailDto b :boards){
+            if(b.getCname() == null){
+                b.setCname("기타");
+            }
+        }
+        return boards;
     }
 
     /*

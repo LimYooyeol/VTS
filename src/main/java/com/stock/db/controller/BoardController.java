@@ -3,7 +3,10 @@ package com.stock.db.controller;
 import com.stock.db.dto.Board.BoardCriteria;
 import com.stock.db.dto.Board.BoardDetailDto;
 import com.stock.db.dto.Board.BoardWriteDto;
+import com.stock.db.dto.Corporation.CorporationBriefDto;
 import com.stock.db.service.BoardService;
+import com.stock.db.service.CorporationService;
+import com.stock.db.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,9 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    private final MemberService memberService;
+    private final CorporationService corporationService;
+
     @GetMapping(value = "/boards")
     public String boardList(
             @RequestParam(required = false, defaultValue = "0") int category,
@@ -28,36 +34,60 @@ public class BoardController {
             @RequestParam(required = false) String writer,
             Model model, Principal principal, HttpServletRequest request
     ){
-        BoardCriteria boardCriteria = new BoardCriteria(category, page, 10, cno, title, writer);
-        List<BoardDetailDto> boards = boardService.getPage(boardCriteria);
+        cno = (cno == "") ? null : cno;
+        title = (title == "") ? null : title;
+        writer = (cno == "") ? null : writer;
 
-        if(boards.size() == 0){ // 존재하지 않는 페이지를 입력하는 경우 이전 페이지로 redirect
+        if(page < 1){
             return "redirect:" + request.getHeader("Referer");
         }
+        BoardCriteria boardCriteria = new BoardCriteria(category, page, 5, cno, title, writer);
         int maxPageNum = boardService.getMaxPageNum(boardCriteria);
+        if(page >  maxPageNum){ // 존재하지 않는 페이지를 입력하는 경우 이전 페이지로 redirect
+            return "redirect:" + request.getHeader("Referer");
+        }
+
+        List<BoardDetailDto> boards = boardService.getPage(boardCriteria);
+
+        List<CorporationBriefDto> corpsInfo = corporationService.getCnames();
+
 
 
         if(principal != null){
             model.addAttribute("user_id", principal.getName().toString());
         }
         model.addAttribute("boards", boards);
-        model.addAttribute("boardCriteria", boardCriteria);
+        model.addAttribute("criteria", boardCriteria);
         model.addAttribute("max_page_num", maxPageNum);
+        model.addAttribute("corps_info", corpsInfo);
 
-        return "/boardList";
+        return "boarder/boarder";
     }
 
     @GetMapping("/boards/new")
-    public String writeBoardRequest(Model model){
+    public String writeBoardRequest(Model model, BoardWriteDto boardWriteDto){
+        List<CorporationBriefDto> corpsInfo = corporationService.getCnames();
+        CorporationBriefDto etc = new CorporationBriefDto();
+        etc.setCname("기타");
+        etc.setCno(null);
+        corpsInfo.add(0, etc);
+
         model.addAttribute("board_write_form" , new BoardWriteDto());
-        return "/board/writeBoard";
+        model.addAttribute("corps_info", corpsInfo);
+        return "boarder/boarder_write";
     }
 
-    @PostMapping("/boards")
-    public String writeBoard(BoardWriteDto boardWriteDto){
+    @PostMapping("/boards/new")
+    public String writeBoard(BoardWriteDto boardWriteDto, Principal principal){
+        int mno = memberService.getMno(principal.getName().toString());
+        boardWriteDto.setMno(mno);
+        if(boardWriteDto.getCno().equals("")){
+            boardWriteDto.setCno(null);
+        }
+
         int bno = boardService.insertBoard(boardWriteDto);
 
-        return "/boards/" + bno;
+        return "redirect:" + "/boards/" + bno;
     }
 
     @GetMapping("/boards/{bno}")
@@ -70,7 +100,7 @@ public class BoardController {
 
         model.addAttribute("board_detail", boardDetail);
 
-        return "/boards/detail";
+        return "boarder/boarder_read";
     }
 
 }

@@ -21,11 +21,7 @@ public class ScheduleService {
     @Scheduled(cron = "00 * * * * *")
     @Transactional
     public void scheduleTest(){
-//        System.out.println("============");
-//        System.out.println(LocalDateTime.now());
-//        System.out.println(ordersMapper.getWaitOrders().size());
-//        System.out.println(ordersService.checkWaitOrders());
-//        System.out.println(Thread.currentThread().getId());
+        ordersService.checkWaitOrders();
     }
 
 }

@@ -25,6 +25,7 @@ public class PossessesController {
             Principal principal
     ){
         String userId = principal.getName().toString();
+
         long deposit = memberService.checkDeposit(userId);
 
         List<PossessesDetailDto> possesses = possessesService.findPossessesByUserId(userId);

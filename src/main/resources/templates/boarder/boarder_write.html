@@ -71,19 +71,18 @@
     <a class="nav-link" style="color:black" href="#">로그인</a>
 </nav>
 
-<form action="writeBoard" method="post" style="margin:30px">
+<form action="/boards/new" method="post" style="margin:30px"
+    th:object = "${board_write_form}">
   <a>종목</a>
-  <select th:field="${board.stock}" class="pl" style="height:40px; width:100px;font-size:12px;">
-    <option value="title" selected>카카오</option>
-    <option value="writer">네이버</option>
-      <option value="writer">네이버</option>
+  <select th:field = "*{cno}" class="pl" style="height:40px; width:100px;font-size:12px;">
+      <option th:each = "info : ${corps_info}" th:value = "${info.cno}" th:text="${info.cname}"></option>
   </select>
 
-	<input type="text" th:field="${board.title}" class="form-control mt-4 mb-2"
+	<input th:field="*{title}" type="text"  class="form-control mt-4 mb-2"
 		placeholder="제목을 입력해주세요." required
 	>
 	<div class="form-group">
-		<textarea class="form-control" rows="15" th:field="${board.content}"
+		<textarea th:field = "*{content}" class="form-control" rows="15"
 			placeholder="내용을 입력해주세요" required
 		></textarea>
 	</div>
@@ -92,13 +91,16 @@
 
 
 <div class="cover" style="display: flex; justify-content: center; margin-top:100px;">
-<button type="button" class="btn btn-secondary" onclick="location.href='boarder.html'"
+<button type="button" class="btn btn-secondary"
         style="background-color:skyblue;font-size:20px;display:block; width:300px">
-        목록으로 돌아가기
+        <a href = "/boards">목록으로 돌아가기</a>
 </button>
 </div>
-
-
-
 </body>
+<script>
+    function submit(){
+        alert(document.getElementById("cno").value);
+    }
+
+</script>
 </html>

@@ -32,19 +32,16 @@ public class CorporationController {
             Model model, Principal principal, HttpServletRequest request
     ){
         if(page < 1){
-            model.addAttribute("warning", "더 이상 게시물이 존재하지 않습니다.");
             return "redirect:" + request.getHeader("Referer");
         }
 
-        CorporationCriteria criteria = new CorporationCriteria(page, 10, sorting, cname, min, max);
-        List<CorporationVO> corpList = corporationService.getPage(criteria);
-
-        if(corpList.size() == 0){
-            model.addAttribute("warning", "더 이상 게시물이 존재하지 않습니다.");
-            return "redirect:" + request.getHeader("Referer");
-        }
-
+        CorporationCriteria criteria = new CorporationCriteria(page, 5, sorting, cname, min, max);
         int maxPageNum = corporationService.getMaxPageNum(criteria);
+        if( page > maxPageNum){
+            return "redirect:" + request.getHeader("Referer");
+        }
+         List<CorporationVO> corpList = corporationService.getPage(criteria);
+
 
         if(principal != null){
             model.addAttribute("user_id", principal.getName().toString());
@@ -57,13 +54,19 @@ public class CorporationController {
         return "stock/stock";
     }
 
-    @GetMapping(value = "/corporations/{cno}")
-    public String corporationInfo(
+    @GetMapping(value = "/corporations/market/{cno}")
+    public String corporationMarket(
             @PathVariable(required = true) String cno,
-            Model model
+            Model model, Principal principal
     ){
+        CorporationVO corp = corporationService.findByCno(cno);
+        if(principal != null){
+            model.addAttribute("user_id", principal.getName().toString());
+        }
 
-        return "corporation/info";
+        model.addAttribute("corp", corp);
+
+        return "stock/market";
     }
 
     @GetMapping(value = "/corporations/details/{cno}")
