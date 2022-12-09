@@ -119,7 +119,7 @@ public class OrdersService {
         newPossesses.setQuantity(findPossesses.getQuantity() - ordersVO.getQuantity());
         newPossesses.setAvgPrice(findPossesses.getAvgPrice());
 
-        double gain = (findPossesses.getAvgPrice() - ordersVO.getPrice())*ordersVO.getQuantity();
+        double gain = -(findPossesses.getAvgPrice() - ordersVO.getPrice())*ordersVO.getQuantity();
 
 
         possessesMapper.reflectPossesses(newPossesses);
