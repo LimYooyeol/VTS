@@ -180,10 +180,16 @@
             var data = new google.visualization.DataTable();
             data.addColumn('string','종목');
             data.addColumn('number','주식자산');
+
+            chart_data = [];
+            for ( var i = 1 in stock) {
+												chart_data.push([
+															stock[i].cname,
+															stock[i].sum ])
+												}
+
             data.addRows([
-                ['삼성전자',50000],
-                ['카카오',2000],
-                ['sbs',30000]
+               chart_data)
             ]);
             var opt = {
                     'width':200,
