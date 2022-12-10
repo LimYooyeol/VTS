@@ -96,16 +96,35 @@
 			placeholder="" required style="background-color: white;border:none;"  readonly
 		>[[${board_detail.content}]]</textarea>
   </div>
+
+
 </div>
+
+<div class="card mb-4 rounded-3 shadow-sm" style="display: flex; justify-content: center; margin:30px  60px">
+    <div class="card-body" style="margin-top:0">
+        <tr style="vertical-align:middle;"  th:each="reply : ${}">
+            <td th:text="${}"></td>
+            <button th:if="!${}" type="button" class="btn-close" aria-label="Close" style="margin-left:10px"></button>
+        </tr>
+    </div>
+    <div class="card-body" style="padding-top:0">
+        <input type="text" name="reply" class="form-control mt-4 mb-2"
+               placeholder="댓글을 입력해주세요." required style="float:left; margin-top:3px">
+        <button type="submit" class="btn btn-secondary mb-3" style="float:right">댓글 쓰기</button>
+    </div>
+</div>
+
 
 <div class="cover" id="container" style="padding:0 60px">
   <div style="display:flex;justify-content:left;" id="box-left">
       <button type="button" class="btn btn-secondary" onclick="location.href='boarder_update.html'"
-              style="background-color: none;font-size:20px;display:block; width:100px">
+              style="background-color: none;font-size:20px;display:block; width:100px"
+              th:if="!${}">
               수정
       </button>
       <button type="button" class="btn btn-secondary" onclick="location.href='boarder.html'"
-              style="background-color: none;font-size:20px;display:block; width:100px;margin-left:20px">
+              style="background-color: none;font-size:20px;display:block; width:100px;margin-left:20px"
+              th:if="!${}">
               삭제
       </button>
   </div>
