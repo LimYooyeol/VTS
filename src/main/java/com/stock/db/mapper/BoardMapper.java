@@ -60,4 +60,5 @@ public interface BoardMapper {
      */
     public List<BoardPreviewDto> getNewBoardsPreview(int num);
 
+    public void updateBoard(BoardWriteDto boardWriteDto);
 }

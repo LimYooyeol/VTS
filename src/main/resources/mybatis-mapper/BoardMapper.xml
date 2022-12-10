@@ -5,6 +5,11 @@
 
 <mapper namespace="com.stock.db.mapper.BoardMapper">
 
+    <update id="updateBoard" parameterType="com.stock.db.dto.Board.BoardWriteDto">
+        UPDATE BOARD
+        SET cno=#{cno}, title=#{title}, content=#{content}
+        WHERE bno = #{bno}
+    </update>
 
     <select id="getBoards" parameterType="com.stock.db.dto.Board.BoardCriteria"
             resultType="com.stock.db.dto.Board.BoardDetailDto">

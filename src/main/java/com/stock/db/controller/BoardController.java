@@ -70,7 +70,7 @@ public class BoardController {
     }
 
     @GetMapping("/boards/new")
-    public String writeBoardRequest(Principal principal, Model model, BoardWriteDto boardWriteDto){
+    public String writeBoardRequest(Principal principal, Model model){
         List<CorporationBriefDto> corpsInfo = corporationService.getCnames();
         CorporationBriefDto etc = new CorporationBriefDto();
         etc.setCname("기타");
@@ -84,9 +84,11 @@ public class BoardController {
     }
 
 
+
     @PostMapping("/boards/new")
     public String writeBoard(BoardWriteDto boardWriteDto, Principal principal){
         int mno = memberService.getMno(principal.getName().toString());
+
         boardWriteDto.setMno(mno);
         if(boardWriteDto.getCno().equals("")){
             boardWriteDto.setCno(null);
@@ -95,6 +97,53 @@ public class BoardController {
         int bno = boardService.insertBoard(boardWriteDto);
 
         return "redirect:" + "/boards/" + bno;
+    }
+
+    @GetMapping(value = "/boards/update")
+    public String updateBoardRequest(
+            @RequestParam int bno,
+            Principal principal,
+            Model model
+    ){
+        String userId = principal.getName();
+        BoardDetailDto board = boardService.findByBno(bno);
+
+        List<CorporationBriefDto> corps = corporationService.getCnames();
+
+        model.addAttribute("corps_info", corps);
+        model.addAttribute("board_write_form", new BoardWriteDto());
+        model.addAttribute("user_id", principal.getName().toString());
+        model.addAttribute("board", board);
+        model.addAttribute("bno", bno);
+
+        return "/boarder/boarder_write";
+    }
+
+    @PostMapping(value = "/boards/delete")
+    public String deleteBoard(
+            @RequestParam int bno,
+            Principal principal,
+            HttpServletRequest request
+
+    ){
+        String userId = principal.getName().toString();
+        if(memberService.getMno(userId) != boardService.findByBno(bno).getMno()){
+            return "redirect:" + request.getHeader("Referer");
+        }
+
+        boardService.deleteBoard(bno);
+
+        return "redirect:/boards";
+    }
+
+    @PostMapping(value = "/boards/update")
+    public String updateBoard(
+            BoardWriteDto boardWriteDto
+    ){
+        int bno = boardWriteDto.getBno();
+        boardService.updateBoard(boardWriteDto);
+
+        return "redirect:/boards/" + bno;
     }
 
     @GetMapping("/boards/{bno}")

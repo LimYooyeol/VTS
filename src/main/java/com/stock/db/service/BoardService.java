@@ -93,4 +93,7 @@ public class BoardService {
         return boardMapper.getMaxPageNum(boardCriteria);
     }
 
+    public void updateBoard(BoardWriteDto boardWriteDto) {
+        boardMapper.updateBoard(boardWriteDto);
+    }
 }

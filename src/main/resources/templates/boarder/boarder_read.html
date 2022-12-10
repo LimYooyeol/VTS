@@ -4,8 +4,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="board_detailport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
     <meta name="board_detailport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
@@ -14,9 +14,6 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/sign-in/">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/components/dropdowns/"><link rel="preconnect" href="https://AK7KMZKZHQ-dsn.algolia.net" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-    <link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="/docs/5.2/assets/css/docs.css" rel="stylesheet">
-    <link href="/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
       a{
         color:black;
@@ -72,17 +69,37 @@
 }
     </style>
     <script>
+        function updateBoard(bno){
+            document.getElementById('update_bno').value = bno;
+            document.getElementById('updateBoardForm').submit();
+        }
+        function deleteBoard(bno){
+            document.getElementById('delete_bno').value = bno;
+            document.getElementById('deleteBoardForm').submit();
+        }
 
         function deleteReply(rno){
             document.getElementById('delete_rno').value = rno;
             document.getElementById('deleteReplyForm').submit();
         }
+
+
     </script>
 </head>
 <body class="bg-light">
+
+<form id="updateBoardForm" action="/boards/update" method="get">
+    <input id="update_bno" name="bno" type="hidden">
+</form>
+
+<form id="deleteBoardForm" action="/boards/delete" method="post">
+    <input id="delete_bno" name="bno" type="hidden">
+</form>
+
 <form id="deleteReplyForm" action="/replies/delete" method="post">
     <input type="hidden" id="delete_rno" name="rno">
 </form>
+
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
     <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
     <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
@@ -101,7 +118,13 @@
   </div>
   <div class="card-header py-3">
     <h5 class="my-0 fw-normal" style="float:left; padding:10px;" th:text="${board_detail.nickname}">작성자 : [[${board_detail.nickname}]]  [[${board_detail.writeDate}]]</h5>
-    <h5 class="my-0 fw-normal" style="float:right; padding:10px;">조회수 :[[${board_detail.hit}]]</h5>
+      <a th:if = "${user_mno == board_detail.mno}"
+         th:bno = "${board_detail.bno}" th:onclick="deleteBoard(this.getAttribute('bno'))"
+         class="my-0 fw-normal" style="float:right; padding:10px;">삭제</a>
+      <a th:if = "${user_mno == board_detail.mno}" th:bno = "${board_detail.bno}" th:onclick="updateBoard(this.getAttribute('bno'))" class="my-0 fw-normal" style="float:right; padding:10px;">수정</a>
+      <a th:if = "${admin}"
+         th:bno = "${board_detail.bno}" th:onclick="deleteBoard(this.getAttribute('bno'))"
+         class="my-0 fw-normal" style="float:right; padding:10px;">삭제</a>
   </div>
   <div class="card-body">
     <textarea class="form-control" rows="5" name="content"
