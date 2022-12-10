@@ -169,25 +169,30 @@
   <main style="padding:0">
     <div class="container py-4" style="padding:0">
       <div class="p-5 mb-4 bg-light rounded-3" style=" background:black;border: 1px solid gray;margin-top:120px;height:400px;margin-bottom:0;" >
-        <div class="container-fluid py-5" style="height:320px;width:600px; float:left; ">
-          <div class="card">
-            <div id="chart_div"></div>
+        <div class="container-fluid py-5" style="height:320px;width:800px; float:left; border:none">
 
+          <div class="card"  style=" border:none">
+
+            <div id="chart_div"></div>
+            <div style="display:inline">
+              <button style="float:left; width:30px; margin-left:20px"><</button>
+              <button style="float:right; width:30px;margin-left:300px">></button>
+            </div>
 
           </div>
         </div>
-        <div class="container-fluid py-5" style="height:200px;width:500px; float:right;margin-top:100px; border: 1px solid gray;">
+        <div class="container-fluid py-5" style="height:200px;width:300px; float:right;margin-top:100px; border: 1px solid gray;">
           <input id="cno" type="hidden" th:value="${corp.cno}">
           <div>
-            <table>
+            <table style="float:right">
               <thead>
-              <th></th><th style="color:red">매수</th><th style="color:blue">매도</th>
+              <th style="width:40px"></th><th style="color:red; width:120px">매수</th><th style="color:blue; width:120px">매도</th>
               </thead>
               <tr>
-                <th>가격</th><td><input id = "buying_price" type="number"></td><td><input type="number"></td>
+                <th>가격</th><td><input id = "buying_price" type="number" style="width:100px"></td><td><input type="number" style="width:100px"></td>
               </tr>
               <tr>
-                <th>수량</th><td><input id = "buying_quantity" type="number"></td><td><input type="number"></td>
+                <th>수량</th><td><input id = "buying_quantity" style="width:100px" type="number"></td><td><input type="number" style="width:100px"></td>
               </tr>
               <tr>
                 <td></td><td><button type="button" onclick="makeBuyingOrders()" >매수 신청</button></td><td><button type="button">매도 신청</button> </td>
@@ -257,7 +262,8 @@
 
       var options = {
         legend:'none',
-        width: 500,
+        width: 800,
+
         height: 250,
         axisTitlesPosition: 'none',
         candlestick: {
@@ -276,6 +282,7 @@
       };
 
         var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+
         chart.draw(data, options);
       }
 
