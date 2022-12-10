@@ -1,6 +1,7 @@
 package com.stock.db.mapper;
 
 import com.stock.db.domain.ReplyVO;
+import com.stock.db.dto.Reply.ReplyDetailDto;
 import com.stock.db.dto.Reply.ReplyDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -31,7 +32,7 @@ public interface ReplyMapper {
         @param  :
             bno : 게시물 번호
      */
-    public List<ReplyVO> findRepliesByBno(int bno);
+    public List<ReplyDetailDto> findRepliesByBno(int bno);
 
     /*
         @brief  : 댓글번호로 댓글 조회

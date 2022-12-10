@@ -81,10 +81,10 @@
         ORDER BY Cname;
     </select>
 
-    <select id="findByCno" resultType="com.stock.db.domain.CorporationVO">
+    <select id="findByCno" resultMap="corpMap" resultType="com.stock.db.domain.CorporationVO">
         SELECT *
-        FROM CORPORATION C
-        WHERE C.Cno = #{cno};
+        FROM CORPORATION C JOIN PRICE P ON C.Cno = P.Cno
+        WHERE C.Cno = #{cno} AND P.date = date_format(now(), '%Y-%m-%d');
     </select>
 
     <select id="getPage" resultMap="corpMap" parameterType="com.stock.db.dto.Corporation.CorporationCriteria">

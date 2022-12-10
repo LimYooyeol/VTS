@@ -79,13 +79,13 @@
         <div class="col-sm-6 col-lg-4 mb-4">
             <div class="card" style="height:650px">
                 <div class="card-body" style="font-size:0.9em;">
-                    <h5>기업목록</h5>
+                    <h5 style="font-weight:bold;">기업목록</h5>
                     <div class="row">
                         <div class="col s12">
                             <ul class="tabs">
-                                <li class="tab col s4"><a id = "tab1" style="font-weight:bold;" onclick="changeList(0)" href="#list_top">거래량 상위</a></li>
-                                <li class="tab col s4"><a id = "tab2" onclick="changeList(1)" href="#list_inc">상승률 상위</a></li>
-                                <li class="tab col s4"><a id = "tab3" onclick="changeList(2)" href="#list_dec">하락률 상위</a></li>
+                                <li class="tab col s4"><a id = "tab1" style="font-weight:bold; font-size:0.8em;" onclick="changeList(0)" href="#list_top">거래량 상위</a></li>
+                                <li class="tab col s4"><a id = "tab2" style="font-size:0.8em;" onclick="changeList(1)" href="#list_inc">상승률 상위</a></li>
+                                <li class="tab col s4"><a id = "tab3" style="font-size:0.8em;" onclick="changeList(2)" href="#list_dec">하락률 상위</a></li>
                             </ul>
                         </div>
                         <div id="list_top" class="col s12">
@@ -138,7 +138,7 @@
         <div class="col-sm-6 col-lg-4 mb-4">
             <div class="card" style="height:300px">
                 <div class="card-body" style="font-size:0.8em;">
-                    <h5>최근상승종목섹터</h5>
+                    <h5 style="font-weight:bold;">최근상승종목섹터</h5>
                     <table class="striped">
                         <tr th:each="data: ${data_list_sectors}">
                             <th th:text="${data.sector}"></th>
@@ -151,13 +151,15 @@
         </div>
         <div class="col-sm-6 col-lg-4 mb-4">
             <div class="card" style="height:300px">
-                <div class="card-body">
-                    <h5>게시판</h5>
-                    <span>최근 게시물</span><a href ="/boards">더보기</a>
+                <div class="card-body" style="font-size:0.8em">
+                    <h5 style="font-weight:bold;">게시판</h5>
+                    <span>최근 게시물</span><a style="float:right;" href ="/boards">더보기</a>
                     <table class="striped">
                         <tr th:each="board : ${new_boards}">
                             <th th:text = "[ + ${board.cname} + ]"></th>
-                            <td th:text = "${board.title}"></td>
+                            <td>
+                                <a style="color:black;" th:text="${board.title}" th:href = "@{/boards/{bno}(bno=${board.bno})}"></a>
+                            </td>
                             <td th:text = "[ + ${board.reply} + ]"></td>
                             <td th:text = "${board.writeDate}"></td>
                         </tr>
@@ -168,15 +170,15 @@
         <div class="col-sm-6 col-lg-4 mb-4">
             <div class="card" style="height:300px">
                 <div class="card-body">
-                    <h5>코스피 지수</h5>
-                    <img src="https://ssl.pstatic.net/imgfinance/chart/main/KOSPI.png?sidcode=1670389860607" style="margin-top:20px;margin-left:10px;width:350px;height:200px">
+                    <h5 style="font-weight:bold;">코스피 지수</h5>
+                    <img src="https://ssl.pstatic.net/imgfinance/chart/main/KOSPI.png?sidcode=1670389860607">
                 </div>
             </div>
         </div>
         <div class="col-sm-6 col-lg-4 mb-4">
             <div class="card" style="height:300px">
                 <div class="card-body">
-                    <h5>오늘의 주식왕</h5>
+                    <h5 style="font-weight:bold;">오늘의 주식왕</h5>
                     <table class="striped">
                         <tr th:each="member: ${top_users}">
                             <td th:text="${member.nickname}"></td>
@@ -195,11 +197,3 @@
 </body>
 
 </html>
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-<script type="text/javascript">
-
-
-
-  </script>

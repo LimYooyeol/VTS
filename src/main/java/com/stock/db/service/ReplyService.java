@@ -1,6 +1,7 @@
 package com.stock.db.service;
 
 import com.stock.db.domain.ReplyVO;
+import com.stock.db.dto.Reply.ReplyDetailDto;
 import com.stock.db.dto.Reply.ReplyDto;
 import com.stock.db.mapper.ReplyMapper;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +47,7 @@ public class ReplyService {
             bno : 게시물 번호
      */
     @Transactional(readOnly = true)
-    public List<ReplyVO> findRepliesByBno(int bno){
+    public List<ReplyDetailDto> findRepliesByBno(int bno){
         return replyMapper.findRepliesByBno(bno);
     }
 

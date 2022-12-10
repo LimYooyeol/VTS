@@ -1,6 +1,7 @@
 package com.stock.db.mapper;
 
 import com.stock.db.domain.PriceVO;
+import com.stock.db.dto.Price.HistorySearchDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface PriceMapper {
         @param  :
             cno : 기업코드
      */
-    public List<PriceVO> getPriceHistoryByCno(String cno);
+    public List<PriceVO> getPriceHistory(HistorySearchDto historySearchDto);
 
     /*
         @brief  : 개장 여부 검사

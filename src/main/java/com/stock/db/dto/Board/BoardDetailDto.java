@@ -18,6 +18,8 @@ public class BoardDetailDto {
     private int hit;
     private int fav;
 
+    private int reply;
+
     // 회원 정보
     private int mno;
     private String nickname;

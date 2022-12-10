@@ -2,18 +2,27 @@ package com.stock.db.controller;
 
 import com.stock.db.domain.CorporationVO;
 import com.stock.db.domain.HoldersVO;
+import com.stock.db.domain.PriceVO;
+import com.stock.db.dto.Price.HistorySearchDto;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import com.stock.db.dto.Corporation.CorporationCriteria;
+import com.stock.db.dto.Possesses.PossessesDetailDto;
 import com.stock.db.service.CorporationService;
 import com.stock.db.service.HoldersService;
+import com.stock.db.service.PriceService;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -21,6 +30,8 @@ import java.util.List;
 public class CorporationController {
     private final CorporationService corporationService;
     private final HoldersService holdersService;
+
+    private final PriceService priceService;
 
     @GetMapping(value = "/corporations/search")
     public String searchCorporation(
@@ -57,6 +68,7 @@ public class CorporationController {
     @GetMapping(value = "/corporations/market/{cno}")
     public String corporationMarket(
             @PathVariable(required = true) String cno,
+            @RequestParam(defaultValue = "-1") int interval,
             Model model, Principal principal
     ){
         CorporationVO corp = corporationService.findByCno(cno);
@@ -65,8 +77,35 @@ public class CorporationController {
         }
 
         model.addAttribute("corp", corp);
+        model.addAttribute("interval", interval);
 
         return "stock/market";
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/corporations/history/{cno}")
+    public String getHistory(
+            @PathVariable String cno,
+            @RequestParam(defaultValue = "-1") int interval
+            ){
+        HistorySearchDto historySearchDto = new HistorySearchDto();
+        historySearchDto.setCno(cno);
+        historySearchDto.setInterval(interval);
+
+        List<PriceVO> priceHistory = priceService.getPriceHistory(historySearchDto);
+
+        JSONObject response = new JSONObject();
+
+        for(PriceVO p : priceHistory){
+            JSONArray array = new JSONArray();
+            array.add(p.getLow());
+            array.add(p.getClose());
+            array.add(p.getOpen());
+            array.add(p.getHigh());
+            response.put(p.getDate().toString(), array);
+        }
+
+        return response.toString();
     }
 
     @GetMapping(value = "/corporations/details/{cno}")

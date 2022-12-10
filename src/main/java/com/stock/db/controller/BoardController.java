@@ -1,12 +1,15 @@
 package com.stock.db.controller;
 
+import com.stock.db.domain.ReplyVO;
 import com.stock.db.dto.Board.BoardCriteria;
 import com.stock.db.dto.Board.BoardDetailDto;
 import com.stock.db.dto.Board.BoardWriteDto;
 import com.stock.db.dto.Corporation.CorporationBriefDto;
+import com.stock.db.dto.Reply.ReplyDetailDto;
 import com.stock.db.service.BoardService;
 import com.stock.db.service.CorporationService;
 import com.stock.db.service.MemberService;
+import com.stock.db.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +27,8 @@ public class BoardController {
 
     private final MemberService memberService;
     private final CorporationService corporationService;
+
+    private final ReplyService replyService;
 
     @GetMapping(value = "/boards")
     public String boardList(
@@ -91,14 +96,25 @@ public class BoardController {
     }
 
     @GetMapping("/boards/{bno}")
-    public String boardDetail(@PathVariable int bno, Model model, HttpServletRequest httpServletRequest){
+    public String boardDetail(@PathVariable int bno,
+                              Principal principal, Model model, HttpServletRequest httpServletRequest){
         BoardDetailDto boardDetail = boardService.findByBno(bno);
 
         if(boardDetail == null){    // 존재하지 않는 게시물 번호를 요청하는 경우
             return "redirect:" + httpServletRequest.getHeader("Referer");
         }
 
+        List<ReplyDetailDto> replies = replyService.findRepliesByBno(bno);
+
+        if(principal != null){
+            model.addAttribute("user_id", principal.getName().toString());
+            int mno = memberService.getMno(principal.getName().toString());
+            model.addAttribute("user_mno", mno);
+        }
+
         model.addAttribute("board_detail", boardDetail);
+        model.addAttribute("replies", replies);
+        model.addAttribute("bno", bno);
 
         return "boarder/boarder_read";
     }

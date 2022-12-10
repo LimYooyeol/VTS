@@ -18,6 +18,7 @@ public class CorporationService {
 
     private final CorporationMapper corporationMapper;
 
+
     /*
         @brief  : 기업코드로 기업 조회
         @return : 조회한 기업

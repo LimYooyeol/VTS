@@ -19,9 +19,9 @@
         WHERE rno = #{rno};
     </delete>
 
-    <select id="findRepliesByBno" resultType="com.stock.db.domain.ReplyVO">
-        SELECT *
-        FROM REPLY
+    <select id="findRepliesByBno" resultType="com.stock.db.dto.Reply.ReplyDetailDto">
+        SELECT R.*, M.nickname as writer
+        FROM REPLY R join MEMBER M ON R.Mno=M.Mno
         WHERE bno = #{bno};
     </select>
 

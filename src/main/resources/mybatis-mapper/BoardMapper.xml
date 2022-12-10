@@ -9,8 +9,8 @@
     <select id="getBoards" parameterType="com.stock.db.dto.Board.BoardCriteria"
             resultType="com.stock.db.dto.Board.BoardDetailDto">
         <if test = "writer == null">
-            SELECT b.*, m.nickname, c.cname
-            FROM BOARD b join MEMBER M on b.mno = m.mno left join CORPORATION c on c.cno = b.cno
+            SELECT b.*, m.nickname, c.cname, count(r.rno) as reply
+            FROM BOARD b join MEMBER M on b.mno = m.mno left join CORPORATION c on c.cno = b.cno LEFT JOIN REPLY R ON B.bno = R.bno
             <if test="category == 0">
                 <if test="cno != null and title == null">
                     WHERE b.cno = #{cno}
@@ -46,12 +46,13 @@
                     AND b.cno = #{cno} and b.title like CONCAT('%', #{title},'%')
                 </if>
             </if>
+            GROUP BY B.bno
             ORDER BY bno DESC
             LIMIT ${skip}, ${size};
         </if>
         <if test = "writer != null">
-            SELECT b.*, m.nickname, c.cname
-            FROM BOARD b join MEMBER M on b.mno = m.mno left join CORPORATION c on c.cno = b.cno
+            SELECT b.*, m.nickname, c.cname, count(r.rno) as reply
+            FROM BOARD b join MEMBER M on b.mno = m.mno left join CORPORATION c on c.cno = b.cno LEFT JOIN REPLY R ON B.bno = R.bno
             <if test="category == 0">
                 <if test="cno != null and writer == null">
                     WHERE b.cno = #{cno}
@@ -87,6 +88,7 @@
                     AND b.cno = #{cno} and m.nickname like CONCAT('%', #{writer},'%')
                 </if>
             </if>
+            GROUP BY B.bno
             ORDER BY bno DESC
             LIMIT ${skip}, ${size};
         </if>
