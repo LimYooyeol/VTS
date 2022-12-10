@@ -30,8 +30,8 @@ public class PossessesService {
             long totalPrice = p.getCurrentPrice()*p.getQuantity();
             double evalPrice = p.getAvgPrice() * p.getQuantity();
 
-            double gain = totalPrice - evalPrice;
-            double gainRatio = ((p.getCurrentPrice() - p.getAvgPrice()) / p.getAvgPrice()) * 100;
+            double gain = -(p.getAvgPrice() - p.getCurrentPrice())*p.getQuantity();
+            double gainRatio = ((p.getCurrentPrice() - p.getAvgPrice())/p.getCurrentPrice()) * 100;
 
             p.setTotalPrice(totalPrice);
             p.setGain(gain);

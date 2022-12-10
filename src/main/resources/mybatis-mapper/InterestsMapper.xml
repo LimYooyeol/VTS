@@ -5,6 +5,32 @@
 
 <mapper namespace="com.stock.db.mapper.InterestsMapper">
 
+    <resultMap id="priceMap" type="com.stock.db.domain.PriceVO">
+        <result property="cno" column="cno"/>
+        <result property="date" column="date"/>
+        <result property="open" column="open"/>
+        <result property="close" column="close"/>
+        <result property="high" column="high"/>
+        <result property="low" column="low"/>
+        <result property="volume" column="volume"/>
+        <result property="changeRate" column="change_rate"/>
+    </resultMap>
+
+    <resultMap id="corpMap" type="com.stock.db.domain.CorporationVO">
+        <result property="cno" column="cno"/>
+        <result property="cname" column="cname"/>
+        <result property="overview" column="overview"/>
+        <result property="sharesOutstanding" column="shares_outstanding"/>
+        <result property="sector" column="sector"/>
+        <collection property="priceVO" resultMap="priceMap"/>
+    </resultMap>
+
+    <select id="findInterestsList" resultMap="corpMap" resultType="com.stock.db.domain.CorporationVO">
+        select c.*, p.*
+        from interests i join corporation c on i.cno = c.cno join price p on c.cno = p.cno
+        where i.mno = #{mno} and i.gname = #{gname} and p.date = date_format(now(), '%Y-%m-%d');
+    </select>
+
     <insert id="insertInterests">
         INSERT INTO INTERESTS
         VALUES(#{mno}, #{gname}, #{cno});
@@ -14,11 +40,5 @@
         DELETE FROM INTERESTS
         WHERE mno=#{mno} and gname = #{gname} and cno = #{cno};
     </delete>
-
-    <select id="findInterestsList" resultType="com.stock.db.domain.InterestsVO">
-        SELECT *
-        FROM INTERESTS
-        WHERE mno = #{mno} and gname = #{gname};
-    </select>
 
 </mapper>

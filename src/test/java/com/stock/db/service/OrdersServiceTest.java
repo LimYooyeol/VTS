@@ -6,6 +6,7 @@ import com.stock.db.domain.OrdersVO;
 import com.stock.db.domain.PossessesVO;
 import com.stock.db.dto.Member.MemberSignUpDto;
 import com.stock.db.dto.Orders.MakeOrdersDto;
+import com.stock.db.dto.Orders.OrdersDetailDto;
 import com.stock.db.mapper.MemberMapper;
 import com.stock.db.mapper.OrdersMapper;
 import com.stock.db.mapper.PossessesMapper;
@@ -162,6 +163,19 @@ class OrdersServiceTest {
 
         // then
         assertNotEquals(-1, saleOno);
+    }
+
+    @Test
+    public void 거래_조회_테스트(){
+        //given
+
+        //when
+        List<OrdersDetailDto> orders = ordersService.getOrdersByMno(1);
+
+        //then
+        assertNotEquals(0, orders.size());
+
+
     }
 
     @Test

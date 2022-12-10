@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>거래내역</title>
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/bootstrap.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
@@ -16,10 +16,7 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/5.2/components/dropdowns/">
   <link rel="preconnect" href="https://AK7KMZKZHQ-dsn.algolia.net" crossorigin>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-  <link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <link href="/docs/5.2/assets/css/docs.css" rel="stylesheet">
-  <link href="/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <style>
+   <style>
         a {
             color: black;
             text-decoration: none;
@@ -87,12 +84,14 @@
 
 <body >
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="#">KW-DBS</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="#">게시판</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="#">종목조회</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="#">보유주식</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="#">관심종목</a>
-  <a class="nav-link" style="color:black" href="#">로그인</a>
+  <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/corporations/search">종목조회</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/members/possession">보유주식</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/members/interests">관심종목</a>
+  <a th:if = "${user_id == null}" class="nav-link" style="color:black" href="/login">로그인</a>
+  <a th:if = "${user_id}" th:text = "${user_id}" href="/members/mypage"></a>
+  <a th:if = "${user_id != null}" class="nav-link" style="color:black" href="/logout">로그아웃</a>
 </nav>
 
 <div style=" justify-content: center; margin:50px 100px 30px;">
@@ -103,7 +102,8 @@
     <table class="table table-striped">
       <thead>
       <tr>
-        <th scope="col">종목 코드 / 종목명</th>
+        <th scope="col">종목 코드</th>
+        <th scope="col">종목명</th>
         <th scope="col">주문 종류</th>
         <th scope="col">주문 단가</th>
         <th scope="col">주문 수량</th>
@@ -113,13 +113,16 @@
       </thead>
 
       <tbody>
-      <tr th:each="### : ${###}">
-        <td th:text="${ }" +  th:text="${ }" href=" "></td>
-        <td th:text="${ }"></td>
-        <td th:text="${ }"></td>
-        <td th:text="${ }"></td>
-        <td th:text="${ }"></td>
-        <td th:text="${ }"></td>
+      <tr th:each="order : ${orders}">
+        <td th:text="${order.cno}"></td>
+        <td>
+          <a th:text = "${order.cname}" th:href = "@{/corporations/market/{cno}(cno = ${order.cno})}"></a>
+        </td>
+        <td th:text="${order.isSale == true} ? '매도' : '매수'" th:style = "${order.isSale==true ? 'color : blue' : 'color : red'}"></td>
+        <td th:text="${order.price}"></td>
+        <td th:text="${order.quantity}"></td>
+        <td th:text="${order.ono}"></td>
+        <td th:text="${order.state}"></td>
       </tr>
       </tbody>
     </table>

@@ -5,6 +5,7 @@ import com.stock.db.domain.MemberVO;
 import com.stock.db.domain.OrdersVO;
 import com.stock.db.domain.PossessesVO;
 import com.stock.db.dto.Orders.MakeOrdersDto;
+import com.stock.db.dto.Orders.OrdersDetailDto;
 import com.stock.db.dto.Possesses.PossessesDto;
 import com.stock.db.mapper.MemberMapper;
 import com.stock.db.mapper.OrdersMapper;
@@ -29,6 +30,10 @@ public class OrdersService {
     private final PossessesMapper possessesMapper;
 
     private final MemberMapper memberMapper;
+
+    public List<OrdersDetailDto> getOrdersByMno(int mno){
+        return ordersMapper.getOrdersByMno(mno);
+    }
 
     /*
         @brief  : 주문 로직
@@ -119,7 +124,7 @@ public class OrdersService {
         newPossesses.setQuantity(findPossesses.getQuantity() - ordersVO.getQuantity());
         newPossesses.setAvgPrice(findPossesses.getAvgPrice());
 
-        double gain = (findPossesses.getAvgPrice() - ordersVO.getPrice())*ordersVO.getQuantity();
+        double gain = -(findPossesses.getAvgPrice() - ordersVO.getPrice())*ordersVO.getQuantity();
 
 
         possessesMapper.reflectPossesses(newPossesses);

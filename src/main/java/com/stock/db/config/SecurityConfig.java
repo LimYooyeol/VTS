@@ -38,25 +38,22 @@ public class SecurityConfig{
 
 
         http.formLogin()
-                .loginPage("/members/login")
+                .loginPage("/login")
                 .defaultSuccessUrl("/")
-                .failureUrl("/members/login/error")
+                .failureUrl("/login/error")
                 .usernameParameter("id")
                 .passwordParameter("pwd")
         ;
 
         http.logout()
-                .logoutUrl("/members/logout")
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/");
 
 
 
         http.authorizeRequests()
+                .mvcMatchers("/members/**").authenticated()
                 .anyRequest().permitAll();
-//                .mvcMatchers("/members/mypage").authenticated()
-//                .mvcMatchers("/", "/members/**").permitAll()
-//                .anyRequest().authenticated()
-        ;
 
         return http.build();
     }

@@ -71,13 +71,13 @@
     </style>
 </head>
 <body class="bg-light">
-<nav class="navbar navbar-light" style="background-color: skyblue;">
-    <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="#">KW-DBS</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="#">게시판</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="#">종목조회</a>
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
+    <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
+    <a class="nav-link" style="color:gray; font-size:26px" href="/corporations/search">종목조회</a>
     <a class="nav-link" style="color:gray; font-size:26px" href="#">보유주식</a>
     <a class="nav-link" style="color:gray; font-size:26px" href="#">관심종목</a>
-    <a class="nav-link" style="color:black" href="#">로그인</a>
+    <a class="nav-link" style="color:black" href="/members/login">로그인</a>
 </nav>
     <h1  style="padding: 30px 200px 10px 50px; float:left;">기업상세정보</h1>
     <div style="padding:100px 200px 0px 50px;">
@@ -89,7 +89,9 @@
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4">기업이름</td>
-                <td th:text="${corporation.name}"></td>
+                <td>
+                    <a th:text="${corporation.name}" th:href = "@{/corporations/market/{cno}(cno=${corporations.cno})}}"></a>
+                </td>
               </tr>
               <tr>
                 <td style="background-color:#C4C4C4;">상장주식수</td>

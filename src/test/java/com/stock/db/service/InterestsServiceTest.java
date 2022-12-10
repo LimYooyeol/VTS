@@ -1,5 +1,6 @@
 package com.stock.db.service;
 
+import com.stock.db.domain.CorporationVO;
 import com.stock.db.domain.InterestsVO;
 import com.stock.db.dto.Member.MemberSignUpDto;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import static com.stock.db.service.MemberServiceTest.setTestMemberSignUpDto;
@@ -31,7 +31,7 @@ class InterestsServiceTest {
 
         // when
         int updated = interestsService.insertInterests(mno, gname, cno);
-        List<InterestsVO> findGroup = interestsService.findInterestsList(mno, gname);
+        List<CorporationVO> findGroup = interestsService.findInterestsList(mno, gname);
 
         // then
         assertEquals(1, updated);
@@ -51,7 +51,7 @@ class InterestsServiceTest {
         // when
         interestsService.insertInterests(mno, gname, cno1);
         interestsService.insertInterests(mno, gname, cno2);
-        List<InterestsVO> findGroup = interestsService.findInterestsList(mno, gname);
+        List<CorporationVO> findGroup = interestsService.findInterestsList(mno, gname);
 
         //
         assertEquals(2, findGroup.size());
@@ -82,7 +82,7 @@ class InterestsServiceTest {
 
         // when
         int updated = interestsService.deleteInterests(mno, gname, cno);
-        List<InterestsVO> findGroup = interestsService.findInterestsList(mno, gname);
+        List<CorporationVO> findGroup = interestsService.findInterestsList(mno, gname);
 
         // then
         assertEquals(1, updated);
@@ -103,7 +103,7 @@ class InterestsServiceTest {
 
         // when
         interestGroupService.deleteInterestGroup(mno, gname);
-        List<InterestsVO> findInterests = interestsService.findInterestsList(mno, gname);
+        List<CorporationVO> findInterests = interestsService.findInterestsList(mno, gname);
 
         // then
         assertEquals(0, findInterests.size());

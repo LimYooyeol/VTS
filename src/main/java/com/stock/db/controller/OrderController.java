@@ -30,8 +30,8 @@ public class OrderController {
     private final MemberService memberService;
 
     @ResponseBody
-    @PostMapping(value = "/orders/buying")
-    public String buyStock(
+    @PostMapping(value = "/orders")
+    public String makeOrder(
             HttpServletRequest request, Principal principal
     ) throws IOException {
         ServletInputStream inputStream = request.getInputStream();
@@ -39,7 +39,6 @@ public class OrderController {
         inputStream.close();
 
         Map<String, Object> json = new ObjectMapper().readValue(messageBody, HashMap.class);
-
 
         String cno = (String) json.get("cno");
         int mno = memberService.getMno(principal.getName().toString());

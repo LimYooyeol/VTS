@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -49,5 +51,10 @@ public class InterestGroupService {
     @Transactional(readOnly = true)
     public InterestGroupVO findInterestGroup(int mno, String gname){
         return interestGroupMapper.findInterestGroup(mno, gname);
+    }
+
+    @Transactional(readOnly = true)
+    public List<String> findInterestGroupsByMno(int mno){
+        return interestGroupMapper.findInterestGroupsByMno(mno);
     }
 }

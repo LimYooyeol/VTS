@@ -20,6 +20,8 @@ public class MakeOrdersDto {
 
     private int price;
 
+    public MakeOrdersDto(){};
+
     public MakeOrdersDto(int mno, String cno, Boolean isSale, long quantity, int price){
         this.mno = mno;
         this.cno = cno;
