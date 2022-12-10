@@ -214,11 +214,35 @@
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-<script>
+<script type="text/javascript">
+
+      fetch('/members/possession/ajax', #######수정%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+          {
+            method: 'get',
+          }
+        )
+        .then((response) => {
+          return response.json();
+        }).then((json) => {
       google.charts.load('current', {'packages':['corechart'], 'language': 'ko'});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
+
+       var data = new google.visualization.DataTable();
+
+              chart_data = [];
+
+              Object.keys(json).forEach(function(key) {
+                chart_data.push(
+                  [key, json[key]]
+                  양식 : [날짜(date), 저가(low), 종가(close), 시가(open),고가(high)]
+                )
+              })
+
+              data.addRows(chart_data,true);
+
+
         var data = new google.visualization.arrayToDataTable([
 ['01-03',78200,78600,79400,79800],
 ['01-04',78300,78700,78800,79200],
@@ -285,6 +309,7 @@
 
         chart.draw(data, options);
       }
+      })
 
   </script>
 
