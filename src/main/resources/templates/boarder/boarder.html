@@ -117,7 +117,8 @@
     <table class="table table-striped">
         <thead>
             <tr>
-              <th scope="col">#</th>
+                <th th:if="${ }" scope="col">#</th>
+              <th scope="col">글 번호</th>
               <th scope="col">날짜</th>
               <th scope="col">글 제목</th>
               <th scope="col">글쓴이</th>
@@ -127,6 +128,7 @@
     
           <tbody>
             <tr th:each="board: ${boards}">
+                <th th:if="${}" scope="col" style="width:10px;background-color: white;"><input type="checkbox" value=""></th>
                 <td th:text="${board.bno}"> </td>
                 <td th:text="${board.writeDate}" onClick="location.href='boarder_read.html'" style="cursor:pointer;"></td>
                 <td> <a style="color:black" th:href="@{/boards/{bno}(bno=${board.bno})}" th:text = "${board.title}"></a></td>
@@ -156,6 +158,12 @@
               </ul>
           </nav>
       </div>
+      <div th:if="${}" class="cover2" style="float:right;">
+          <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="password" aria-label="Search">
+              <button class="btn btn-primary" type="submit"style="width:100px">삭제</button>
+          </form>
+      </div>
 
     </div>
 
@@ -181,6 +189,7 @@
         <input name="category" id = "category" type="hidden">
         <input name="page" id="page" type="hidden">
     </form>
+
 </body>
 <script>
 
