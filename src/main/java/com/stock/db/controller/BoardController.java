@@ -83,6 +83,7 @@ public class BoardController {
         return "boarder/boarder_write";
     }
 
+
     @PostMapping("/boards/new")
     public String writeBoard(BoardWriteDto boardWriteDto, Principal principal){
         int mno = memberService.getMno(principal.getName().toString());

@@ -163,6 +163,8 @@ public class OrdersService {
     }
 
     public void cancelOrder(int ono) {
+        OrdersVO order = ordersMapper.findByOno(ono);
         ordersMapper.cancelOrder(ono);
+        memberMapper.updateDeposit(order.getMno(), order.getPrice() * order.getQuantity());
     }
 }
