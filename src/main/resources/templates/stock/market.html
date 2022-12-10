@@ -1,11 +1,96 @@
 <!DOCTYPE html>
 <html lang="ko"
-      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default_layout}">
+      >
 
-<div layout:fragment="content" class="content container">
+<!-- stylesheet -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css"/>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>거래페이지</title>
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/sign-in/">
+<link rel="canonical" href="https://getbootstrap.com/docs/5.2/components/dropdowns/">
+<link rel="preconnect" href="https://AK7KMZKZHQ-dsn.algolia.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+<link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link href="/docs/5.2/assets/css/docs.css" rel="stylesheet">
+<link href="/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<style>
+        a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .v-line {
+            display: flex;
+            border-left: 2px solid black;
+            height: 700px;
+            float: left;
+            position: relative;
+        }
+
+        .cover {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 200px 30px 50px;
+        }
+
+        .cover2 {
+            display: flex;
+            justify-content: center;
+        }
+
+        .pl {
+            width: 200px;
+            border: 1px solid #C4C4C4;
+            box-sizing: border-box;
+            border-radius: 10px;
+            padding: 12px 13px;
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+        .pl:focus {
+            border: 1px solid #9B51E0;
+            box-sizing: border-box;
+            border-radius: 10px;
+            outline: 3px solid #F8E4FF;
+            border-radius: 10px;
+        }
+
+        #container {
+            display: flex;
+        }
+
+        #box-left {
+            flex: 1;
+        }
+
+        #box-center {
+            flex: 1;
+            text-align: center;
+        }
+
+        #box-right {
+            flex: 1;
+            text-align: right;
+        }
+
+    </style>
+
+
+<div  class="content container">
   <script th:inline="javascript">
       google.charts.load('current', {'packages':['corechart'], 'language': 'ko'});
       google.charts.setOnLoadCallback(drawChart);
@@ -113,26 +198,183 @@
         })
       }
   </script>
-  <div class="card">
-    <div id="chart_div"></div>
-  </div>
-  <input id="cno" type="hidden" th:value="${corp.cno}">
-  <div>
-    <table>
-      <thead>
-        <th></th><th>매수</th><th>매도</th>
-      </thead>
-      <tr>
-        <th>가격</th><td><input id = "buying_price" type="number"></td><td><input type="number"></td>
-      </tr>
-      <tr>
-        <th>수량</th><td><input id = "buying_quantity" type="number"></td><td><input type="number"></td>
-      </tr>
-      <tr>
-        <td></td><td><button type="button" onclick="makeBuyingOrders()">매수 신청</button><button type="button">매도 신청</button> </td>
-      </tr>
-    </table>
-  </div>
-  <input id = "user_id" type="hidden" th:value = "${user_id}">
 </div>
+
+<body class="bg-light">
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="#">KW-DBS</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="#">게시판</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="#">종목조회</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="#">보유주식</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="#">관심종목</a>
+  <a class="nav-link" style="color:black" href="#">로그인</a>
+</nav>
+
+<div style=" justify-content: center; margin:50px 100px 30px;">
+  <div style="float:left">
+    <a href="">종목 토론방(게시판)</a>
+    <a>   |   </a>
+    <a href="">기업 상세페이지</a>
+    <br>
+    <br>
+
+    <div>
+      <table class="table table-striped">
+        <tbody>
+        <tr style="background:gray;">
+          <td th:text="${ }" style="font-size:30px;font-weight:bold"  href=" ">삼성전자</td>
+          <td th:text="${ }" style="font-size:30px;font-weight:bold"  th:text="${}">60000</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td style="font-size:10px;font-weight:bold" th:text="${}"> 전일 대비 </td>
+          <td th:text="${ }"  href=" " th:text="${}" >+1200</td>
+          <td th:text="${ }" th:text="${}" >+2.03%</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <main style="padding:0">
+    <div class="container py-4" style="padding:0">
+      <header class="pb-3 mb-4 border-bottom" >
+        <a href="/" class="d-flex align-items-center text-dark text-decoration-none" th:text="${종목이름}"></a>
+      </header>
+      <div class="p-5 mb-4 bg-light rounded-3" style="border: 1px solid gray;margin-top:120px;height:400px;margin-bottom:0;" >
+        <div class="container-fluid py-5" style="height:320px;width:600px; float:left;">
+          <div class="card">
+            <div id="chart_div"></div>
+
+
+            <div id="serieschart"></div>
+
+
+
+          </div>
+        </div>
+        <div class="container-fluid py-5" style="height:200px;width:500px; float:right;margin-top:100px; border: 1px solid gray;">
+          <input id="cno" type="hidden" th:value="${corp.cno}">
+          <div>
+            <table>
+              <thead>
+              <th></th><th style="color:red">매수</th><th style="color:blue">매도</th>
+              </thead>
+              <tr>
+                <th>가격</th><td><input id = "buying_price" type="number"></td><td><input type="number"></td>
+              </tr>
+              <tr>
+                <th>수량</th><td><input id = "buying_quantity" type="number"></td><td><input type="number"></td>
+              </tr>
+              <tr>
+                <td></td><td><button type="button" onclick="makeBuyingOrders()" >매수 신청</button></td><td><button type="button">매도 신청</button> </td>
+              </tr>
+            </table>
+          </div>
+          <input id = "user_id" type="hidden" th:value = "${user_id}">
+        </div>
+      </div>
+    </div>
+  </main>
+  </div>
+</body>
 </html>
+
+
+
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script>
+      google.charts.load('current', {'packages':['corechart'], 'language': 'ko'});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = new google.visualization.arrayToDataTable([
+['01-03',78200,78600,79400,79800],
+['01-04',78300,78700,78800,79200],
+['01-05',76400,77400,78800,79000],
+['01-06',76600,76900,76700,77600],
+['01-07',77400,78300,78100,78400],
+['01-10',77100,78000,78100,78100],
+['01-11',78000,78900,78400,79000],
+['01-12',78600,78900,79500,79600],
+['01-13',77900,77900,79300,79300],
+['01-14',77100,77300,77700,78100],
+['01-17',76900,77500,77600,77800],
+['01-18',76600,77000,77600,77800],
+['01-19',76100,76300,76500,76900],
+['01-20',75900,76500,76200,76700],
+['01-21',74700,75600,75800,75800],
+['01-24',74700,75100,75400,75800],
+['01-25',73200,74000,74800,75000],
+['01-26',73100,73300,73900,74400],
+['01-27',71300,71300,73800,74000],
+['01-28',71200,73300,71300,73700],
+['02-03',73300,73300,74900,74900],
+['02-04',73400,74000,74300,74600],
+['02-07',72400,73000,73500,73600],
+['02-08',73000,73500,73800,74200],
+['02-09',74000,74700,74300,74700],
+['02-10',74700,75400,75600,75800],
+['02-11',74600,74900,75000,75500],
+['02-14',73100,73700,74400,74500],
+['02-15',73100,73700,74100,74200],
+['02-16',74200,74800,74600,74900],
+['02-17',74500,75000,75000,75600],
+['02-18',73700,74300,74600,74800],
+['02-21',72600,74200,73200,74300],
+['02-22',72800,73400,73000,73400],
+['02-23',72800,73000,73800,73800],
+['02-24',71300,71500,72300,72300],
+['02-25',71900,71900,72100,72600],
+['02-28',71000,72100,71100,72100]
+        ], true);
+
+      var options = {
+        legend:'none',
+        width: 500,
+        height: 300,
+        axisTitlesPosition: 'none',
+        candlestick: {
+          fallingColor: {fill: "ee6b6e", stroke: 'ee6b6e', strokeWidth:0},
+          risingColor: {fill: "3944bc", stroke: '3944bc', strokeWidth:0}
+        },
+        series: [
+          {color: '444', strokeWidth:0, visibleInLegend: false}, {}, {},
+          {}
+        ],
+        animation: {
+          startup: true,
+          duration: 2000,
+          easing: 'inAndOut'
+        }
+      };
+
+        var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+  </script>
+
+
+
+<!-- javascript -->
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+
+var chart = c3.generate({
+bindto: "#serieschart",
+data: {
+columns: [
+['sample', 30, 200, 100, 400, 150, 250, 150, 200, 170, 240, 350, 150, 100, 400, 150, 250, 150, 200, 170, 240, 100, 150, 250, 150, 200, 170, 240, 30, 200, 100, 400, 150, 250, 150, 200, 170, 240, 350, 150, 100, 400, 350, 220, 250, 300, 270, 140, 150, 90, 150, 50, 120, 70, 40]
+]
+},
+types: {
+data1: 'area-spline',
+}
+zoom: {
+enabled: true
+}
+});
