@@ -82,7 +82,7 @@ public class CorporationService {
      */
     @Transactional(readOnly = true)
     public List<SectorChangeRateDto> getTopRisingSectors(){
-        int num = 9;
+        int num = 5;
         List<SectorChangeRateDto> findSectors = corporationMapper.getTopRisingSectors(num);
 
         /*

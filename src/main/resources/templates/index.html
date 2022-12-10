@@ -78,7 +78,7 @@
     <div class="row" data-masonry='{"percentPosition": true }'>
         <div class="col-sm-6 col-lg-4 mb-4">
             <div class="card" style="height:650px">
-                <div class="card-body">
+                <div class="card-body" style="font-size:0.9em;">
                     <h5>기업목록</h5>
                     <div class="row">
                         <div class="col s12">
@@ -92,7 +92,9 @@
                             <table>
                                 <th>종목명</th><th>거래량</th><th>현재가</th><th>변동률</th>
                                 <tr th:each="data : ${data_list_top}">
-                                    <td th:text="${data.cname}"></td>
+                                    <td>
+                                        <a style="color:black;" th:text = "${data.cname}" th:href="@{/corporations/market/{cno}(cno = ${data.cno})}"></a>
+                                    </td>
                                     <td th:text="${data.sharesOutstanding}"></td>
                                     <td th:text="${data.priceVO.close}"></td>
                                     <td th:class="${data.priceVO.changeRate > 0 ? 'red-text' : 'blue-text'}"
@@ -102,8 +104,11 @@
                         </div>
                         <div id="list_inc" class="col s12" style="display:none">
                             <table>
+                                <th>종목명</th><th>거래량</th><th>현재가</th><th>변동률</th>
                                 <tr th:each="data : ${data_list_inc}">
-                                    <td th:text="${data.cname}"></td>
+                                    <td>
+                                        <a style="color:black;" th:text = "${data.cname}" th:href="@{/corporations/market/{cno}(cno = ${data.cno})}"></a>
+                                    </td>
                                     <td th:text="${data.sharesOutstanding}"></td>
                                     <td th:text="${data.priceVO.close}"></td>
                                     <td th:class="${data.priceVO.changeRate > 0 ? 'red-text' : 'blue-text'}"
@@ -113,8 +118,11 @@
                         </div>
                         <div id="list_dec" class="col s12" style="display:none">
                             <table>
+                                <th>종목명</th><th>거래량</th><th>현재가</th><th>변동률</th>
                                 <tr th:each="data : ${data_list_dec}">
-                                    <td th:text="${data.cname}"></td>
+                                    <td>
+                                        <a style="color:black;" th:text = "${data.cname}" th:href="@{/corporations/market/{cno}(cno = ${data.cno})}"></a>
+                                    </td>
                                     <td th:text="${data.sharesOutstanding}"></td>
                                     <td th:text="${data.priceVO.close}"></td>
                                     <td th:class="${data.priceVO.changeRate > 0 ? 'red-text' : 'blue-text'}"
@@ -129,7 +137,7 @@
         </div>
         <div class="col-sm-6 col-lg-4 mb-4">
             <div class="card" style="height:300px">
-                <div class="card-body">
+                <div class="card-body" style="font-size:0.8em;">
                     <h5>최근상승종목섹터</h5>
                     <table class="striped">
                         <tr th:each="data: ${data_list_sectors}">
@@ -145,7 +153,7 @@
             <div class="card" style="height:300px">
                 <div class="card-body">
                     <h5>게시판</h5>
-                    <span>최근 게시물</span><a href ="">더보기</a>
+                    <span>최근 게시물</span><a href ="/boards">더보기</a>
                     <table class="striped">
                         <tr th:each="board : ${new_boards}">
                             <th th:text = "[ + ${board.cname} + ]"></th>

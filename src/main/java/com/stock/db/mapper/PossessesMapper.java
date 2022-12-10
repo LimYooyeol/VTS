@@ -18,7 +18,7 @@ public interface PossessesMapper {
         @param  :
             userId : 사용자 ID
      */
-    public List<PossessesDetailDto> findPossessesByUserId(String userId);
+    public List<PossessesDetailDto> findPossessesByMno(int mno);
 
     /*
         @brief  : 체결 시 주식 보유 정보 반영

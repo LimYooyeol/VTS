@@ -38,7 +38,7 @@ public class MemberController {
         return "/member/loginForm";
     }
 
-    @GetMapping("/members/signup")
+    @GetMapping("/signup")
     public String memberSignUp(Model model){
 
         model.addAttribute("memberSignUpDto", new MemberSignUpDto());
@@ -46,14 +46,13 @@ public class MemberController {
         return "/member/signUpForm";
     }
 
-    @PostMapping("/members/signup")
+    @PostMapping("/signup")
     public String memberSingUp(MemberSignUpDto memberSignUpDto, Model model){
 
         try{
             int mno = memberService.insertMember(memberSignUpDto);
         }
         catch (DataIntegrityViolationException e){  // 증복
-//            System.out.println("duplication =======");
             return "/member/signupForm";
         }
         catch (IllegalStateException e){            //

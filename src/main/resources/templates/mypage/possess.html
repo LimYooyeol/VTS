@@ -121,9 +121,9 @@
 
 <div style=" justify-content: center; margin:50px 100px 30px;">
   <div style="float:left">
-    <a href="/members/orders">거래 내역 페이지로 이동</a>
+    <a href="/members/orders" style="color:blue;">거래 내역</a>
   </div>
-    <div id="myChart" style="margin-left:500px; display:flex; float:left"></div>
+    <div id="myChart" style="margin-left:200px; display:flex; float:left"></div>
   <div style="float:right; margin-top:50px">
   <h1 style=" float:right;">보유 주식 현황</h1>
     <br>
@@ -173,33 +173,42 @@
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-        //구글차트
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('string','종목');
-            data.addColumn('number','주식자산');
 
-            chart_data = [];
-            for ( var i = 1 in stock) {
-												chart_data.push([
-															stock[i].cname,
-															stock[i].sum ])
-												}
+        fetch('/members/possession/ajax',
+          {
+            method: 'get',
+          }
+        )
+        .then((response) => {
+          return response.json();
+        }).then((json) => {
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+              var data = new google.visualization.DataTable();
+              data.addColumn('string','종목');
+              data.addColumn('number','주식자산');
 
-            data.addRows([
-               chart_data)
-            ]);
-            var opt = {
-                    'width':200,
-                    'height':200,
-                    pieSliceText:'label',
-                    legend:'none'
-            };
-            var chart = new google.visualization.PieChart(document.getElementById('myChart'));
-            chart.draw(data,opt);
-        }
+              chart_data = [];
+
+              Object.keys(json).forEach(function(key) {
+                chart_data.push(
+                  [key, json[key]]
+                )
+              })
+
+              data.addRows(chart_data);
+              var opt = {
+                      'width':200,
+                      'height':200,
+                      pieSliceText:'label',
+                      legend:'none'
+              };
+              var chart = new google.visualization.PieChart(document.getElementById('myChart'));
+              chart.draw(data,opt);
+          }
+        })
+
 
         </script>
 </html>
