@@ -5,10 +5,11 @@
 
 <mapper namespace="com.stock.db.mapper.PossessesMapper">
 
-    <select id="findPossessesByUserId" resultType="com.stock.db.dto.Possesses.PossessesDetailDto">
+    <select id="findPossessesByMno" resultType="com.stock.db.dto.Possesses.PossessesDetailDto">
         SELECT P.*, C.Cname, PR.Close as current_price
         FROM POSSESSES P JOIN CORPORATION C ON P.Cno = C.Cno JOIN PRICE PR ON C.Cno = PR.Cno
         WHERE PR.Date = date_format(now(), '%Y-%m-%d') AND P.Quantity &gt; 0
+        AND P.Mno = #{mno};
     </select>
 
     <select id = "findPossesses" resultType="com.stock.db.domain.PossessesVO">

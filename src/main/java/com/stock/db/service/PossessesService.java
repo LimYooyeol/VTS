@@ -17,6 +17,8 @@ public class PossessesService {
 
     private final PossessesMapper possessesMapper;
 
+    private final MemberService memberService;
+
     /*
         @brief  : 사용자가 보유 중인 주식 조회
         @return : 사용자가 보유 중인 주식 목록
@@ -25,7 +27,8 @@ public class PossessesService {
      */
     @Transactional(readOnly = true)
     public List<PossessesDetailDto> findPossessesByUserId(String userId){
-        List<PossessesDetailDto> possesses = possessesMapper.findPossessesByUserId(userId);
+
+        List<PossessesDetailDto> possesses = possessesMapper.findPossessesByMno(memberService.getMno(userId));
         for(PossessesDetailDto p : possesses){
             long totalPrice = p.getCurrentPrice()*p.getQuantity();
             double evalPrice = p.getAvgPrice() * p.getQuantity();

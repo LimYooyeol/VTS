@@ -85,14 +85,13 @@
     <a th:if = "${user_id}" th:text = "${user_id}" href="/members/mypage"></a>
     <a th:if = "${user_id != null}" class="nav-link" style="color:black" href="/logout">로그아웃</a>
 </nav>
-<div style="margin-top:10px;" id="container">
+<div id="container">
   <div id="box-left">
-      <a th:if="${criteria.category} == 0" onclick="setCategory(0)" style="font-weight: bold;margin-top:20px;margin-left:20px;float:left;">전체</a> <br>
-      <a th:if="${criteria.category} != 0" onclick="setCategory(0)" style="margin-top:20px;margin-left:20px;float:left;">전체</a> <br>
-  <br>
+      <br>
+      <a th:if="${criteria.category} == 0" onclick="setCategory(0)" style="font-weight: bold; margin-top:20px; margin-left:20px;float:left;">전체</a>
+      <a th:if="${criteria.category} != 0" onclick="setCategory(0)" style="boarder: 1px; margin-top:20px; margin-left:20px;float:left;">전체</a>
       <a th:if="${criteria.category} == 1" onclick="setCategory(1)" style="font-weight: bold;margin-top:20px;margin-left:20px;float:left;">국내주식</a>
       <a th:if="${criteria.category} != 1" onclick="setCategory(1)" style="margin-top:20px;margin-left:20px;float:left;">국내주식</a>
-
       <br>
       <a th:if="${criteria.category} == 2" onclick="setCategory(2)" style="font-weight: bold;margin-left:20px;float:left">기타</a>
       <a th:if="${criteria.category} != 2" onclick="setCategory(2)" style="margin-left:20px;float:left">기타</a>
@@ -100,43 +99,20 @@
 <div class="v-line" id="box-center"></div>
 <div id="box-right">
   <h1  style="padding: 30px 200px 10px 10px; float:right">게시판</h1>
-    <div style="float:left;">
+    <div style="float:left;" class="form-inline">
         <b>종목</b>
         <select id="cno_filter" class="pl" style="height:40px; width:100px;font-size:12px;">
             <option value="" th:selected="${criteria.cno == null}">전체</option>
             <option th:each = "info : ${corps_info}" th:value = "${info.cno}" th:text="${info.cname}"
                 th:selected="${criteria.cno} == ${info.cno}"></option>
         </select>
-        <b>제목</b>
-        <input id = "title_filter" type="text" th:value = "${criteria.title}">
-        <b>작성자</b>
-        <input id = "writer_filter" type="text" th:value = "${criteria.writer}">
-        <button type="button" onclick="setFilter()">적용</button>
+        <b>&nbsp; 제목 </b>
+        <input class="form-control" style="width:160px;" id = "title_filter" type="text" th:value = "${criteria.title}">
+        <b>&nbsp; 작성자 </b>
+        <input class="form-control" style="width:160px" id = "writer_filter" type="text" th:value = "${criteria.writer}">
+        &nbsp;<button type="button" onclick="setFilter()" class="btn btn-secondary">적용</button>
     </div>
   <div style="padding:100px 200px 0px 10px;">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th th:if="${ }" scope="col">#</th>
-              <th scope="col">글 번호</th>
-              <th scope="col">날짜</th>
-              <th scope="col">글 제목</th>
-              <th scope="col">글쓴이</th>
-              <th scope="col">종목</th>
-            </tr>
-          </thead>
-    
-          <tbody>
-            <tr th:each="board: ${boards}">
-                <th th:if="${}" scope="col" style="width:10px;background-color: white;"><input type="checkbox" value=""></th>
-                <td th:text="${board.bno}"> </td>
-                <td th:text="${board.writeDate}" onClick="location.href='boarder_read.html'" style="cursor:pointer;"></td>
-                <td> <a style="color:black" th:href="@{/boards/{bno}(bno=${board.bno})}" th:text = "${board.title}"></a></td>
-                <td th:text="${board.nickname}"> </td>
-                <td th:text="${board.cname}"> </td>
-            </tr>
-          </tbody>
-      </table>
 
       <div style="display: flex; justify-content: center; margin-top:20px;">
           <nav aria-label="Page navigation example">
@@ -158,7 +134,7 @@
               </ul>
           </nav>
       </div>
-      <div th:if="${}" class="cover2" style="float:right;">
+      <div th:if="${admin}" class="cover2" style="float:right;">
           <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="password" aria-label="Search">
               <button class="btn btn-primary" type="submit"style="width:100px">삭제</button>
