@@ -99,19 +99,14 @@
 
 <div style=" justify-content: center; margin:50px 100px 30px;">
   <div style="float:left">
-    <input id = "prev_sorting" type="hidden" th:value="${criteria.sorting}">
-    <input id = "prev_min" type="hidden" th:value="${criteria.min}">
-    <input id = "prev_max" type="hidden" th:value="${criteria.max}">
-    <input id = "prev_cname" type="hidden" th:value="${criteria.cname}">
-    <input id = "current_page" type="hidden" th:value="${criteria.page}">
 
     <b>아이디</b>
-    <input id = "" type="text" th:value = "${}">
+    <input  type="text" >
     <button type="button" class="btn btn-outline-primary" style="font:black;" onclick="resetFilter()">검색</button>
 
-    <form id = "searchFilterForm" action="" method="get">
-      <input id = "" name="" type="hidden" value="">
-      <input id = "" name="" type="hidden" value="">
+    <form id = "searchFilterForm"  method="get">
+      <input  type="hidden" value="">
+      <input type="hidden" value="">
       <input id = "page" name = "page" type="hidden" value="">
     </form>
   </div>
@@ -129,15 +124,15 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="member : ${}">
-        <td th:text="${member.}"></td>
+      <tr>
+        <td>회원번호112</td>
         <td>
-          <a th:text="${member.}" th:href = "@{/}"></a>
+          <a href="#">회원아이디user1</a>
         </td>
-        <td th:text="${member."></td>
-        <td th:text="${member."></td>
-        <td th:text="${member."></td>
-        <td th:text="${member."></td>
+        <td >회원명홍길동</td>
+        <td>이메일@naver.com</td>
+        <td>휴대폰번호0101234153</td>
+        <td>가입날짜22-12-31</td>
       </tr>
       </tbody>
     </table>
