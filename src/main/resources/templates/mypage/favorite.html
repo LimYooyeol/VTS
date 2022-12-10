@@ -164,8 +164,8 @@
         <option th:each = "gname : ${groups}" th:text = "${gname}" th:selected="${gname} == ${current_group}"></option>
       </th:block>
     </select>
-    <button type="button" onclick="addGroup();">그룹 추가</button>
-    <button type="button" onclick="deleteGroup();">그룹 삭제</button>
+    <button type="button" class="btn btn-outline-primary"onclick="addGroup();">그룹 추가</button>
+    <button type="button" class="btn btn-outline-primary" onclick="deleteGroup();">그룹 삭제</button>
     <table class="table table-striped">
       <thead>
       <tr>
@@ -193,7 +193,7 @@
     <select id = "new_corp">
       <option th:each = "corp : ${corps}" th:value = "${corp.cno}" th:text = "${corp.cname}"></option>
     </select>
-    <button th:if="${msg == null}" onclick="addInterest()">종목 추가</button>
+    <button th:if="${msg == null}" onclick="addInterest() "class="btn btn-outline-primary">종목 추가</button>
   </div>
 </div>
 </body>

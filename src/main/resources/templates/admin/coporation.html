@@ -114,7 +114,7 @@
         </select>
         <b>기업명</b>
         <input id = "cname_option" type="text" th:value = "${criteria.cname}">
-        <button type="button" class="btn btn-outline-primary" style="font:black;" onclick="resetFilter()">적용</button>
+        <button type="button" class="btn btn-outline-primary" style="font:black;" onclick="resetFilter()">검색</button>
 
         <form id = "searchFilterForm" action="/corporations/search" method="get">
             <input id = "sorting" name="sorting" type="hidden" value="">
