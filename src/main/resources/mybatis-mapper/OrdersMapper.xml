@@ -5,6 +5,12 @@
 
 <mapper namespace="com.stock.db.mapper.OrdersMapper">
 
+    <update id="cancelOrder">
+        UPDATE ORDERS
+        SET State = 'CANCEL'
+        WHERE Ono = #{ono};
+    </update>
+
     <select id="getOrdersByMno" resultType="com.stock.db.dto.Orders.OrdersDetailDto">
         SELECT C.Cno, C.Cname, O.is_sale, O.price, O.quantity, O.Ono, O.state
         FROM ORDERS O JOIN CORPORATION C ON O.Cno = C.Cno

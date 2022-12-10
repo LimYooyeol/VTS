@@ -71,8 +71,18 @@
   float: right;
 }
     </style>
+    <script>
+
+        function deleteReply(rno){
+            document.getElementById('delete_rno').value = rno;
+            document.getElementById('deleteReplyForm').submit();
+        }
+    </script>
 </head>
 <body class="bg-light">
+<form id="deleteReplyForm" action="/replies/delete" method="post">
+    <input type="hidden" id="delete_rno" name="rno">
+</form>
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
     <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
     <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
@@ -106,11 +116,11 @@
         <table>
             <th>작성자</th><th>내용</th><th>작성일</th><th></th>
             <tr style="vertical-align:middle;"  th:each="reply : ${replies}">
-                <td th:text="${reply.writer}"></td>
-                <td th:text="${reply.content}"></td>
+                <td width="150px;" th:text="${reply.writer}"></td>
+                <td width="500px;" th:text="${reply.content}"></td>
                 <td th:text="${reply.writeDate}"></td>
                 <td>
-                    <button th:if="${reply.mno == user_mno}" type="button" class="btn-close" aria-label="Close" style="margin-left:10px"></button>
+                    <button th:if="${reply.mno == user_mno}" th:rno = "${reply.rno}" th:onclick="deleteReply(this.getAttribute('rno'))" type="button" class="btn-close" aria-label="Close" style="margin-left:10px"></button>
                 </td>
             </tr>
         </table>
@@ -120,7 +130,8 @@
             <input type="hidden" name="bno" th:value = "${bno}">
             <input type="text" name="content" class="form-control mt-4 mb-2"
                    placeholder="댓글을 입력해주세요." required style="float:left; margin-top:3px">
-            <button type="submit" class="btn btn-secondary mb-3" style="float:right">댓글 쓰기</button>
+            <button th:if = "${user_id}" type="submit" class="btn btn-secondary mb-3" style="float:right">댓글 쓰기</button>
+            <button th:if = "${user_id == null}" disabled="true" class="btn btn-secondary mb-3" style="float:right">로그인 후 이용해주세요</button>
         </form>
     </div>
 </div>

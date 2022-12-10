@@ -80,9 +80,18 @@
             text-align: right;
         }
     </style>
-</head>
 
+  <script>
+    function cancelOrder(ono){
+      document.getElementById('ono_cancel').value = ono;
+      document.getElementById('cancelOrderForm').submit();
+    }
+  </script>
+</head>
 <body >
+<form id="cancelOrderForm" action="/orders/cancel" method="post">
+  <input id="ono_cancel" type="hidden" name="ono">
+</form>
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
   <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
   <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
@@ -108,7 +117,7 @@
         <th scope="col">주문 단가</th>
         <th scope="col">주문 수량</th>
         <th scope="col">주문 번호</th>
-        <th scope="col">체결 여부</th>
+        <th style="width:200px;" scope="col">체결 여부</th>
       </tr>
       </thead>
 
@@ -122,7 +131,8 @@
         <td th:text="${order.price}"></td>
         <td th:text="${order.quantity}"></td>
         <td th:text="${order.ono}"></td>
-        <td th:text="${order.state}"></td>
+        <td th:if="${order.state} == 'WAIT'"><a th:ono = "${order.ono}" th:onclick="cancelOrder(this.getAttribute('ono'))">WAIT(click to cancel)</a></td>
+        <td th:if="${order.state} != 'WAIT'" th:text="${order.state}"></td>
       </tr>
       </tbody>
     </table>

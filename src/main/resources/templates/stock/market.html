@@ -89,20 +89,30 @@
 
 <div  class="content container">
   <script th:inline="javascript">
-     function makeBuyingOrders(){
+     function makeOrders(isSale){
         if(document.getElementById("user_id").value == ""){
           alert('로그인 후 이용해주세요.');
           return;
         }
+        var quantity;
+        var price;
+        if(isSale == true){
+          quantity = document.getElementById('sale_quantity').value;
+          price = document.getElementById('sale_price').value;
+        }
+        else{
+          quantity = document.getElementById('buying_quantity').value;
+          price = document.getElementById('buying_price').value;
+        }
 
         const data = {
           "cno" : document.getElementById("cno").value,
-          "isSale"  : false,
-          "quantity" : document.getElementById("buying_quantity").value,
-          "price" : document.getElementById("buying_price").value
+          "isSale"  : isSale,
+          "quantity" : quantity,
+          "price" : price
         }
 
-        fetch('/orders/buying',
+        fetch('/orders',
           {
             method : 'post',
             headers : {
@@ -122,13 +132,17 @@
           else if(json.result == - 1){
             alert('매도수량이 보유수량보다 많습니다.');
           }
+          document.getElementById("buying_quantity").value = null;
+          document.getElementById("buying_price").value = null;
+          document.getElementById("sale_quantity").value = null;
+          document.getElementById("sale_price").value = null;
         })
       }
 
       document.addEventListener('DOMContentLoaded', function(){
 
         // 그래프 시작
-        drawGraph(-1);
+        drawGraph(0);
         // 그래프 끝
 
         var rates = document.getElementsByClassName("rate");
@@ -157,17 +171,19 @@
 
 <body class="bg-light">
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="#">KW-DBS</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="#">게시판</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="#">종목조회</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="#">보유주식</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="#">관심종목</a>
-  <a class="nav-link" style="color:black" href="#">로그인</a>
+  <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/corporations/search">종목조회</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/members/possession">보유주식</a>
+  <a class="nav-link" style="color:gray; font-size:26px" href="/members/interests">관심종목</a>
+  <a th:if = "${user_id == null}" class="nav-link" style="color:black" href="/login">로그인</a>
+  <a th:if = "${user_id}" th:text = "${user_id}" style="color:blue" href="/members/mypage"></a>
+  <a th:if = "${user_id}" class="nav-link" style="color:black" href="/logout">로그아웃</a>
 </nav>
 
 <div style=" justify-content: center; margin:50px 100px 30px;">
   <div style="float:left">
-    <a style="color:blue;" href="/">기업 상세페이지</a>
+    <a style="color:blue;" th:href="@{/corporations/details/{cno}(cno=${corp.cno})}">기업 상세페이지</a>
     <div>
       <table class="table table-striped">
         <tbody>
@@ -207,13 +223,13 @@
               <th style="width:40px"></th><th style="color:red; width:120px">매수</th><th style="color:blue; width:120px">매도</th>
               </thead>
               <tr>
-                <th>가격</th><td><input id = "buying_price" type="number" style="width:100px"></td><td><input type="number" style="width:100px"></td>
+                <th>가격</th><td><input id = "buying_price" type="number" style="width:100px"></td><td><input id = "sale_price" type="number" style="width:100px"></td>
               </tr>
               <tr>
-                <th>수량</th><td><input id = "buying_quantity" style="width:100px" type="number"></td><td><input type="number" style="width:100px"></td>
+                <th>수량</th><td><input id = "buying_quantity" style="width:100px" type="number"></td><td><input id = "sale_quantity" type="number" style="width:100px"></td>
               </tr>
               <tr>
-                <td></td><td><button class="btn btn-secondary" type="button" onclick="makeBuyingOrders()" >매수 신청</button></td><td><button class="btn btn-secondary" type="button">매도 신청</button> </td>
+                <td></td><td><button class="btn btn-secondary" type="button" onclick="makeOrders(false)" >매수 신청</button></td><td><button onclick="makeOrders(true)" class="btn btn-secondary" type="button">매도 신청</button> </td>
               </tr>
             </table>
           </div>
@@ -234,7 +250,6 @@
     function drawGraph(move){
     var interval = document.getElementById('interval').value;
     var newInterval = parseInt(interval) + parseInt(move);
-    alert(newInterval);
 
     if(newInterval >= 0){
       alert('더 이상 주가가 존재하지 않습니다.');
@@ -253,6 +268,11 @@
       return response.json();
     })
     .then((json) => {
+      if(Object.keys(json).length == 0){
+        alert('더 이상 주가가 존재하지 않습니다.');
+        return;
+      }
+
       google.charts.load('current', {'packages':['corechart'], 'language': 'ko'});
       google.charts.setOnLoadCallback(drawChart);
 

@@ -70,13 +70,14 @@ public class BoardController {
     }
 
     @GetMapping("/boards/new")
-    public String writeBoardRequest(Model model, BoardWriteDto boardWriteDto){
+    public String writeBoardRequest(Principal principal, Model model, BoardWriteDto boardWriteDto){
         List<CorporationBriefDto> corpsInfo = corporationService.getCnames();
         CorporationBriefDto etc = new CorporationBriefDto();
         etc.setCname("기타");
         etc.setCno(null);
         corpsInfo.add(0, etc);
 
+        model.addAttribute("user_id", principal.getName().toString());
         model.addAttribute("board_write_form" , new BoardWriteDto());
         model.addAttribute("corps_info", corpsInfo);
         return "boarder/boarder_write";

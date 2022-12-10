@@ -1,6 +1,7 @@
 package com.stock.db.mapper;
 
 import com.stock.db.domain.MemberVO;
+import com.stock.db.dto.Member.ChangeNicknameDto;
 import com.stock.db.dto.Member.MemberNickNameDto;
 import com.stock.db.dto.Member.MemberSignUpDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -53,4 +54,6 @@ public interface MemberMapper {
     public List<MemberNickNameDto> getTopUsers(int num);
 
     public int findMnoByUserId(String userId);
+
+    void changeNickname(ChangeNicknameDto changeNicknameDto);
 }

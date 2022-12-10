@@ -5,8 +5,16 @@
 
 <mapper namespace="com.stock.db.mapper.MemberMapper">
 
+    <update id="changeNickname" parameterType="com.stock.db.dto.Member.ChangeNicknameDto">
+        UPDATE MEMBER
+        SET nickname = #{nickname}
+        WHERE mno = #{mno};
+    </update>
+
     <select id = "findById" resultType="com.stock.db.domain.MemberVO">
-        SELECT * FROM MEMBER WHERE id = #{id};
+        SELECT *
+        FROM MEMBER
+        WHERE id = #{id};
     </select>
 
     <select id = "findByMno" resultType="com.stock.db.domain.MemberVO">

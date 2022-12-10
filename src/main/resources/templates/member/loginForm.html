@@ -7,9 +7,21 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/sign-in/">
 
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+    <script>
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var msg = document.getElementById('error_msg');
+    if(msg != null){
+        alert(msg.value);
+    }
+  })
+    </script>
+
 </head>
 <body class="bg-light">
+<input th:if = "${msg}" id="error_msg" type="hidden" th:value="${msg}">
 <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
     <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
     <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
@@ -22,15 +34,12 @@
 </nav>
 <div class="text-center" style="padding:150px 500px 0px 500px;">
     <img src="/images/logo.PNG" width="150" height="150">
-    <form class="form-signin" style="padding-top:50px" action="" method="post">
+    <form class="form-signin" style="padding-top:50px" action="/login" method="post">
   <label for="id" class="sr-only">Email address</label>
   <input type="text" id="id" name="id" class="form-control" placeholder="Id" required autofocus>
   <label for="pwd" class="sr-only">Password</label>
   <input type="password" name="pwd" id="pwd" class="form-control" placeholder="Password" required>
   <div class="checkbox mb-3">
-    <label>
-      <input type="checkbox" value="admin"> 관리자 로그인
-    </label>
   </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit" >로그인</button>
 </form>

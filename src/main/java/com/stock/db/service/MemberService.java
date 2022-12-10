@@ -1,6 +1,7 @@
 package com.stock.db.service;
 
 import com.stock.db.domain.MemberVO;
+import com.stock.db.dto.Member.ChangeNicknameDto;
 import com.stock.db.dto.Member.MemberNickNameDto;
 import com.stock.db.dto.Member.MemberSignUpDto;
 import com.stock.db.mapper.MemberMapper;
@@ -79,5 +80,13 @@ public class MemberService implements UserDetailsService {
         int limit = 3;
 
         return memberMapper.getTopUsers(limit);
+    }
+
+    public MemberVO findById(String userId) {
+        return memberMapper.findById(userId);
+    }
+
+    public void changeNickname(ChangeNicknameDto changeNicknameDto) {
+        memberMapper.changeNickname(changeNicknameDto);
     }
 }

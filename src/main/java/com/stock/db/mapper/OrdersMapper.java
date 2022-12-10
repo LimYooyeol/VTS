@@ -45,4 +45,6 @@ public interface OrdersMapper {
     public List<OrdersVO> getWaitOrders();
 
     public List<OrdersDetailDto> getOrdersByMno(int mno);
+
+    public void cancelOrder(int ono);
 }

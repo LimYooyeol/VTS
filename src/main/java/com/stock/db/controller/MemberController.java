@@ -2,7 +2,9 @@ package com.stock.db.controller;
 
 import com.stock.db.domain.CorporationVO;
 import com.stock.db.domain.InterestsVO;
+import com.stock.db.domain.MemberVO;
 import com.stock.db.dto.Corporation.CorporationBriefDto;
+import com.stock.db.dto.Member.ChangeNicknameDto;
 import com.stock.db.dto.Member.MemberSignUpDto;
 import com.stock.db.dto.Orders.OrdersDetailDto;
 import com.stock.db.service.*;
@@ -38,6 +40,38 @@ public class MemberController {
         return "/member/loginForm";
     }
 
+    @PostMapping(value = "/members/changeNickname")
+    public String changeNickname(
+            @RequestParam int mno,
+            @RequestParam String nickname
+    ){
+
+        ChangeNicknameDto changeNicknameDto = new ChangeNicknameDto();
+        changeNicknameDto.setMno(mno);
+        changeNicknameDto.setNickname(nickname);
+
+        memberService.changeNickname(changeNicknameDto);
+
+        return "redirect:/members/mypage";
+    }
+
+    @GetMapping("/members/mypage")
+    public String myPage(Principal principal, Model model){
+        MemberVO member = memberService.findById(principal.getName().toString());
+
+        model.addAttribute("user_id", principal.getName().toString());
+        model.addAttribute("member", member);
+
+        return "mypage/mypage";
+    }
+
+    @GetMapping(value = "/login/error")
+    public String loginError(Model model){
+        model.addAttribute("msg", "로그인 실패");
+
+        return "/member/loginForm";
+    }
+
     @GetMapping("/signup")
     public String memberSignUp(Model model){
 
@@ -61,15 +95,6 @@ public class MemberController {
         }
 
         return "redirect:/";
-    }
-
-
-    @GetMapping("/members/mypage")
-    public String myPage(Model model, Principal principal){
-        if(principal != null) {
-            model.addAttribute("id", principal.getName().toString());
-        }
-        return "member/mypage";
     }
 
     @GetMapping("/members/interests")
@@ -108,6 +133,19 @@ public class MemberController {
 
         return "mypage/favorite";
     }
+
+    @PostMapping(value = "/members/interests/delete")
+    public String deleteInterests(
+            @RequestParam String cno,
+            @RequestParam String gname,
+            Principal principal, RedirectAttributes redirectAttributes){
+        int mno = memberService.getMno(principal.getName().toString());
+        interestsService.deleteInterests(mno, gname, cno);
+        redirectAttributes.addAttribute("gname", gname);
+
+        return "redirect:/members/interests";
+    }
+
 
     @PostMapping(value = "/members/interests/new")
     public String newInterests(

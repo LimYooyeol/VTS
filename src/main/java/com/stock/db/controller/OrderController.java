@@ -7,10 +7,12 @@ import com.stock.db.service.MemberService;
 import com.stock.db.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpServerErrorException;
 
@@ -28,6 +30,15 @@ public class OrderController {
 
     private final OrdersService ordersService;
     private final MemberService memberService;
+
+    @PostMapping(value = "/orders/cancel")
+    public String cancelOrder(
+            @RequestParam int ono, Principal principal
+    ){
+        ordersService.cancelOrder(ono);
+
+        return "redirect:/members/orders";
+    }
 
     @ResponseBody
     @PostMapping(value = "/orders")

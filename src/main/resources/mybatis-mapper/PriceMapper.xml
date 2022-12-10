@@ -12,7 +12,7 @@
         from price
         where date &lt;= date_format(now(), '%Y-%m-%d') and cno = #{cno}
         and date >= date_add(date_format(now(), '%Y-%m-%d'), interval #{interval} month)
-        and date &lt; date_add(date_add(date_format(now(), '%Y-%m-%d'), interval #{interval} month), interval 1 month)
+        and date &lt;= date_add(date_add(date_format(now(), '%Y-%m-%d'), interval #{interval} month), interval 1 month)
         order by date;
 
     </select>

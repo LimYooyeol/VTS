@@ -162,4 +162,7 @@ public class OrdersService {
         return updated;
     }
 
+    public void cancelOrder(int ono) {
+        ordersMapper.cancelOrder(ono);
+    }
 }

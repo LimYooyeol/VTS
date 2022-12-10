@@ -65,6 +65,7 @@ public class CorporationController {
         return "stock/stock";
     }
 
+
     @GetMapping(value = "/corporations/market/{cno}")
     public String corporationMarket(
             @PathVariable(required = true) String cno,
@@ -123,10 +124,10 @@ public class CorporationController {
         if(principal != null){
             model.addAttribute("user_id", principal.getName().toString());
         }
-        model.addAttribute("corp", corp);
+        model.addAttribute("corporation", corp);
         model.addAttribute("holders", holders);
 
-        return "corporation/detail";
+        return "corporation/corporation";
     }
 
 }
