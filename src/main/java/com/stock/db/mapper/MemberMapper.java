@@ -55,5 +55,11 @@ public interface MemberMapper {
 
     public int findMnoByUserId(String userId);
 
-    void changeNickname(ChangeNicknameDto changeNicknameDto);
+    public void changeNickname(ChangeNicknameDto changeNicknameDto);
+
+    public List<MemberVO> findMembers();
+
+    public List<MemberVO> findMembersById(String searchId);
+
+    public void deleteMember(int mno);
 }

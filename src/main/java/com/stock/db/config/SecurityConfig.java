@@ -52,6 +52,7 @@ public class SecurityConfig{
 
 
         http.authorizeRequests()
+                .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .mvcMatchers("/members/**").authenticated()
                 .mvcMatchers("/boards/new").authenticated()
                 .anyRequest().permitAll();

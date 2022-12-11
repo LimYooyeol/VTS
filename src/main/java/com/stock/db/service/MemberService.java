@@ -26,6 +26,11 @@ public class MemberService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
+    public List<MemberVO> findMembers(){
+        return memberMapper.findMembers();
+    }
+
+    @Transactional(readOnly = true)
     public long checkDeposit(String userId){
         return memberMapper.findById(userId).getDeposit();
     }
@@ -88,5 +93,18 @@ public class MemberService implements UserDetailsService {
 
     public void changeNickname(ChangeNicknameDto changeNicknameDto) {
         memberMapper.changeNickname(changeNicknameDto);
+    }
+
+    @Transactional(readOnly = true)
+    public List<MemberVO> findMembers(String searchId) {
+        return memberMapper.findMembersById(searchId);
+    }
+
+    public void deleteMember(int mno) {
+        memberMapper.deleteMember(mno);
+    }
+
+    public MemberVO findByMno(int mno) {
+        return memberMapper.findByMno(mno);
     }
 }

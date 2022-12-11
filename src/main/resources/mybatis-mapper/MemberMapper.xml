@@ -5,6 +5,26 @@
 
 <mapper namespace="com.stock.db.mapper.MemberMapper">
 
+    <delete id="deleteMember">
+        DELETE FROM MEMBER
+        WHERE mno=#{mno};
+    </delete>
+
+    <select id="findMembersById" resultType="com.stock.db.domain.MemberVO">
+        SELECT *
+        FROM MEMBER
+        WHERE is_admin = 0
+        AND id LIKE CONCAT('%', #{searchId},'%');
+    </select>
+
+
+    <select id="findMembers" resultType="com.stock.db.domain.MemberVO">
+        SELECT *
+        FROM MEMBER
+        WHERE is_admin = 0;
+    </select>
+
+
     <update id="changeNickname" parameterType="com.stock.db.dto.Member.ChangeNicknameDto">
         UPDATE MEMBER
         SET nickname = #{nickname}
