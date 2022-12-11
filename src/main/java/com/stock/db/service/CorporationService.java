@@ -70,7 +70,6 @@ public class CorporationService {
         int num = 10;
         List<CorporationVO> findCorps = corporationMapper.getTopTradingCorporations(num);
 
-        // #fix: 휴장인 경우
         return findCorps;
     }
 

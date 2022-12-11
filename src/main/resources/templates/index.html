@@ -95,7 +95,7 @@
                                     <td>
                                         <a style="color:black;" th:text = "${data.cname}" th:href="@{/corporations/market/{cno}(cno = ${data.cno})}"></a>
                                     </td>
-                                    <td th:text="${data.sharesOutstanding}"></td>
+                                    <td th:text="${data.volume}"></td>
                                     <td th:text="${data.priceVO.close}"></td>
                                     <td th:class="${data.priceVO.changeRate > 0 ? 'red-text' : 'blue-text'}"
                                         th:text="${#numbers.formatPercent(data.priceVO.changeRate, 2, 2)}"></td>
