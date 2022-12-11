@@ -77,6 +77,8 @@ public class AdminController {
             Model model,
             @RequestParam(required = false) String searchId
     ){
+        model.addAttribute("user_id", principal.getName().toString());
+
         if(searchId != null) {
             List<MemberVO> members = memberService.findMembers(searchId);
             model.addAttribute("members", members);

@@ -106,8 +106,7 @@
             <option th:each = "info : ${corps_info}" th:value = "${info.cno}" th:text="${info.cname}"
                 th:selected="${criteria.cno} == ${info.cno}"></option>
         </select>
-        <b>&nbsp; 제목 </b>
-        <input class="form-control" style="width:160px;" id = "title_filter" type="text" th:value = "${criteria.title}">
+        <input class="form-control" style="width:160px;" id = "title_filter" type="hidden" th:value = "${criteria.title}">
         <b>&nbsp; 작성자 </b>
         <input class="form-control" style="width:160px" id = "writer_filter" type="text" th:value = "${criteria.writer}">
         &nbsp;<button type="button" onclick="setFilter()" class="btn btn-secondary">적용</button>
