@@ -71,4 +71,6 @@ public interface CorporationMapper {
     public List<CorporationVO> getTopTradingCorporations(int num);
 
     public List<CorporationBriefDto> getCnames();
+
+    public void deleteCorporation(String cno);
 }

@@ -70,12 +70,17 @@ public class CorporationController {
     public String corporationMarket(
             @PathVariable(required = true) String cno,
             @RequestParam(defaultValue = "-1") int interval,
-            Model model, Principal principal
+            Model model, Principal principal, HttpServletRequest request
     ){
         CorporationVO corp = corporationService.findByCno(cno);
+        if(corp == null){
+            return "redirect:" + request.getHeader("Referer");
+        }
+
         if(principal != null){
             model.addAttribute("user_id", principal.getName().toString());
         }
+
 
         model.addAttribute("corp", corp);
         model.addAttribute("interval", interval);
@@ -118,7 +123,7 @@ public class CorporationController {
         List<HoldersVO> holders = holdersService.getHolderListByCno(cno);
 
         if(corp == null){
-            return "redirect:" + request.getHeader("Referer");
+            return "redirect:/";
         }
 
         if(principal != null){

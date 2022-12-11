@@ -5,6 +5,11 @@
 
 <mapper namespace="com.stock.db.mapper.CorporationMapper">
 
+    <delete id="deleteCorporation">
+        DELETE FROM CORPORATION
+        WHERE Cno=#{cno};
+    </delete>
+
     <resultMap id="priceMap" type="com.stock.db.domain.PriceVO">
         <result property="cno" column="cno"/>
         <result property="date" column="date"/>

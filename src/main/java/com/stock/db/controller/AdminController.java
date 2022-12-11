@@ -1,7 +1,10 @@
 package com.stock.db.controller;
 
+import com.stock.db.domain.CorporationVO;
 import com.stock.db.domain.MemberVO;
+import com.stock.db.dto.Corporation.CorporationCriteria;
 import com.stock.db.dto.Member.ChangeNicknameDto;
+import com.stock.db.service.CorporationService;
 import com.stock.db.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 
@@ -19,6 +23,53 @@ import java.util.List;
 public class AdminController {
 
     private final MemberService memberService;
+
+    private final CorporationService corporationService;
+
+    @GetMapping(value = "/admin/corporations/new")
+    public String newCorporation(Model model){
+        return "admin/add_corporation";
+    }
+
+    @PostMapping(value = "/admin/corporations/delete")
+    public String deleteCorp(
+            @RequestParam String cno
+    ){
+        corporationService.deleteCorporation(cno);
+
+        return "redirect:/admin/corporations";
+    }
+
+    @GetMapping(value = "/admin/corporations")
+    public String searchCorporation(
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "0") int sorting,
+            @RequestParam(required = false, defaultValue = "-50") int min,
+            @RequestParam(required = false, defaultValue = "50") int max,
+            @RequestParam(required = false) String cname,
+            Model model, Principal principal, HttpServletRequest request
+    ){
+        if(page < 1){
+            return "redirect:" + request.getHeader("Referer");
+        }
+
+        CorporationCriteria criteria = new CorporationCriteria(page, 5, sorting, cname, min, max);
+        int maxPageNum = corporationService.getMaxPageNum(criteria);
+        if( page > maxPageNum){
+            return "redirect:" + request.getHeader("Referer");
+        }
+        List<CorporationVO> corpList = corporationService.getPage(criteria);
+
+        if(principal != null){
+            model.addAttribute("user_id", principal.getName().toString());
+        }
+
+        model.addAttribute("corp_list", corpList);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("max_page_num", maxPageNum);
+
+        return "admin/corporation";
+    }
 
     @GetMapping(value = "/admin/members")
     public String memberList(

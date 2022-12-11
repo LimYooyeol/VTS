@@ -119,4 +119,8 @@ public class CorporationService {
     public List<CorporationBriefDto> getCnames() {
         return corporationMapper.getCnames();
     }
+
+    public void deleteCorporation(String cno) {
+        corporationMapper.deleteCorporation(cno);
+    }
 }
