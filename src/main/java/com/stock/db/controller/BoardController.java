@@ -124,10 +124,12 @@ public class BoardController {
             @RequestParam int bno,
             Principal principal,
             HttpServletRequest request
-
     ){
         String userId = principal.getName().toString();
-        if(memberService.getMno(userId) != boardService.findByBno(bno).getMno()){
+        if(principal.getName().toString().equals("admin")){
+
+        }
+        else if(memberService.getMno(userId) != boardService.findByBno(bno).getMno()){
             return "redirect:" + request.getHeader("Referer");
         }
 
