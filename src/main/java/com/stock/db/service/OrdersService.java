@@ -68,6 +68,10 @@ public class OrdersService {
             long volume = makeOrdersDto.getQuantity() * makeOrdersDto.getPrice();
             memberMapper.updateDeposit(makeOrdersDto.getMno(), -volume);
         }
+        else{
+            long saleQuantity = makeOrdersDto.getQuantity();
+            possessesMapper.updateQuantity(makeOrdersDto.getMno(), makeOrdersDto.getCno(), -saleQuantity);
+        }
 
         int ono = makeOrdersDto.getOno();
 
@@ -121,11 +125,10 @@ public class OrdersService {
         PossessesDto newPossesses = new PossessesDto();
         newPossesses.setMno(ordersVO.getMno());
         newPossesses.setCno(ordersVO.getCno());
-        newPossesses.setQuantity(findPossesses.getQuantity() - ordersVO.getQuantity());
+        newPossesses.setQuantity(findPossesses.getQuantity());
         newPossesses.setAvgPrice(findPossesses.getAvgPrice());
 
         double gain = -(findPossesses.getAvgPrice() - ordersVO.getPrice())*ordersVO.getQuantity();
-
 
         possessesMapper.reflectPossesses(newPossesses);
         ordersMapper.completeSale(ordersVO.getOno(), gain);
@@ -165,6 +168,11 @@ public class OrdersService {
     public void cancelOrder(int ono) {
         OrdersVO order = ordersMapper.findByOno(ono);
         ordersMapper.cancelOrder(ono);
-        memberMapper.updateDeposit(order.getMno(), order.getPrice() * order.getQuantity());
+        if(!order.isSale()) {
+            memberMapper.updateDeposit(order.getMno(), order.getPrice() * order.getQuantity());
+        }
+        else{
+            possessesMapper.updateQuantity(order.getMno(), order.getCno(), order.getQuantity());
+        }
     }
 }

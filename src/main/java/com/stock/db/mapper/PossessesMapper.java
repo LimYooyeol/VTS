@@ -35,4 +35,6 @@ public interface PossessesMapper {
             possessesKey : 보유 정보 키(멤버 번호, 종목코드)
      */
     public PossessesVO findPossesses(int mno, String cno);
+
+    public void updateQuantity(int mno, String cno, long change);
 }

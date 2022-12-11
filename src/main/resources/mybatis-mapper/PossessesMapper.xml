@@ -23,4 +23,10 @@
         UPDATE quantity = #{quantity}, avg_price = #{avgPrice};
     </insert>
 
+    <update id="updateQuantity">
+        UPDATE POSSESSES
+        SET quantity = quantity + (#{change})
+        WHERE mno=#{mno} and cno = #{cno};
+    </update>
+
 </mapper>

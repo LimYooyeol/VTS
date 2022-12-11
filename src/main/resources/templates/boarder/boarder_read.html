@@ -117,7 +117,7 @@
     <h3 class="my-0 fw-normal" style="float:right; padding:20px;" th:text="${board_detail.cname}"></h3>
   </div>
   <div class="card-header py-3">
-    <h5 class="my-0 fw-normal" style="float:left; padding:10px;" th:text="${board_detail.nickname}">작성자 : [[${board_detail.nickname}]]  [[${board_detail.writeDate}]]</h5>
+      <h5 class="my-0 fw-normal" style="float:left; padding:10px;">작성자 : [[${board_detail.nickname}]] <span style="font-size:0.5em;">[[${board_detail.writeDate}]]</span></h5>
       <a th:if = "${user_mno == board_detail.mno} or ${#strings.equals(user_id,'admin')}"
          th:bno = "${board_detail.bno}" th:onclick="deleteBoard(this.getAttribute('bno'))"
          class="my-0 fw-normal" style="float:right; padding:10px;">삭제</a>
