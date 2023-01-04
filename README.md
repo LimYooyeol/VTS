@@ -1,4 +1,4 @@
-# virtual-stock-trading-site(작성 중)
+# virtual-stock-trading-site
 광운대학교 22학년도 2학기 '데이터베이스 및 시각화' 강의를 통해 진행한 프로젝트로, **가상 주식 거래 사이트**를 개발한 프로젝트입니다. 
 
 ## 목차
@@ -70,7 +70,7 @@
 
 
 ### DDL
-(temm) 참고
+src/main/resources/ddl.sql 
 
 ## 팀원
 김세진: 정적 페이지 개발  
