@@ -1,4 +1,4 @@
-# virtual-stock-trading-site
+# VTS(Virtual Trading System)
 광운대학교 22학년도 2학기 '데이터베이스 및 시각화' 강의를 통해 진행한 프로젝트로, **가상 주식 거래 사이트**를 개발한 프로젝트입니다. 
 
 ## 목차
