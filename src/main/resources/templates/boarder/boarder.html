@@ -14,10 +14,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/sign-in/">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/components/dropdowns/"><link rel="preconnect" href="https://AK7KMZKZHQ-dsn.algolia.net" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-    <link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="/docs/5.2/assets/css/docs.css" rel="stylesheet">
-    <link href="/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <style>
+     <style>
       a{
         color:black;
         text-decoration: none;
@@ -112,8 +109,8 @@
         &nbsp;<button type="button" onclick="setFilter()" class="btn btn-secondary">적용</button>
     </div>
   <div style="padding:100px 200px 0px 10px;">
-      <table class="table table-striped">
-          <thead>
+      <table class="table">
+          <thead class="thead-light">
           <tr>
               <th scope="col">#</th>
               <th scope="col">종목</th>
@@ -133,7 +130,7 @@
               </td>
               <td th:text="[ + ${board.reply} + ]"></td>
               <td th:text="${board.nickname}"> </td>
-              <td th:text="${board.writeDate}"></td>
+              <td class="date" th:text="${board.writeDate}"></td>
           </tr>
           </tbody>
       </table>
@@ -191,6 +188,7 @@
     </form>
 
 </body>
+<script src="/javascripts/function.js"></script>
 <script>
 
   function setCategory(category){
