@@ -112,11 +112,12 @@
     <input type="hidden" th:field="*{bno}">
 
     <a>종목</a>
-    <select th:field = "*{cno}" class="pl" style="height:40px; width:100px;font-size:12px;">
+    <select id="cno" name = "cno" class="pl" style="height:40px; width:100px;font-size:12px;">
         <option th:each = "info : ${corps_info}"
-                th:selected="${info.cno == board.cno}"
+                th:selected="(${info.cno} == ${board.cno})"
                 th:value = "${info.cno}" th:text="${info.cname}"></option>
     </select>
+    <span th:text = "${board.cno}"></span>
 
     <input th:field="*{title}" type="text"  class="form-control mt-4 mb-2">
     <div class="form-group">
