@@ -84,28 +84,28 @@
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script>
 
-  document.addEventListener('DOMContentLoaded', function(){
-    var rates = document.getElementsByClassName("rate");
-    for(var rate of rates){
-        var origin = parseFloat(rate.innerHTML);
-        var newVal = (origin*100).toFixed(2);
-        var newHtml = '';
-        var color = 'black';
-        if(newVal > 0){
-            newHtml = '+' + newVal + '%';
-            color = 'red';
-        }
-        else if(newVal < 0){
-            newHtml =  newVal + '%';
-            color = 'blue';
-        }
-        else{
-            newHtml = '+' + newVal + '%';
-        }
+<!--  document.addEventListener('DOMContentLoaded', function(){-->
+<!--    var rates = document.getElementsByClassName("rate");-->
+<!--    for(var rate of rates){-->
+<!--        var origin = parseFloat(rate.innerHTML);-->
+<!--        var newVal = (origin*100).toFixed(2);-->
+<!--        var newHtml = '';-->
+<!--        var color = 'black';-->
+<!--        if(newVal > 0){-->
+<!--            newHtml = '+' + newVal + '%';-->
+<!--            color = 'red';-->
+<!--        }-->
+<!--        else if(newVal < 0){-->
+<!--            newHtml =  newVal + '%';-->
+<!--            color = 'blue';-->
+<!--        }-->
+<!--        else{-->
+<!--            newHtml = '+' + newVal + '%';-->
+<!--        }-->
 
-        rate.innerHTML = '<span style = "color :' + color + '">' + newHtml + '</span>';
-    }
-  })
+<!--        rate.innerHTML = '<span style = "color :' + color + '">' + newHtml + '</span>';-->
+<!--    }-->
+<!--  })-->
 
     $(function(){
       $('#selectGroup').change(function(){
@@ -179,15 +179,15 @@
   <input id="cno_delete_inter" name="cno" type="hidden">
 </form>
 
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/corporations/search">종목조회</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/members/possession">보유주식</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/members/interests">관심종목</a>
-  <a th:if = "${user_id == null}" class="nav-link" style="color:black" href="/login">로그인</a>
-  <a th:if = "${user_id}" th:text = "${user_id}" style="color:blue" href="/members/mypage"></a>
-  <a th:if = "${user_id != null}" class="nav-link" style="color:black" href="/logout">로그아웃</a>
+<nav class="navbar" style="background-color: #000000;">
+  <a class="navbar-brand" style="font-size:30px; color:#A4A4A4" href="/">VTS</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/boards">게시판</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/corporations/search">종목조회</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/members/possession">보유주식</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/members/interests">관심종목</a>
+  <a th:if = "${user_id == null}" class="nav-link" style="color:#A4A4A4" href="/login">로그인</a>
+  <a th:if = "${user_id}" th:text = "${user_id}" style="color:#A4A4A4" href="/members/mypage"></a>
+  <a th:if = "${user_id}" class="nav-link" style="color:#A4A4A4" href="/logout">로그아웃</a>
 </nav>
 
 <div style=" justify-content: center; margin:50px 100px 30px;">
@@ -195,15 +195,15 @@
     <h1 style=" float:right;">관심 종목</h1>
   </div>
   <div>
-    <select id="selectGroup">
+    <select class="form-select" style="width:150px" id="selectGroup">
       <th:block>
         <option th:each = "gname : ${groups}" th:text = "${gname}" th:selected="${gname} == ${current_group}"></option>
       </th:block>
     </select>
-    <button type="button" class="btn btn-outline-primary"onclick="addGroup();">그룹 추가</button>
-    <button type="button" class="btn btn-outline-primary" onclick="deleteGroup();">그룹 삭제</button>
-    <table class="table table-striped">
-      <thead>
+    <button type="button" class="btn btn-outline-primary btn-sm"onclick="addGroup();">그룹 추가</button>
+    <button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteGroup();">그룹 삭제</button>
+    <table class="table">
+      <thead class="thead-light">
       <tr>
         <th scope="col">종목 코드</th>
         <th scope="col">종목명</th>
@@ -219,20 +219,21 @@
         <td>
           <a th:text="${interest.cname}" th:href = "@{/corporations/market/{cno}(cno=${interest.cno})}"></a>
         </td>
-        <td th:text="${interest.priceVO.close}"></td>
+        <td class="number" th:text="${interest.priceVO.close}"></td>
         <td><span class="rate" th:text = "${interest.priceVO.changeRate}"></span></td>
-        <td th:text="${interest.priceVO.volume}"></td>
+        <td class="number" th:text="${interest.priceVO.volume}"></td>
         <td><a th:cno = "${interest.cno}" th:gname = "${current_group}" th:onclick = "deleteInterests(this.getAttribute('gname'), this.getAttribute('cno'))">X</a></td>
       </tr>
       </tbody>
     </table>
     <p th:if="${msg}" th:text = "${msg}"></p>
 
-    <select id = "new_corp">
+    <select class="form-select" style="width: 150px;" id = "new_corp">
       <option th:each = "corp : ${corps}" th:value = "${corp.cno}" th:text = "${corp.cname}"></option>
     </select>
-    <button th:if="${msg == null}" onclick="addInterest() "class="btn btn-outline-primary">종목 추가</button>
+    <button th:if="${msg == null}" onclick="addInterest() "class="btn btn-outline-primary btn-sm">종목 추가</button>
   </div>
 </div>
+<script src="/javascripts/function.js"></script>
 </body>
 </html>

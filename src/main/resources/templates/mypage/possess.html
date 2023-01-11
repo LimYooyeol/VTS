@@ -83,7 +83,7 @@
   <script>
 
   document.addEventListener('DOMContentLoaded', function(){
-    var rates = document.getElementsByClassName("rate");
+    var rates = document.getElementsByClassName("gainRate");
     for(var rate of rates){
         var origin = parseFloat(rate.innerHTML);
         var newVal = (origin).toFixed(2);
@@ -108,38 +108,38 @@
 </head>
 
 <body class = "bg-light">
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/corporations/search">종목조회</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/members/possession">보유주식</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/members/interests">관심종목</a>
-  <a th:if = "${user_id == null}" class="nav-link" style="color:black" href="/login">로그인</a>
-  <a th:if = "${user_id}" th:text = "${user_id}" style="color:blue" href="/members/mypage"></a>
-  <a th:if = "${user_id != null}" class="nav-link" style="color:black" href="/logout">로그아웃</a>
+<nav class="navbar" style="background-color: #000000;">
+  <a class="navbar-brand" style="font-size:30px; color:#A4A4A4" href="/">VTS</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/boards">게시판</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/corporations/search">종목조회</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/members/possession">보유주식</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/members/interests">관심종목</a>
+  <a th:if = "${user_id == null}" class="nav-link" style="color:#A4A4A4" href="/login">로그인</a>
+  <a th:if = "${user_id}" th:text = "${user_id}" style="color:#A4A4A4" href="/members/mypage"></a>
+  <a th:if = "${user_id}" class="nav-link" style="color:#A4A4A4" href="/logout">로그아웃</a>
 </nav>
 
 <div style=" justify-content: center; margin:50px 100px 30px;">
   <div style="float:left">
     <a href="/members/orders" style="color:blue;">거래 내역</a>
   </div>
-    <div id="myChart" style="margin-left:200px; display:flex; float:left"></div>
+    <div id="myChart" style="margin-left:330px; display:flex; float:left"></div>
   <div style="float:right; margin-top:50px">
   <h1 style=" float:right;">보유 주식 현황</h1>
     <br>
-  <table class="table table-striped" style="font-weight: bold;;border-radius:16px; width:400px; float:right;">
+  <table class="table table-striped" style="font-weight: bold;border-radius:16px; width:400px; float:right;">
     <tbody>
     <tr>
       <td style="background-color:#C4C4C4; width:100px">예치금</td>
-      <td style="background-color:white;" th:text="${deposit}" ></td>
+      <td class="number" style="background-color:white;" th:text="${deposit}" ></td>
     </tr>
     </tbody>
   </table>
 
   </div>
   <div>
-    <table class="table table-striped">
-      <thead>
+    <table class="table">
+      <thead class="thead-light">
       <tr>
         <th scope="col">종목 코드</th>
         <th scope="col">종목명</th>
@@ -158,11 +158,11 @@
         <td>
           <a th:text = "${pos.cname}" th:href = "@{/corporations/market/{cno}(cno = ${pos.cno})}"></a>
         </td>
-        <td th:text="${pos.quantity}"></td>
-        <td th:text="${pos.totalPrice}"></td>
-        <td th:text="${pos.gain}"></td>
-        <td class="rate" th:text="${pos.gainRatio}"></td>
-        <td th:text="${pos.currentPrice}"></td>
+        <td class="number" th:text="${pos.quantity}"></td>
+        <td class="number" th:text="${pos.totalPrice}"></td>
+        <td class="number" th:text="${pos.gain}"></td>
+        <td class="gainRate" th:text="${pos.gainRatio}"></td>
+        <td class="number" th:text="${pos.currentPrice}"></td>
         <td th:text="${pos.avgPrice}"></td>
       </tr>
       </tbody>
@@ -170,7 +170,7 @@
   </div>
 </div>
 </body>
-
+<script src="/javascripts/function.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 
@@ -199,8 +199,8 @@
 
               data.addRows(chart_data);
               var opt = {
-                      'width':200,
-                      'height':200,
+                      'width':250,
+                      'height':250,
                       pieSliceText:'label',
                       legend:'none'
               };

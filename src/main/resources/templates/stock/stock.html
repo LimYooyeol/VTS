@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>종목조회</title>
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
@@ -16,10 +16,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/components/dropdowns/">
     <link rel="preconnect" href="https://AK7KMZKZHQ-dsn.algolia.net" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-    <link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="/docs/5.2/assets/css/docs.css" rel="stylesheet">
-    <link href="/docs/4.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <style>
+     <style>
         a {
             color: black;
             text-decoration: none;
@@ -86,15 +83,15 @@
 </head>
 
 <body class="bg-light">
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="/corporations/search">종목조회</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="/members/possession">보유주식</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="/members/interests">관심종목</a>
-    <a th:if = "${user_id == null}" class="nav-link" style="color:black" href="/login">로그인</a>
-    <a th:if = "${user_id}" th:text = "${user_id}" style="color:blue" href="/members/mypage"></a>
-    <a th:if = "${user_id != null}" class="nav-link" style="color:black" href="/logout">로그아웃</a>
+<nav class="navbar" style="background-color: #000000;">
+    <a class="navbar-brand" style="font-size:30px; color:#A4A4A4" href="/">VTS</a>
+    <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/boards">게시판</a>
+    <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/corporations/search">종목조회</a>
+    <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/members/possession">보유주식</a>
+    <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/members/interests">관심종목</a>
+    <a th:if = "${user_id == null}" class="nav-link" style="color:#A4A4A4" href="/login">로그인</a>
+    <a th:if = "${user_id}" th:text = "${user_id}" style="color:#A4A4A4" href="/members/mypage"></a>
+    <a th:if = "${user_id}" class="nav-link" style="color:#A4A4A4" href="/logout">로그아웃</a>
 </nav>
 
 <div style=" justify-content: center; margin:50px 100px 30px;">
@@ -114,10 +111,10 @@
             <option value="3" th:selected = "${criteria.sorting} == 3">등락률 내림차순</option>
         </select>
         <b>등락률</b>
-        <input id = "min_option" type="number" th:value = "${criteria.min}"> ~ <input id = "max_option" th:value = "${criteria.max}" type="number">
+        <input class="pl" id = "min_option" type="number" th:value = "${criteria.min}"> ~ <input class="pl" id = "max_option" th:value = "${criteria.max}" type="number">
         <b>종목명</b>
-        <input id = "cname_option" type="text" th:value = "${criteria.cname}">
-        <button type="button" onclick="resetFilter()">적용</button>
+        <input class="pl" id = "cname_option" type="text" th:value = "${criteria.cname}">
+        <button class="btn btn-secondary" type="button" onclick="resetFilter()">적용</button>
 
         <form id = "searchFilterForm" action="/corporations/search" method="get">
             <input id = "sorting" name="sorting" type="hidden" value="">
@@ -129,8 +126,8 @@
     </div>
     <h1 style=" float:right">종목조회</h1>
     <div>
-        <table class="table table-striped">
-            <thead>
+        <table class="table">
+            <thead class="thead-light">
             <tr>
                 <th scope="col">종목 코드</th>
                 <th scope="col">종목명</th>
@@ -146,9 +143,9 @@
                 <td>
                     <a th:text="${corp.cname}" th:href = "@{/corporations/market/{cno}(cno=${corp.cno})}"></a>
                 </td>
-                <td th:text="${corp.priceVO.close}"></td>
+                <td class="number" th:text="${corp.priceVO.close}"></td>
                 <td><span class="rate" th:text = "${corp.priceVO.changeRate}"></span></td>
-                <td th:text="${corp.priceVO.volume}"></td>
+                <td class="number" th:text="${corp.priceVO.volume}"></td>
             </tr>
             </tbody>
         </table>
@@ -177,31 +174,8 @@
     </div>
 </div>
 </body>
+<script src = "/javascripts/function.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function(){
-    var rates = document.getElementsByClassName("rate");
-    for(var rate of rates){
-        var origin = parseFloat(rate.innerHTML);
-        var newVal = (origin*100).toFixed(2);
-        var newHtml = '';
-        var color = 'black';
-        if(newVal > 0){
-            newHtml = '+' + newVal + '%';
-            color = 'red';
-        }
-        else if(newVal < 0){
-            newHtml =  newVal + '%';
-            color = 'blue';
-        }
-        else{
-            newHtml = '+' + newVal + '%';
-        }
-
-        rate.innerHTML = '<span style = "color :' + color + '">' + newHtml + '</span>';
-    }
-  })
-
-
   function movePage(pageNum){
     var form = document.getElementById('searchFilterForm');
 

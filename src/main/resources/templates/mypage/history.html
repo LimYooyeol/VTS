@@ -92,15 +92,15 @@
 <form id="cancelOrderForm" action="/orders/cancel" method="post">
   <input id="ono_cancel" type="hidden" name="ono">
 </form>
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/corporations/search">종목조회</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/members/possession">보유주식</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/members/interests">관심종목</a>
-  <a th:if = "${user_id == null}" class="nav-link" style="color:black" href="/login">로그인</a>
-  <a th:if = "${user_id}" th:text = "${user_id}" style="color:blue" href="/members/mypage"></a>
-  <a th:if = "${user_id != null}" class="nav-link" style="color:black" href="/logout">로그아웃</a>
+<nav class="navbar" style="background-color: #000000;">
+  <a class="navbar-brand" style="font-size:30px; color:#A4A4A4" href="/">VTS</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/boards">게시판</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/corporations/search">종목조회</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/members/possession">보유주식</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/members/interests">관심종목</a>
+  <a th:if = "${user_id == null}" class="nav-link" style="color:#A4A4A4" href="/login">로그인</a>
+  <a th:if = "${user_id}" th:text = "${user_id}" style="color:#A4A4A4" href="/members/mypage"></a>
+  <a th:if = "${user_id}" class="nav-link" style="color:#A4A4A4" href="/logout">로그아웃</a>
 </nav>
 
 <div style=" justify-content: center; margin:50px 100px 30px;">
@@ -108,8 +108,8 @@
     <h1 style=" float:right;">거래 내역</h1>
   </div>
   <div>
-    <table class="table table-striped">
-      <thead>
+    <table class="table">
+      <thead class="thead-light">
       <tr>
         <th scope="col">종목 코드</th>
         <th scope="col">종목명</th>
@@ -128,8 +128,8 @@
           <a th:text = "${order.cname}" th:href = "@{/corporations/market/{cno}(cno = ${order.cno})}"></a>
         </td>
         <td th:text="${order.isSale == true} ? '매도' : '매수'" th:style = "${order.isSale==true ? 'color : blue' : 'color : red'}"></td>
-        <td th:text="${order.price}"></td>
-        <td th:text="${order.quantity}"></td>
+        <td class="number" th:text="${order.price}"></td>
+        <td class="number" th:text="${order.quantity}"></td>
         <td th:text="${order.ono}"></td>
         <td th:if="${order.state} == 'WAIT'"><a th:ono = "${order.ono}" th:onclick="cancelOrder(this.getAttribute('ono'))">WAIT(click to cancel)</a></td>
         <td th:if="${order.state} != 'WAIT'" th:text="${order.state}"></td>
@@ -138,5 +138,6 @@
     </table>
   </div>
 </div>
+<script src = "/javascripts/function.js"></script>
 </body>
 </html>

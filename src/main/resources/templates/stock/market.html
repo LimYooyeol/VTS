@@ -144,102 +144,75 @@
         // 그래프 시작
         drawGraph(0);
         // 그래프 끝
-
-        var rates = document.getElementsByClassName("rate");
-        for(var rate of rates){
-            var origin = parseFloat(rate.innerHTML);
-            var newVal = (origin*100).toFixed(2);
-            var newHtml = '';
-            var color = 'black';
-            if(newVal > 0){
-                newHtml = '+' + newVal + '%';
-                color = 'red';
-            }
-            else if(newVal < 0){
-                newHtml =  newVal + '%';
-                color = 'blue';
-            }
-            else{
-                newHtml = '+' + newVal + '%';
-            }
-
-            rate.innerHTML = '<span style = "color :' + color + '">' + newHtml + '</span>';
-        }
       })
   </script>
+  <script src="/javascripts/function.js"></script>
 </div>
 
 <body class="bg-light">
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/corporations/search">종목조회</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/members/possession">보유주식</a>
-  <a class="nav-link" style="color:gray; font-size:26px" href="/members/interests">관심종목</a>
-  <a th:if = "${user_id == null}" class="nav-link" style="color:black" href="/login">로그인</a>
-  <a th:if = "${user_id}" th:text = "${user_id}" style="color:blue" href="/members/mypage"></a>
-  <a th:if = "${user_id}" class="nav-link" style="color:black" href="/logout">로그아웃</a>
+<nav class="navbar" style="background-color: #000000;">
+  <a class="navbar-brand" style="font-size:30px; color:#A4A4A4" href="/">VTS</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/boards">게시판</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/corporations/search">종목조회</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/members/possession">보유주식</a>
+  <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/members/interests">관심종목</a>
+  <a th:if = "${user_id == null}" class="nav-link" style="color:#A4A4A4" href="/login">로그인</a>
+  <a th:if = "${user_id}" th:text = "${user_id}" style="color:#A4A4A4" href="/members/mypage"></a>
+  <a th:if = "${user_id}" class="nav-link" style="color:#A4A4A4" href="/logout">로그아웃</a>
 </nav>
 
-<div style=" justify-content: center; margin:50px 100px 30px;">
-  <div style="float:left">
+<div style=" justify-content: center; margin:15px 100px 30px;">
+  <div style="width:100%; height:150px;">
     <a style="color:blue;" th:href="@{/corporations/details/{cno}(cno=${corp.cno})}">기업 상세페이지</a>
-    <div>
-      <table class="table table-striped">
-        <tbody>
+
+    <table class="table table-striped">
+      <tbody>
+      <tr>
+        <td th:text="${corp.cname}" style="font-size:30px;font-weight:bold">삼성전자</td>
+        <td class="number" style="font-size:30px;" th:text="${corp.priceVO.close}"></td>
+      </tr>
+      <tr>
+        <th style="font-weight:bold"> 전일 대비 </th>
+        <td class="rate" th:text="${corp.priceVO.changeRate}">%</td>
+        <th>업종</th>
+        <td th:text="${corp.sector}"></td>
+        <th>상장수량</th>
+        <td class="number" th:text="${corp.sharesOutstanding}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="width:100%; height : 390px;">
+    <div style=" width: 70%; height: 100%; float:left;">
+      <div id = "chart_div" style="width: 100%;height:90%;">
+      </div>
+      <div style=" width: 100%;height:10%;">
+        <button onclick="drawGraph(-1)" style="float:left; width:30px; margin-left:20px"><</button>
+        <button onclick="drawGraph(1)" style="float:right; width:30px;margin-left:300px">></button>
+      </div>
+    </div>
+    <div style=" width:  30%; height: 100%; float:left;">
+      <table style="margin-left:15%; background-color:light-grey;">
+        <thead>
+        <th style="width:40px"></th><th style="color:red; width:120px">매수</th><th style="color:blue; width:120px">매도</th>
+        </thead>
         <tr>
-          <td th:text="${corp.cname}" style="font-size:30px;font-weight:bold">삼성전자</td>
-          <td style="font-size:30px;" th:text="${corp.priceVO.close}"></td>
+          <th>가격</th><td><input id = "buying_price" type="number" style="width:100px"></td><td><input id = "sale_price" type="number" style="width:100px"></td>
         </tr>
         <tr>
-          <th style="font-weight:bold"> 전일 대비 </th>
-          <td class="rate" th:text="${corp.priceVO.changeRate}">%</td>
+          <th>수량</th><td><input id = "buying_quantity" style="width:100px" type="number"></td><td><input id = "sale_quantity" type="number" style="width:100px"></td>
         </tr>
-        </tbody>
+        <tr>
+          <td></td><td><button class="btn btn-secondary" type="button" onclick="makeOrders(false)" >매수 신청</button></td><td><button onclick="makeOrders(true)" class="btn btn-secondary" type="button">매도 신청</button> </td>
+        </tr>
       </table>
     </div>
   </div>
 
-  <main style="padding:0">
-    <div class="container py-4" style="padding:0">
-      <div class="p-5 mb-4 bg-light rounded-3" style=" background:black;border: 1px solid gray;margin-top:120px;height:400px;margin-bottom:0;" >
-        <div class="container-fluid py-5" style="height:320px; width:600px; float:left; border:none">
-
-          <div class="card"  style="border:none;">
-
-            <div id="chart_div"></div>
-            <div style="display:inline;">
-              <button onclick="drawGraph(-1)" style="float:left; width:30px; margin-left:20px"><</button>
-              <button onclick="drawGraph(1)" style="float:right; width:30px;margin-left:300px">></button>
-            </div>
-
-          </div>
-        </div>
-        <div class="container-fluid py-5" style="height:200px;width:300px; float:right;margin-top:100px; border: 1px solid gray;">
-          <input id="cno" type="hidden" th:value="${corp.cno}">
-          <div>
-            <table style="float:right">
-              <thead>
-              <th style="width:40px"></th><th style="color:red; width:120px">매수</th><th style="color:blue; width:120px">매도</th>
-              </thead>
-              <tr>
-                <th>가격</th><td><input id = "buying_price" type="number" style="width:100px"></td><td><input id = "sale_price" type="number" style="width:100px"></td>
-              </tr>
-              <tr>
-                <th>수량</th><td><input id = "buying_quantity" style="width:100px" type="number"></td><td><input id = "sale_quantity" type="number" style="width:100px"></td>
-              </tr>
-              <tr>
-                <td></td><td><button class="btn btn-secondary" type="button" onclick="makeOrders(false)" >매수 신청</button></td><td><button onclick="makeOrders(true)" class="btn btn-secondary" type="button">매도 신청</button> </td>
-              </tr>
-            </table>
-          </div>
-          <input id = "user_id" type="hidden" th:value = "${user_id}">
-        </div>
-      </div>
-    </div>
-  </main>
+  <input id="cno" type="hidden" th:value="${corp.cno}">
+  <input id = "user_id" type="hidden" th:value = "${user_id}">
+  <input id = "interval" type="hidden" value = "-1">
 </div>
-<input id = "interval" type="hidden" value = "-1">
 </body>
 </html>
 
@@ -296,9 +269,8 @@
 
         var options = {
           legend:'none',
-          width: 650,
-
-          height: 250,
+          width: 840,
+          height: 350,
           axisTitlesPosition: 'none',
           candlestick: {
             fallingColor: {fill: "ee6b6e", stroke: 'ee6b6e', strokeWidth:0},

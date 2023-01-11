@@ -80,67 +80,67 @@
     <input id="changeNick_mno" name="mno" type="hidden">
     <input id="new_nickname" name="nickname" type="hidden">
 </form>
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-    <a class="navbar-brand" style="font-size:30px; color:darkgrey" href="/">KW-DBS</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="/boards">게시판</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="/corporations/search">종목조회</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="/members/possession">보유주식</a>
-    <a class="nav-link" style="color:gray; font-size:26px" href="/members/interests">관심종목</a>
-    <a th:if = "${user_id == null}" class="nav-link" style="color:black" href="/login">로그인</a>
-    <a th:if = "${user_id}" th:text = "${user_id}" style="color:blue" href="/members/mypage"></a>
-    <a th:if = "${user_id}" class="nav-link" style="color:black" href="/logout">로그아웃</a>
+<nav class="navbar" style="background-color: #000000;">
+    <a class="navbar-brand" style="font-size:30px; color:#A4A4A4" href="/">VTS</a>
+    <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/boards">게시판</a>
+    <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/corporations/search">종목조회</a>
+    <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/members/possession">보유주식</a>
+    <a class="nav-link" style="color:#A4A4A4; font-size:26px" href="/members/interests">관심종목</a>
+    <a th:if = "${user_id == null}" class="nav-link" style="color:#A4A4A4" href="/login">로그인</a>
+    <a th:if = "${user_id}" th:text = "${user_id}" style="color:#A4A4A4" href="/members/mypage"></a>
+    <a th:if = "${user_id}" class="nav-link" style="color:#A4A4A4" href="/logout">로그아웃</a>
 </nav>
     <h1  style="padding: 30px 200px 10px 50px; float:left;">회원정보</h1>
     <div style="padding:100px 200px 0px 50px;">
-      <table class="table table-striped" style="font-weight: bold;;border-radius:16px;">
+      <table class="table" style="border-radius:16px;">
             <tbody>
               <tr>
-                <td style="background-color:#C4C4C4; width:200px">회원번호</td>
+                <td style="font-weight:bold;background-color:#C4C4C4; width:200px">회원번호</td>
                 <td style="background-color:white;" th:text="${member.mno}"></td>
                   <td></td>
               </tr>
               <tr>
-                <td style="background-color:#C4C4C4">이름</td>
+                <td style="font-weight:bold;background-color:#C4C4C4">이름</td>
                 <td style="background-color:white;" th:text="${member.mname}"></td>
               </tr>
               <tr>
-                <td style="background-color:#C4C4C4;">아이디</td>
+                <td style="font-weight:bold;background-color:#C4C4C4;">아이디</td>
                 <td style="background-color:white;" th:text="${member.id}">
                 </td>
                   <td></td>
               </tr>
               <tr>
-                <td style="background-color:#C4C4C4;">닉네임</td>
+                <td style="font-weight:bold;background-color:#C4C4C4;">닉네임</td>
                 <td style="background-color:white;" th:text="${member.nickname}"></td>
                   <td><button class="btn btn-secondary" th:mno = "${member.mno}" th:onclick = "changeNickname(this.getAttribute('mno'))">수정</button></td>
               </tr>
               <tr>
-                <td style="background-color:#C4C4C4;">이메일</td>
+                <td style="font-weight:bold;background-color:#C4C4C4;">이메일</td>
                 <td style="background-color:white;" th:text="${member.email}"></td>
                   <td></td>
               </tr>
               <tr>
-                <td style="background-color:#C4C4C4;">휴대폰번호</td>
+                <td style="font-weight:bold;background-color:#C4C4C4;">휴대폰번호</td>
                 <td style="background-color:white;" th:text="${member.phone}"></td>
                   <td></td>
               </tr>
               <tr>
-                <td style="background-color:#C4C4C4;">주소</td>
+                <td style="font-weight:bold;background-color:#C4C4C4;">주소</td>
                 <td style="background-color:white;" th:text="${member.address}"></td>
                   <td></td>
               </tr>
               <tr>
-                <td style="background-color:#C4C4C4;">가입날짜</td>
-                <td style="background-color:white;" th:text="${member.regDate}"></td>
+                <td style="font-weight:bold;background-color:#C4C4C4;">가입날짜</td>
+                <td class="date" style="background-color:white;" th:text="${member.regDate}"></td>
                   <td></td>
               </tr>
               <tr>
-                <td style="background-color:#C4C4C4;">계좌번호</td>
+                <td style="font-weight:bold;background-color:#C4C4C4;">계좌번호</td>
                 <td style="background-color:white;" th:text="${member.account}"></td>
                   <td></td>
               </tr>
               <tr>
-                <td style="background-color:#C4C4C4;" >생년월일</td>
+                <td style="font-weight:bold;background-color:#C4C4C4;" >생년월일</td>
                 <td style="background-color:white;" th:text="${member.birthDate}"></td>
                   <td></td>
               </tr>
@@ -166,5 +166,6 @@
           목록으로 돌아가기
   </button>
   </div>
+<script src="/javascripts/function.js"></script>
 </body>
 </html>
